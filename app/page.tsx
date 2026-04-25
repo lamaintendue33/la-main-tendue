@@ -10,15 +10,21 @@ export default function Home() {
   return (
     <>
       <Hero />
+      {/* paper → cream-soft */}
+      <WaveDivider top="text-paper" bottom="bg-cream-soft" variant="gentle" />
       <Ticker />
+      {/* cream-soft → paper */}
+      <WaveDivider top="text-cream-soft" bottom="bg-paper" variant="choppy" />
       <Missions />
       <BoutiqueSection />
-      {/* Vague : paper → cream-soft */}
-      <WaveDivider top="text-paper" bottom="bg-cream-soft" />
+      {/* paper → sage */}
+      <WaveDivider top="text-paper" bottom="bg-sage" variant="organic" />
       <Stats />
-      {/* Vague inversée : cream-soft → paper */}
-      <WaveDivider top="text-cream-soft" bottom="bg-paper" />
+      {/* sage → cream-soft */}
+      <WaveDivider top="text-sage" bottom="bg-cream-soft" variant="gentle" flip />
       <DonSteps />
+      {/* cream-soft → sage (footer) */}
+      <WaveDivider top="text-cream-soft" bottom="bg-sage" variant="choppy" />
     </>
   )
 }

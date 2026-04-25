@@ -10,7 +10,7 @@ const stepIcons = [Phone, Package, CheckCircle2, Utensils]
 
 export default function DonSteps() {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-10%" })
+  const inView = useInView(ref, { once: true, amount: 0.1 })
 
   return (
     <section className="py-20 md:py-28 px-4 md:px-8 bg-cream-soft">
@@ -53,7 +53,7 @@ export default function DonSteps() {
             aria-hidden
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 1.1, delay: 0.4, ease: "easeInOut" }}
             className="hidden md:block absolute top-[38px] left-[14%] right-[14%] h-px bg-rule origin-left"
           />
@@ -63,9 +63,9 @@ export default function DonSteps() {
             return (
               <motion.div
                 key={step.step}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, y: 32, scale: 0.94 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.6, delay: i * 0.13, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6, boxShadow: "4px 10px 0 0 rgba(28,18,9,0.09)" }}
                 whileTap={{ scale: 0.97 }}
@@ -75,15 +75,15 @@ export default function DonSteps() {
                 <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ type: "spring", stiffness: 250, damping: 16, delay: i * 0.13 + 0.2 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 15, delay: i * 0.13 + 0.2 }}
                   className="relative w-16 h-16 mx-auto mb-5 rounded-full bg-paper border-2 border-rule flex items-center justify-center"
                 >
                   <span className="font-display text-2xl text-terracotta leading-none">{step.step}</span>
                   <motion.span
                     initial={{ scale: 0, rotate: -30 }}
                     whileInView={{ scale: 1, rotate: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ type: "spring", stiffness: 300, delay: i * 0.13 + 0.4 }}
                     className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-terracotta flex items-center justify-center"
                   >
@@ -95,7 +95,7 @@ export default function DonSteps() {
                 <motion.span
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{ duration: 0.4, delay: i * 0.13 + 0.5 }}
                   className="block w-6 h-px bg-terracotta mx-auto mb-3 origin-center"
                 />
@@ -105,11 +105,11 @@ export default function DonSteps() {
           })}
         </div>
 
-        {/* CTA brun */}
+        {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="relative mt-14 bg-sage p-8 md:p-12 text-center border border-sage overflow-hidden paper-texture"
         >
@@ -117,7 +117,7 @@ export default function DonSteps() {
             aria-hidden
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.4, delay: 0.4 }}
             className="absolute -top-3 left-1/2 -translate-x-1/2 block h-6 w-28 bg-clay/55 rotate-[-1deg] origin-center"
           />
@@ -134,12 +134,12 @@ export default function DonSteps() {
             className="relative mt-8 flex flex-col sm:flex-row justify-center gap-3"
           >
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/aider" className="inline-block bg-paper text-sage-deep px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:bg-cream transition-colors">
+              <Link href="/aider" className="inline-block bg-paper text-sage-deep px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:bg-cream transition-colors w-full sm:w-auto text-center">
                 Devenir bénévole
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/contact" className="inline-block border border-paper/40 text-paper px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:border-paper hover:bg-paper/10 transition-colors">
+              <Link href="/contact" className="inline-block border border-paper/40 text-paper px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:border-paper hover:bg-paper/10 transition-colors w-full sm:w-auto text-center">
                 Nous contacter
               </Link>
             </motion.div>

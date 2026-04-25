@@ -7,7 +7,7 @@ import { STATS } from "@/lib/constants"
 function Counter({ target }: { target: number }) {
   const [count, setCount] = useState(0)
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: "-15%" })
+  const inView = useInView(ref, { once: true, amount: 0 })
 
   useEffect(() => {
     if (!inView) return
@@ -28,13 +28,12 @@ function Counter({ target }: { target: number }) {
 
 export default function Stats() {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-10%" })
+  const inView = useInView(ref, { once: true, amount: 0.1 })
 
   return (
     <section className="py-20 md:py-28 px-4 md:px-8 bg-sage">
       <div className="max-w-[1100px] mx-auto">
 
-        {/* Titre */}
         <div className="mb-14 text-center" ref={ref}>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -56,21 +55,20 @@ export default function Stats() {
           </div>
         </div>
 
-        {/* Grille stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-paper/15 border border-paper/15">
           {STATS.map((s, i) => (
             <motion.div
               key={s.label}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 40, scale: 0.92 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.65, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ backgroundColor: "rgba(255,255,255,0.05)" }}
               className="flex flex-col items-center justify-center py-10 px-3 text-center border-b md:border-b-0 border-paper/15 [&:nth-child(2)]:border-b md:[&:nth-child(2)]:border-b-0 last:border-b-0 cursor-default"
             >
               <motion.span
                 className="font-display text-5xl sm:text-6xl md:text-7xl text-terracotta leading-none tabular-nums"
-                whileHover={{ scale: 1.08 }}
+                whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
                 <Counter target={s.value} />
@@ -79,8 +77,8 @@ export default function Stats() {
               <motion.span
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 + 0.4 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.5, delay: i * 0.12 + 0.4 }}
                 className="block w-8 h-px bg-terracotta/50 my-3 origin-center"
               />
               <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-paper/50 font-medium leading-snug">
@@ -91,10 +89,10 @@ export default function Stats() {
         </div>
 
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-10 text-center font-display text-xl sm:text-2xl text-paper/35 italic"
         >
           Chaque geste compte. Chaque colis partagé tisse un peu plus le lien.

@@ -7,18 +7,19 @@ import { MISSIONS } from "@/lib/constants"
 
 const icons = { HeartHandshake, Users, Sparkles } as const
 const tapeAngles = ["rotate-[-3deg]", "rotate-[2deg]", "rotate-[-1.5deg]"]
+const slideX = [-30, 0, 30] // alternating slide direction
 
 function MissionCard({ mission, index }: { mission: (typeof MISSIONS)[number]; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-8%" })
+  const inView = useInView(ref, { once: true, amount: 0.12 })
   const Icon = icons[mission.iconKey as keyof typeof icons]
 
   return (
     <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 36, x: slideX[index] }}
+      animate={inView ? { opacity: 1, y: 0, x: 0 } : {}}
+      transition={{ duration: 0.7, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6, boxShadow: "6px 14px 0 0 rgba(184,58,42,0.13)" }}
       whileTap={{ scale: 0.98 }}
       className="relative bg-white border border-rule p-7 md:p-9 shadow-[4px_6px_0_0_rgba(28,18,9,0.07)] transition-shadow duration-300 cursor-default"
@@ -46,7 +47,7 @@ function MissionCard({ mission, index }: { mission: (typeof MISSIONS)[number]; i
         animate={inView ? { scale: 1, rotate: 0 } : {}}
         transition={{ type: "spring", stiffness: 220, damping: 14, delay: index * 0.14 + 0.35 }}
         whileHover={{ rotate: 12, scale: 1.1 }}
-        className="w-12 h-12 rounded-full bg-terracotta/10 border border-terracotta/20 flex items-center justify-center mb-5 group-hover:bg-terracotta transition-colors duration-300"
+        className="w-12 h-12 rounded-full bg-terracotta/10 border border-terracotta/20 flex items-center justify-center mb-5"
       >
         <Icon size={20} strokeWidth={1.8} className="text-terracotta" />
       </motion.div>
@@ -72,12 +73,11 @@ function MissionCard({ mission, index }: { mission: (typeof MISSIONS)[number]; i
 
 export default function Missions() {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-10%" })
+  const inView = useInView(ref, { once: true, amount: 0.1 })
 
   return (
     <section className="py-20 md:py-28 px-4 md:px-8 bg-paper">
       <div className="max-w-[1100px] mx-auto">
-        {/* Header animé */}
         <div className="mb-14" ref={ref}>
           <motion.p
             initial={{ opacity: 0, x: -20 }}
