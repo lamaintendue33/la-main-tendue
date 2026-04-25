@@ -13,13 +13,13 @@ export default function Ticker() {
   }))
 
   return (
-    <section className="relative py-6 border-y-2 border-ink/10 bg-paper overflow-hidden">
+    <section className="relative py-5 border-y border-rule bg-cream-soft overflow-hidden">
       <Marquee
         duration={45}
         items={items.map(({ Icon, label }, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-3 text-sage-deep font-display text-xl md:text-2xl"
+            className="inline-flex items-center gap-3 font-display text-2xl md:text-3xl text-ink/80"
           >
             <Icon size={18} strokeWidth={1.6} className="text-terracotta" />
             {label}

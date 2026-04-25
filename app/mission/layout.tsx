@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Notre mission · La Main Tendue",
     description:
       "Nourrir dignement, écouter, fédérer — l'histoire et les engagements de l'association depuis 1995.",
-    images: [{ url: "/images/hero.jpeg", width: 1200, height: 630 }],
+    images: [{ url: "/images/logo.png", width: 1200, height: 630 }],
   },
 }
 

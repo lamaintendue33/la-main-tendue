@@ -1,21 +1,19 @@
 import type { Metadata } from "next"
-import { Inter, Fraunces } from "next/font/google"
+import { Inter, Caveat } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/ui/Navbar"
 import Footer from "@/components/ui/Footer"
 import PageTransition from "@/components/ui/PageTransition"
 import CookieBanner from "@/components/ui/CookieBanner"
-import SpotlightInit from "@/components/ui/SpotlightInit"
 import ScrollProgress from "@/components/ui/ScrollProgress"
 import JsonLd from "@/components/ui/JsonLd"
 import { SITE } from "@/lib/constants"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" })
-const fraunces = Fraunces({
+const caveat = Caveat({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-caveat",
   display: "swap",
-  axes: ["SOFT", "WONK", "opsz"],
 })
 
 export const metadata: Metadata = {
@@ -63,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="fr" className={`${inter.variable} ${caveat.variable}`}>
       <body className="min-h-screen flex flex-col antialiased bg-paper text-ink">
         <JsonLd />
         <ScrollProgress />
@@ -73,7 +71,6 @@ export default function RootLayout({
         </main>
         <Footer />
         <CookieBanner />
-        <SpotlightInit />
       </body>
     </html>
   )

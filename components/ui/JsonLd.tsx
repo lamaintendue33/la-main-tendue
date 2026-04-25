@@ -16,7 +16,7 @@ export default function JsonLd() {
     description: `${SITE.slogan}. Association d'aide alimentaire à Eysines (Gironde) depuis 1995. Distribution hebdomadaire de colis alimentaires à plus de 400 personnes, portée par 40 bénévoles.`,
     url: BASE_URL,
     logo: `${BASE_URL}/images/logo.png`,
-    image: `${BASE_URL}/images/hero.jpeg`,
+    image: `${BASE_URL}/images/logo.png`,
     telephone: SITE.phone,
     email: SITE.email,
     foundingDate: "1995-01-01",

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Distribution alimentaire · La Main Tendue",
     description:
       "Distribution hebdomadaire de colis alimentaires à Eysines pour plus de 400 personnes.",
-    images: [{ url: "/images/hero.jpeg", width: 1200, height: 630 }],
+    images: [{ url: "/images/logo.png", width: 1200, height: 630 }],
   },
 }
 

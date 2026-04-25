@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Contact · La Main Tendue",
     description:
       "Contactez La Main Tendue à Eysines — téléphone, email, horaires et accès.",
-    images: [{ url: "/images/hero.jpeg", width: 1200, height: 630 }],
+    images: [{ url: "/images/logo.png", width: 1200, height: 630 }],
   },
 }
 

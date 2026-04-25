@@ -78,35 +78,29 @@ export default function ContactPage() {
               </div>
             </motion.a>
 
-            <motion.a
-              href={SITE.phoneHref}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              whileHover={{ y: -4, x: 2 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative flex gap-5 p-6 bg-cream-soft hover:bg-paper border-2 border-ink/10 hover:border-terracotta/40 rounded-tl-[32px] rounded-br-[32px] transition-colors overflow-hidden"
+              className="group relative flex gap-5 p-6 bg-cream-soft border-2 border-ink/10 rounded-tl-[32px] rounded-br-[32px] overflow-hidden"
             >
-              <span aria-hidden className="pointer-events-none absolute top-0 left-0 right-0 h-0.5 bg-terracotta origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              <span aria-hidden className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(240px_circle_at_center,rgba(239,95,23,0.15),transparent_65%)]" />
-              <motion.div
-                whileHover={{ rotate: 15, scale: 1.12 }}
-                transition={{ type: "spring", stiffness: 260, damping: 16 }}
-                className="relative w-12 h-12 rounded-full bg-terracotta flex items-center justify-center shrink-0 shadow-sm"
-              >
+              <span aria-hidden className="pointer-events-none absolute top-0 left-0 right-0 h-0.5 bg-terracotta origin-left" />
+              <div className="relative w-12 h-12 rounded-full bg-terracotta flex items-center justify-center shrink-0 shadow-sm">
                 <Phone size={18} strokeWidth={1.6} className="text-paper" />
-              </motion.div>
+              </div>
               <div className="relative">
                 <div className="text-[11px] uppercase tracking-[0.25em] text-sage-deep font-semibold">
                   Téléphone
                 </div>
-                <div className="font-display text-lg mt-1">{SITE.phone}</div>
+                <a href={SITE.phoneHref} className="font-display text-lg mt-1 block hover:text-terracotta transition-colors">
+                  {SITE.phone}
+                </a>
                 <a href={SITE.phoneAltHref} className="text-[13px] text-ink-soft mt-0.5 block hover:text-ink transition-colors">
                   Autre ligne : {SITE.phoneAlt}
                 </a>
               </div>
-            </motion.a>
+            </motion.div>
 
             <motion.a
               href={SITE.emailHref}

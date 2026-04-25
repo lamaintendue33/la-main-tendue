@@ -1,178 +1,128 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Clock, ArrowRight } from "lucide-react"
 import { ITEMS, HOURS_DISTRIBUTION } from "@/lib/constants"
-import MagneticButton from "@/components/ui/MagneticButton"
-import ShineSweep from "@/components/ui/ShineSweep"
-import { useIsTouch } from "@/hooks/useIsTouch"
+import Link from "next/link"
 
 export default function BoutiqueSection() {
-  const isTouch = useIsTouch()
-  const [activeChip, setActiveChip] = useState(-1)
-
-  // Sur mobile : un chip prend la couleur orange à tour de rôle
-  useEffect(() => {
-    if (!isTouch) return
-    const id = setInterval(() => {
-      setActiveChip((prev) => (prev + 1) % ITEMS.length)
-    }, 1500)
-    return () => clearInterval(id)
-  }, [isTouch])
   return (
-    <section className="relative py-24 md:py-32 px-4 md:px-8 bg-paper">
+    <section className="py-20 md:py-28 px-4 md:px-8 bg-paper">
       <div className="max-w-[1300px] mx-auto">
-        {/* Bloc sauge avec image + contenu */}
-        <div className="spotlight relative bg-sage paper-texture border-2 border-ink/10 p-8 md:p-14 rounded-tl-[80px] md:rounded-tl-[120px] rounded-br-[80px] md:rounded-br-[120px] overflow-hidden">
-          <ShineSweep delay={0.4} />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-14 items-center relative z-10">
-            {/* Texte */}
-            <div>
-              <div className="text-[11px] tracking-[0.3em] uppercase text-paper/80 font-semibold">
-                La Distribution
-              </div>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="mt-4 font-display font-medium text-4xl md:text-5xl text-paper leading-[1.1]"
-              >
-                Notre distribution
-                <br />
-                hebdomadaire.
-              </motion.h2>
-              <p className="mt-6 text-paper/85 text-[15px] leading-relaxed max-w-md">
-                Chaque semaine, plus de 400 personnes reçoivent un colis
-                alimentaire équilibré — denrées de base, produits frais,
-                hygiène et articles bébé. L'accueil se fait dans la dignité.
-              </p>
 
-              {/* Horaires */}
-              <div className="mt-8 bg-paper/95 border border-paper/30 rounded-2xl p-5 max-w-md">
-                <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-sage-deep font-semibold mb-3">
-                  <Clock size={13} strokeWidth={1.8} />
-                  Horaires
+        {/* Bloc distribution — layout 2 colonnes */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 border border-rule overflow-hidden shadow-[6px_8px_0_0_rgba(28,18,9,0.07)]">
+
+          {/* Gauche — image placeholder */}
+          <div className="relative min-h-[340px] bg-stone/20 flex items-center justify-center overflow-hidden">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-30 notebook-lines"
+            />
+            {/* Polaroid photo placeholder */}
+            <div className="relative z-10 rotate-[2deg] shadow-[4px_8px_30px_rgba(28,18,9,0.15)]">
+              <span
+                aria-hidden
+                className="absolute -top-3.5 left-1/2 -translate-x-1/2 block h-6 w-20 bg-clay/55 rotate-[-1deg]"
+              />
+              <div className="bg-white p-3 pb-10 w-56">
+                <div className="w-full aspect-square bg-stone/30 flex flex-col items-center justify-center gap-2">
+                  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" className="text-ink-soft/40">
+                    <rect x="4" y="8" width="36" height="28" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                    <circle cx="22" cy="22" r="7" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                  <span className="text-[11px] text-ink-soft/50 font-medium uppercase tracking-wider">Photo à venir</span>
                 </div>
-                {HOURS_DISTRIBUTION.map((h, i) => (
-                  <div
-                    key={i}
-                    className="flex justify-between items-baseline text-[14px] py-1.5 border-b border-rule/40 last:border-0"
-                  >
-                    <span className="text-ink-soft">{h.days}</span>
-                    <span
-                      className={`tabular-nums ${
-                        h.hours === "Fermé"
-                          ? "text-terracotta italic"
-                          : "text-ink font-semibold"
-                      }`}
-                    >
-                      {h.hours}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8">
-                <MagneticButton
-                  href="/distribution"
-                  className="bg-paper text-sage-deep px-8 py-3.5 text-[13px] tracking-[0.25em] uppercase font-bold overflow-hidden rounded-full"
-                >
-                  Voir la distribution
-                  <ArrowRight size={14} strokeWidth={2.2} />
-                </MagneticButton>
+                <p className="mt-3 text-center font-display text-xl text-ink/60">
+                  La distribution ✦
+                </p>
               </div>
             </div>
+          </div>
 
-            {/* Image avec reveal clip-path + zoom hover */}
-            <motion.div
-              initial={{ opacity: 0, clipPath: "inset(0% 0% 100% 0%)" }}
-              whileInView={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
+          {/* Droite — contenu */}
+          <div className="bg-paper p-8 md:p-12 flex flex-col justify-center">
+            <p className="text-[11px] tracking-[0.35em] uppercase text-ink-soft/70 font-semibold mb-4">
+              La Distribution
+            </p>
+            <motion.h2
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-              className="relative aspect-[4/5] grain overflow-hidden border-4 border-paper group"
+              transition={{ duration: 0.7 }}
+              className="font-display text-4xl md:text-5xl text-ink leading-[1.05]"
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-0"
-              >
-                <Image
-                  src="/images/boutique-capture.png"
-                  alt="Notre espace de distribution alimentaire à Eysines"
-                  fill
-                  sizes="(min-width: 1024px) 40vw, 100vw"
-                  className="object-cover"
-                />
-              </motion.div>
-            </motion.div>
+              Notre distribution<br />hebdomadaire.
+            </motion.h2>
+
+            <p className="mt-5 text-[14px] text-ink-soft leading-relaxed max-w-md">
+              Chaque semaine, plus de 400 personnes reçoivent un colis alimentaire équilibré.
+              L'accueil se fait dans la dignité, au 31 rue du Breteil à Eysines.
+            </p>
+
+            {/* Horaires */}
+            <div className="mt-7 border border-rule p-5 max-w-sm">
+              <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-ink-soft font-semibold mb-3">
+                <Clock size={12} strokeWidth={1.8} />
+                Horaires distribution
+              </div>
+              {HOURS_DISTRIBUTION.map((h, i) => (
+                <div
+                  key={i}
+                  className="flex justify-between items-baseline text-[13px] py-1.5 border-b border-rule last:border-0"
+                >
+                  <span className="text-ink-soft">{h.days}</span>
+                  <span
+                    className={`tabular-nums font-medium ${
+                      h.hours === "Fermé" ? "text-terracotta italic" : "text-ink"
+                    }`}
+                  >
+                    {h.hours}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="/distribution"
+              className="mt-7 inline-flex items-center gap-2 border border-ink text-ink px-6 py-3 text-[12px] uppercase tracking-[0.2em] font-bold hover:bg-ink hover:text-paper transition-colors self-start"
+            >
+              Voir la distribution
+              <ArrowRight size={13} strokeWidth={2.2} />
+            </Link>
           </div>
         </div>
 
-        {/* Chips objets — sous le bloc */}
-        <div className="mt-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-3 mb-8"
-          >
-            <span aria-hidden className="h-px w-10 bg-terracotta/60" />
-            <span className="text-[11px] tracking-[0.3em] uppercase text-sage-deep font-semibold">
+        {/* Chips — contenu des colis */}
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center gap-3 mb-8">
+            <span aria-hidden className="h-px w-10 bg-terracotta/50" />
+            <span className="text-[11px] tracking-[0.3em] uppercase text-ink-soft font-semibold">
               Ce que contiennent nos colis
             </span>
-            <span aria-hidden className="h-px w-10 bg-terracotta/60" />
-          </motion.div>
+            <span aria-hidden className="h-px w-10 bg-terracotta/50" />
+          </div>
 
-          <div className="flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
             {ITEMS.map((item, i) => (
               <motion.span
                 key={item}
-                initial={{ opacity: 0, y: 14, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-5%" }}
-                transition={{
-                  type: "spring",
-                  stiffness: 260,
-                  damping: 18,
-                  delay: i * 0.05,
-                }}
-                whileHover={{
-                  y: -4,
-                  scale: 1.08,
-                  rotate: [0, -1.5, 1.5, 0],
-                  transition: { rotate: { duration: 0.4 }, default: { type: "spring", stiffness: 400, damping: 15 } },
-                }}
-                whileTap={{ scale: 0.95 }}
-                className={`group relative inline-flex items-center gap-2 px-5 py-2 text-[13px] border-2 rounded-full cursor-default transition-[background-color,border-color,color,box-shadow,transform] duration-500 ${
-                  activeChip === i
-                    ? "bg-terracotta text-paper border-terracotta shadow-[0_8px_20px_-8px_rgba(239,95,23,0.5)] -translate-y-1 scale-[1.06]"
-                    : "bg-paper border-ink/10 hover:border-terracotta hover:bg-terracotta hover:text-paper hover:shadow-[0_8px_20px_-8px_rgba(239,95,23,0.5)]"
-                }`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.04 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 text-[13px] border border-rule bg-white text-ink-soft hover:border-terracotta hover:text-terracotta transition-colors cursor-default"
               >
-                <span
-                  aria-hidden
-                  className={`w-1.5 h-1.5 rounded-full transition-colors duration-500 ${
-                    activeChip === i ? "bg-paper" : "bg-sage group-hover:bg-paper"
-                  }`}
-                />
-                <span className="font-medium">{item}</span>
+                <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-terracotta/40" />
+                {item}
               </motion.span>
             ))}
           </div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-8 text-[13px] text-ink-soft italic"
-          >
+          <p className="mt-6 text-[13px] text-ink-soft italic">
             … et d'autres denrées selon les collectes et partenariats.
-          </motion.p>
+          </p>
         </div>
       </div>
     </section>

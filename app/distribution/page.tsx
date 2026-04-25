@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import Image from "next/image"
 import {
   Package,
   Wheat,
@@ -157,25 +156,19 @@ export default function DistributionPage() {
         </div>
       </section>
 
-      {/* Image cover */}
+      {/* Bannière photo à venir */}
       <section className="px-4 md:px-8 bg-paper">
         <div className="max-w-[1300px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="relative aspect-[16/8] grain overflow-hidden border-2 border-ink/10"
-          >
-            <Image
-              src="/images/hero.jpeg"
-              alt="Espace de distribution de La Main Tendue"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
-          </motion.div>
+          <div className="relative aspect-[16/6] border border-rule bg-cream-soft flex items-center justify-center notebook-lines">
+            <div className="text-center z-10">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="mx-auto mb-3 text-ink-soft/30">
+                <rect x="4" y="8" width="40" height="32" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                <circle cx="24" cy="24" r="8" stroke="currentColor" strokeWidth="1.5"/>
+                <circle cx="37" cy="14" r="2.5" fill="currentColor" opacity="0.5"/>
+              </svg>
+              <p className="font-display text-2xl text-ink-soft/40">Photos à venir</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -344,72 +337,25 @@ export default function DistributionPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative aspect-[4/5] md:aspect-auto md:row-span-2 grain overflow-hidden border-2 border-ink/10 cursor-pointer rounded-t-[80px] md:rounded-t-[120px]"
-            >
-              <Image
-                src="/images/boutique-capture.png"
-                alt="Notre local au 31 rue du Breteil à Eysines"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                className="absolute bottom-5 left-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              { label: "Notre local", caption: "31 rue du Breteil, Eysines" },
+              { label: "Nos bénévoles", caption: "Une quarantaine d'engagés" },
+              { label: "Les colis", caption: "Composés avec soin" },
+            ].map((item, i) => (
+              <div
+                key={item.label}
+                className={`relative border border-rule bg-cream-soft notebook-lines flex flex-col items-center justify-center py-16 px-8 text-center ${i === 0 ? "md:row-span-2" : ""}`}
               >
-                <p className="font-display text-paper text-lg font-semibold">Notre local</p>
-                <p className="text-paper/80 text-[13px]">31 rue du Breteil, Eysines</p>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative aspect-video grain overflow-hidden border-2 border-ink/10 cursor-pointer rounded-tr-[60px]"
-            >
-              <Image
-                src="/images/hero.jpeg"
-                alt="Les bénévoles de La Main Tendue"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <motion.div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <p className="font-display text-paper text-base font-semibold">Nos bénévoles</p>
-                <p className="text-paper/80 text-[12px]">Une quarantaine d'engagés</p>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative aspect-video grain overflow-hidden border-2 border-ink/10 cursor-pointer rounded-br-[60px]"
-            >
-              <Image
-                src="/images/vaisselle.jpg"
-                alt="Les colis préparés pour la distribution"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <motion.div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <p className="font-display text-paper text-base font-semibold">Les colis</p>
-                <p className="text-paper/80 text-[12px]">Composés avec soin</p>
-              </motion.div>
-            </motion.div>
+                <svg width="44" height="44" viewBox="0 0 44 44" fill="none" className="text-ink-soft/30 mb-3">
+                  <rect x="4" y="8" width="36" height="28" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                  <circle cx="22" cy="22" r="7" stroke="currentColor" strokeWidth="1.5"/>
+                </svg>
+                <p className="font-display text-xl text-ink-soft/50">{item.label}</p>
+                <p className="text-[12px] text-ink-soft/40 mt-1">{item.caption}</p>
+                <p className="mt-3 text-[11px] uppercase tracking-[0.25em] text-ink-soft/30">Photo à venir</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

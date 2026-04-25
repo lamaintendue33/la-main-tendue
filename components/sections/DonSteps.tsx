@@ -2,133 +2,108 @@
 
 import { motion } from "framer-motion"
 import { Phone, Package, CheckCircle2, Utensils } from "lucide-react"
+import Link from "next/link"
 import { DON_STEPS, SITE } from "@/lib/constants"
-import SectionHeader from "@/components/ui/SectionHeader"
-import MagneticButton from "@/components/ui/MagneticButton"
-import ShineSweep from "@/components/ui/ShineSweep"
 
 const stepIcons = [Phone, Package, CheckCircle2, Utensils]
 
 export default function DonSteps() {
   return (
-    <section className="relative py-24 md:py-32 px-4 md:px-8 bg-paper overflow-hidden">
+    <section className="py-20 md:py-28 px-4 md:px-8 bg-cream-soft">
       <div className="max-w-[1100px] mx-auto">
-        <SectionHeader
-          eyebrow="Comment aider"
-          title="Simple comme un coup de fil."
-          lede="En quatre étapes, vos dons rejoignent les familles que nous accompagnons."
-        />
 
-        <div className="relative grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-5">
-          {/* Ligne horizontale de liaison entre étapes (desktop) */}
+        {/* Header */}
+        <div className="mb-14">
+          <p className="text-[11px] uppercase tracking-[0.35em] text-ink-soft/70 font-semibold mb-3">
+            Comment aider
+          </p>
+          <h2 className="font-display text-5xl md:text-6xl text-ink leading-[1.0]">
+            Simple comme<br />un coup de fil.
+          </h2>
+          <p className="mt-5 text-[15px] text-ink-soft leading-relaxed max-w-xl">
+            En quatre étapes, vos dons rejoignent les familles que nous accompagnons.
+          </p>
+        </div>
+
+        {/* Étapes */}
+        <div className="relative grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-4">
+          {/* Ligne de liaison desktop */}
           <motion.span
             aria-hidden
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden md:block absolute top-[52px] left-[12%] right-[12%] h-px bg-terracotta/40 origin-left"
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className="hidden md:block absolute top-[38px] left-[14%] right-[14%] h-px bg-rule origin-left"
           />
+
           {DON_STEPS.map((step, i) => {
             const Icon = stepIcons[i]
-            const delay = i * 0.15
             return (
               <motion.div
                 key={step.step}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -6 }}
-                className="group relative bg-cream-soft hover:bg-paper border-2 border-ink/10 hover:border-terracotta/40 rounded-tl-[36px] rounded-br-[36px] p-6 md:p-7 text-center overflow-hidden transition-colors cursor-default"
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.12 }}
+                className="relative bg-white border border-rule p-6 text-center shadow-[3px_4px_0_0_rgba(28,18,9,0.06)] hover:-translate-y-1 transition-transform duration-200"
               >
-                {/* Spotlight curseur */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(200px_circle_at_center,rgba(25,20,101,0.18),transparent_65%)]"
-                />
-                {/* Trait haut terracotta */}
-                <motion.span
-                  aria-hidden
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: delay + 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute top-0 left-0 right-0 h-0.5 bg-terracotta origin-left"
-                />
+                {/* Numéro étape — cercle */}
+                <div className="relative w-16 h-16 mx-auto mb-5 rounded-full bg-paper border-2 border-rule flex items-center justify-center">
+                  <span className="font-display text-2xl text-terracotta leading-none">{step.step}</span>
+                  {/* Icône petite en coin */}
+                  <span className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-terracotta flex items-center justify-center">
+                    <Icon size={12} strokeWidth={2} className="text-white" />
+                  </span>
+                </div>
 
-                {/* Icône ronde avec pulse + spring */}
-                <motion.div
-                  initial={{ scale: 0, rotate: -90 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 14,
-                    delay: delay + 0.35,
-                  }}
-                  whileHover={{ rotate: 12, scale: 1.08 }}
-                  className="relative w-14 h-14 rounded-full bg-sage mx-auto flex items-center justify-center mb-5 shadow-sm"
-                >
-                  <motion.span
-                    aria-hidden
-                    initial={{ scale: 1, opacity: 0.5 }}
-                    whileInView={{ scale: 1.6, opacity: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.4, delay: delay + 0.5, ease: "easeOut" }}
-                    className="absolute inset-0 rounded-full bg-sage"
-                  />
-                  <Icon size={22} strokeWidth={1.5} className="relative text-paper" />
-                </motion.div>
-
-                {/* Numéro étape */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: delay + 0.5 }}
-                  className="font-display font-bold text-sage-deep text-xl mb-2"
-                >
-                  {step.step}
-                </motion.div>
-                <h3 className="font-display font-semibold text-lg text-ink mb-3">
-                  {step.title}
-                </h3>
+                <h3 className="font-display text-2xl text-ink mb-2">{step.title}</h3>
+                <span className="block w-6 h-px bg-terracotta mx-auto mb-3" />
                 <p className="text-[13px] text-ink-soft leading-relaxed">{step.desc}</p>
               </motion.div>
             )
           })}
         </div>
 
-        {/* CTA bar sauge */}
+        {/* CTA encre */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="spotlight relative mt-16 bg-sage paper-texture border-2 border-ink/10 p-8 md:p-12 text-center rounded-tl-[60px] md:rounded-tl-[80px] rounded-br-[60px] md:rounded-br-[80px] overflow-hidden"
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="relative mt-14 bg-sage p-8 md:p-12 text-center border border-sage overflow-hidden paper-texture"
         >
-          <ShineSweep delay={0.4} />
-          <h3 className="relative z-10 font-display font-medium text-3xl md:text-4xl text-paper leading-tight">
+          {/* Scotch décoratif */}
+          <span
+            aria-hidden
+            className="absolute -top-3 left-1/2 -translate-x-1/2 block h-6 w-28 bg-clay/55 rotate-[-1deg]"
+          />
+
+          <h3 className="relative font-display text-4xl md:text-5xl text-paper">
             Prêt à tendre la main ?
           </h3>
-          <p className="relative z-10 mt-4 text-paper/85 text-[15px]">
-            Un appel suffit.{" "}
+          <p className="relative mt-4 text-paper/75 text-[15px]">
+            Un appel suffit —{" "}
             <a
               href={SITE.phoneHref}
-              className="underline underline-offset-4 decoration-paper/60 hover:decoration-paper font-semibold"
+              className="text-paper font-semibold underline underline-offset-4 decoration-paper/50 hover:decoration-paper"
             >
               {SITE.phone}
             </a>
           </p>
-          <div className="relative z-10 mt-8 flex flex-wrap justify-center gap-3">
-            <MagneticButton
-              href="/aider#formulaire"
-              className="bg-paper text-sage-deep px-8 py-3.5 text-[13px] tracking-[0.25em] uppercase font-bold overflow-hidden rounded-full"
+          <div className="relative mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/aider"
+              className="inline-block bg-paper text-sage-deep px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:bg-cream transition-colors"
             >
-              Prendre rendez-vous
-            </MagneticButton>
+              Devenir bénévole
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-block border border-paper/40 text-paper px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:border-paper hover:bg-paper/10 transition-colors"
+            >
+              Nous contacter
+            </Link>
           </div>
         </motion.div>
       </div>

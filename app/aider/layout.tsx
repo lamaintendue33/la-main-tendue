@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Nous aider · La Main Tendue",
     description:
       "Dons, bénévolat, adhésion — rejoignez l'aventure de La Main Tendue à Eysines.",
-    images: [{ url: "/images/hero.jpeg", width: 1200, height: 630 }],
+    images: [{ url: "/images/logo.png", width: 1200, height: 630 }],
   },
 }
 
