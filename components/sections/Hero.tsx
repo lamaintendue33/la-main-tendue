@@ -60,7 +60,7 @@ export default function Hero() {
   const inView = useInView(ref, { once: true })
 
   return (
-    <section className="pt-20 md:pt-24 pb-10 px-4 md:px-8 bg-paper">
+    <section className="pt-14 md:pt-16 pb-4 px-4 md:px-8 bg-paper">
       <div className="max-w-[1300px] mx-auto" ref={ref}>
         <div className="grid grid-cols-1 md:grid-cols-[55%_45%] border border-rule overflow-hidden shadow-[6px_8px_0_0_rgba(28,18,9,0.08)]">
 
@@ -69,7 +69,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="relative bg-sage text-paper flex flex-col justify-center px-7 sm:px-12 md:px-16 py-12 md:py-24 overflow-hidden paper-texture"
+            className="relative bg-sage text-paper flex flex-col justify-center px-7 sm:px-12 md:px-16 py-10 md:py-16 overflow-hidden paper-texture"
           >
             {/* Lignes cahier */}
             <span aria-hidden className="pointer-events-none absolute inset-0 opacity-10 notebook-lines" />
@@ -82,7 +82,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-paper/55 font-semibold mb-5"
+              className="relative text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-paper/80 font-semibold mb-5"
             >
               Aide alimentaire · Eysines · Depuis 1995
             </motion.p>
@@ -129,7 +129,7 @@ export default function Hero() {
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   href="/aider"
-                  className="inline-flex items-center justify-center gap-2 bg-terracotta text-paper px-6 py-3.5 text-[12px] sm:text-[13px] uppercase tracking-[0.2em] font-bold hover:bg-terracotta-soft transition-colors w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 bg-terracotta text-paper px-6 py-3.5 text-[12px] sm:text-[13px] uppercase tracking-[0.14em] font-bold hover:bg-terracotta-soft transition-colors w-full sm:w-auto whitespace-nowrap"
                 >
                   Nous rejoindre
                   <ArrowRight size={14} strokeWidth={2.2} />
@@ -153,7 +153,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="relative bg-cream-soft hidden sm:flex items-center justify-center px-8 py-16 md:py-20 overflow-hidden min-h-[360px]"
+            className="relative bg-cream-soft hidden sm:flex items-center justify-center px-8 py-10 md:py-14 overflow-hidden min-h-[300px]"
           >
             {/* Fond ligné */}
             <span aria-hidden className="pointer-events-none absolute inset-0 opacity-40 notebook-lines" />

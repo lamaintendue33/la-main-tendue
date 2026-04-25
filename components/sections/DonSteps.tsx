@@ -22,7 +22,7 @@ export default function DonSteps() {
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-[11px] uppercase tracking-[0.35em] text-ink-soft/70 font-semibold mb-3"
+            className="text-[11px] uppercase tracking-[0.35em] text-ink-soft font-semibold mb-3"
           >
             Comment aider
           </motion.p>
@@ -111,7 +111,7 @@ export default function DonSteps() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative mt-14 bg-sage p-8 md:p-12 text-center border border-sage overflow-hidden paper-texture"
+          className="relative mt-14 bg-terracotta p-8 md:p-12 text-center overflow-hidden paper-texture"
         >
           <motion.span
             aria-hidden
@@ -119,7 +119,7 @@ export default function DonSteps() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.4, delay: 0.4 }}
-            className="absolute -top-3 left-1/2 -translate-x-1/2 block h-6 w-28 bg-clay/55 rotate-[-1deg] origin-center"
+            className="absolute -top-3 left-1/2 -translate-x-1/2 block h-6 w-28 bg-paper/30 rotate-[-1deg] origin-center"
           />
           <h3 className="relative font-display text-4xl md:text-5xl text-paper">
             Prêt à tendre la main ?
@@ -134,12 +134,12 @@ export default function DonSteps() {
             className="relative mt-8 flex flex-col sm:flex-row justify-center gap-3"
           >
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/aider" className="inline-block bg-paper text-sage-deep px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:bg-cream transition-colors w-full sm:w-auto text-center">
+              <Link href="/aider" className="inline-block bg-paper text-terracotta px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:bg-cream transition-colors w-full sm:w-auto text-center whitespace-nowrap">
                 Devenir bénévole
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/contact" className="inline-block border border-paper/40 text-paper px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:border-paper hover:bg-paper/10 transition-colors w-full sm:w-auto text-center">
+              <Link href="/contact" className="inline-block border border-paper/50 text-paper px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:border-paper hover:bg-paper/15 transition-colors w-full sm:w-auto text-center whitespace-nowrap">
                 Nous contacter
               </Link>
             </motion.div>

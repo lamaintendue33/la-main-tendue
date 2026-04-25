@@ -52,7 +52,7 @@ export default function BoutiqueSection() {
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-[11px] tracking-[0.35em] uppercase text-ink-soft/70 font-semibold mb-4">
+            <p className="text-[11px] tracking-[0.35em] uppercase text-ink-soft font-semibold mb-4">
               La Distribution
             </p>
             <motion.h2

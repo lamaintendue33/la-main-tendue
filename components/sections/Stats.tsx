@@ -39,7 +39,7 @@ export default function Stats() {
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-[11px] uppercase tracking-[0.35em] text-paper/50 font-semibold mb-3"
+            className="text-[11px] uppercase tracking-[0.35em] text-paper/75 font-semibold mb-3"
           >
             Notre impact
           </motion.p>
@@ -73,7 +73,7 @@ export default function Stats() {
               >
                 <Counter target={s.value} />
               </motion.span>
-              <span className="mt-1 font-display text-xl sm:text-2xl text-paper/55">{s.unit}</span>
+              <span className="mt-1 font-display text-xl sm:text-2xl text-paper/75">{s.unit}</span>
               <motion.span
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
@@ -81,7 +81,7 @@ export default function Stats() {
                 transition={{ duration: 0.5, delay: i * 0.12 + 0.4 }}
                 className="block w-8 h-px bg-terracotta/50 my-3 origin-center"
               />
-              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-paper/50 font-medium leading-snug">
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-paper/70 font-medium leading-snug">
                 {s.label}
               </span>
             </motion.div>

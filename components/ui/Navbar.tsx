@@ -55,7 +55,7 @@ export default function Navbar() {
           </div>
           <div className="leading-[1.15]">
             <div className="font-display text-xl text-ink">La Main Tendue</div>
-            <div className="text-[10px] uppercase tracking-[0.22em] text-ink-soft font-semibold">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-ink-soft font-semibold whitespace-nowrap">
               Aide alimentaire · Eysines
             </div>
           </div>

@@ -53,7 +53,7 @@ function MissionCard({ mission, index }: { mission: (typeof MISSIONS)[number]; i
       </motion.div>
 
       {/* Numéro fantôme */}
-      <div className="font-display text-6xl text-ink/8 leading-none mb-1 select-none">
+      <div className="font-display text-6xl text-ink/[0.12] leading-none mb-1 select-none">
         {mission.num}
       </div>
 
@@ -83,7 +83,7 @@ export default function Missions() {
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-[11px] uppercase tracking-[0.35em] text-ink-soft/70 font-semibold mb-3"
+            className="text-[11px] uppercase tracking-[0.35em] text-ink-soft font-semibold mb-3"
           >
             Notre mission
           </motion.p>
