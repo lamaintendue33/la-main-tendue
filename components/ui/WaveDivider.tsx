@@ -31,10 +31,10 @@ export default function WaveDivider({
         viewBox="0 0 1440 80"
         preserveAspectRatio="none"
         className={`block w-full h-[48px] md:h-[80px] ${top} ${flip ? "scale-y-[-1]" : ""}`}
-        initial={{ y: flip ? -24 : 24, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
       >
         <path d={paths[variant]} fill="currentColor" />
       </motion.svg>
