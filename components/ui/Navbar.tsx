@@ -43,13 +43,13 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-14 h-14 rounded-full overflow-hidden bg-white border border-rule shadow-sm shrink-0">
+          <div className="relative w-14 h-14 shrink-0">
             <Image
               src="/images/logo.png"
               alt="La Main Tendue"
               fill
               sizes="56px"
-              className="object-contain p-1"
+              className="object-contain mix-blend-multiply"
               priority
             />
           </div>

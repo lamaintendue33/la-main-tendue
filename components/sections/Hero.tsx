@@ -1,93 +1,117 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { useRef } from "react"
 import { SITE } from "@/lib/constants"
 
 function TapeStrip({ className }: { className?: string }) {
   return (
-    <span
+    <motion.span
       aria-hidden
-      className={`absolute block h-7 bg-clay/55 ${className ?? ""}`}
+      initial={{ scaleX: 0, opacity: 0 }}
+      animate={{ scaleX: 1, opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+      className={`absolute block h-7 bg-clay/55 origin-left ${className ?? ""}`}
     />
-  )
-}
-
-function StarDoodle({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-      fill="none"
-      className={className}
-    >
-      <path
-        d="M16 3l2.8 8.6H28l-7.4 5.4 2.8 8.6L16 20.2l-7.4 5.4 2.8-8.6L4 11.6h9.2z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
   )
 }
 
 function ScribbleLine({ className }: { className?: string }) {
   return (
-    <svg aria-hidden width="80" height="12" viewBox="0 0 80 12" fill="none" className={className}>
-      <path d="M2 8 Q20 2 40 8 Q60 14 78 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+    <svg aria-hidden width="90" height="14" viewBox="0 0 90 14" fill="none" className={className}>
+      <motion.path
+        d="M2 9 Q22 3 45 9 Q68 15 88 9"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        fill="none"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 1, delay: 0.7, ease: "easeInOut" }}
+      />
     </svg>
   )
 }
 
+function StarDoodle({ className }: { className?: string }) {
+  return (
+    <motion.svg
+      aria-hidden
+      width="32" height="32" viewBox="0 0 32 32" fill="none"
+      className={className}
+      initial={{ opacity: 0, scale: 0, rotate: -30 }}
+      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+      transition={{ duration: 0.6, delay: 1.2, type: "spring", stiffness: 200 }}
+    >
+      <path
+        d="M16 3l2.8 8.6H28l-7.4 5.4 2.8 8.6L16 20.2l-7.4 5.4 2.8-8.6L4 11.6h9.2z"
+        stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
+      />
+    </motion.svg>
+  )
+}
+
+const words = ["La", "Main", "Tendue"]
+
 export default function Hero() {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true })
+
   return (
     <section className="pt-20 md:pt-24 pb-10 px-4 md:px-8 bg-paper">
-      <div className="max-w-[1300px] mx-auto">
+      <div className="max-w-[1300px] mx-auto" ref={ref}>
         <div className="grid grid-cols-1 md:grid-cols-[55%_45%] border border-rule overflow-hidden shadow-[6px_8px_0_0_rgba(28,18,9,0.08)]">
 
           {/* Gauche — Texte */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="relative bg-sage text-paper flex flex-col justify-center px-8 sm:px-12 md:px-16 py-16 md:py-24 overflow-hidden paper-texture"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="relative bg-sage text-paper flex flex-col justify-center px-7 sm:px-12 md:px-16 py-12 md:py-24 overflow-hidden paper-texture"
           >
-            {/* Lignes de carnet derrière */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 opacity-10 notebook-lines"
-            />
+            {/* Lignes cahier */}
+            <span aria-hidden className="pointer-events-none absolute inset-0 opacity-10 notebook-lines" />
 
-            {/* Scotch coin haut-gauche */}
-            <TapeStrip className="top-6 -left-2 w-24 rotate-[-8deg]" />
+            {/* Scotch */}
+            <TapeStrip className="top-5 -left-2 w-24 rotate-[-8deg]" />
 
             {/* Eyebrow */}
-            <p className="relative text-[11px] uppercase tracking-[0.35em] text-paper/55 font-semibold mb-6">
-              Aide alimentaire · Eysines · Depuis 1995
-            </p>
-
-            {/* Titre manuscrit */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="relative font-display text-[4rem] sm:text-[5rem] md:text-[5.5rem] leading-[0.95] text-paper"
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-paper/55 font-semibold mb-5"
             >
-              La Main<br />Tendue
-            </motion.h1>
+              Aide alimentaire · Eysines · Depuis 1995
+            </motion.p>
 
-            {/* Trait gribouillé sous le titre */}
-            <ScribbleLine className="relative mt-3 text-terracotta/80" />
+            {/* Titre — mot par mot */}
+            <h1 className="relative font-display leading-[0.92]">
+              {words.map((word, i) => (
+                <span key={word} className="block overflow-hidden">
+                  <motion.span
+                    className="block text-[3.25rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[5.5rem] text-paper"
+                    initial={{ y: "110%", opacity: 0 }}
+                    animate={inView ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.7, delay: 0.35 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+
+            {/* Trait gribouillé */}
+            <ScribbleLine className="relative mt-4 text-terracotta/90" />
 
             {/* Description */}
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.35 }}
-              className="relative mt-7 text-[15px] text-paper/80 leading-relaxed max-w-sm"
+              initial={{ opacity: 0, y: 14 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.75 }}
+              className="relative mt-6 text-[14px] sm:text-[15px] text-paper/80 leading-relaxed max-w-sm"
             >
               {SITE.slogan}. Depuis 1995, nous distribuons chaque semaine des
               colis alimentaires à plus de{" "}
@@ -97,112 +121,128 @@ export default function Hero() {
 
             {/* CTAs */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              className="relative mt-10 flex flex-wrap gap-3"
+              initial={{ opacity: 0, y: 14 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.95 }}
+              className="relative mt-8 flex flex-col sm:flex-row gap-3"
             >
-              <Link
-                href="/aider"
-                className="inline-flex items-center gap-2 bg-terracotta text-paper px-7 py-3 text-[13px] uppercase tracking-[0.2em] font-bold hover:bg-terracotta-soft transition-colors"
-              >
-                Nous rejoindre
-                <ArrowRight size={14} strokeWidth={2.2} />
-              </Link>
-              <Link
-                href="/distribution"
-                className="inline-flex items-center gap-2 border border-paper/40 text-paper px-7 py-3 text-[13px] uppercase tracking-[0.2em] font-bold hover:border-paper hover:bg-paper/10 transition-colors"
-              >
-                La distribution
-              </Link>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  href="/aider"
+                  className="inline-flex items-center justify-center gap-2 bg-terracotta text-paper px-6 py-3.5 text-[12px] sm:text-[13px] uppercase tracking-[0.2em] font-bold hover:bg-terracotta-soft transition-colors w-full sm:w-auto"
+                >
+                  Nous rejoindre
+                  <ArrowRight size={14} strokeWidth={2.2} />
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  href="/distribution"
+                  className="inline-flex items-center justify-center gap-2 border border-paper/40 text-paper px-6 py-3.5 text-[12px] sm:text-[13px] uppercase tracking-[0.2em] font-bold hover:border-paper hover:bg-paper/10 transition-colors w-full sm:w-auto"
+                >
+                  La distribution
+                </Link>
+              </motion.div>
             </motion.div>
 
-            {/* Doodle étoile */}
-            <StarDoodle className="absolute bottom-8 right-8 text-paper/15" />
+            <StarDoodle className="absolute bottom-6 right-8 text-paper/15" />
           </motion.div>
 
-          {/* Droite — Photo placeholder style polaroid */}
+          {/* Droite — Polaroid (masqué sur très petit mobile) */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.25 }}
-            className="relative bg-cream-soft flex items-center justify-center px-8 py-16 md:py-20 overflow-hidden min-h-[380px]"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="relative bg-cream-soft hidden sm:flex items-center justify-center px-8 py-16 md:py-20 overflow-hidden min-h-[360px]"
           >
-            {/* Fond ligné cahier */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 opacity-40 notebook-lines"
-            />
+            {/* Fond ligné */}
+            <span aria-hidden className="pointer-events-none absolute inset-0 opacity-40 notebook-lines" />
 
             {/* Polaroid principal */}
-            <div className="relative z-10">
-              <div className="relative rotate-[-2.5deg] shadow-[6px_10px_40px_rgba(28,18,9,0.2)]">
-                {/* Scotch du polaroid */}
-                <TapeStrip className="-top-3.5 left-1/2 -translate-x-1/2 w-20 rotate-[1deg] z-20" />
-
-                {/* Carte polaroid */}
-                <div className="bg-white p-3 pb-10 w-56 sm:w-64 border border-stone/40">
-                  {/* Zone photo */}
+            <motion.div
+              className="relative z-10"
+              initial={{ rotate: -6, y: 20, opacity: 0 }}
+              animate={{ rotate: -2.5, y: 0, opacity: 1 }}
+              transition={{ duration: 0.9, delay: 0.6, type: "spring", stiffness: 120, damping: 14 }}
+            >
+              <div className="relative shadow-[6px_10px_40px_rgba(28,18,9,0.2)]">
+                <motion.span
+                  aria-hidden
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.4, delay: 1 }}
+                  className="absolute -top-3.5 left-1/2 -translate-x-1/2 block h-6 w-20 bg-clay/55 rotate-[1deg] z-20 origin-left"
+                />
+                <div className="bg-white p-3 pb-10 w-52 sm:w-60 border border-stone/40">
                   <div className="w-full aspect-square bg-stone/30 flex flex-col items-center justify-center gap-2">
-                    <svg
-                      width="44"
-                      height="44"
-                      viewBox="0 0 44 44"
-                      fill="none"
-                      className="text-ink-soft/40"
-                    >
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" className="text-ink-soft/40">
                       <rect x="4" y="8" width="36" height="28" rx="2" stroke="currentColor" strokeWidth="1.5" />
                       <circle cx="22" cy="22" r="7" stroke="currentColor" strokeWidth="1.5" />
                       <circle cx="34" cy="13" r="2" fill="currentColor" opacity="0.5" />
                     </svg>
-                    <span className="text-[11px] text-ink-soft/50 font-medium uppercase tracking-wider">
+                    <span className="text-[10px] text-ink-soft/50 font-medium uppercase tracking-wider">
                       Photo à venir
                     </span>
                   </div>
-                  {/* Légende polaroid */}
-                  <p className="mt-3 text-center font-display text-xl text-ink/70">
+                  <p className="mt-3 text-center font-display text-xl text-ink/60">
                     Nos bénévoles ✦
                   </p>
                 </div>
               </div>
 
-              {/* Petit polaroid en arrière-plan décalé */}
-              <div className="absolute -bottom-4 -right-8 rotate-[5deg] shadow-md z-0">
-                <div className="bg-white p-2 pb-6 w-32 border border-stone/30 opacity-70">
+              {/* Petit polaroid arrière */}
+              <motion.div
+                className="absolute -bottom-4 -right-8 z-0"
+                initial={{ rotate: 8, opacity: 0 }}
+                animate={{ rotate: 5, opacity: 0.65 }}
+                transition={{ duration: 0.7, delay: 0.9 }}
+              >
+                <div className="bg-white p-2 pb-6 w-28 border border-stone/30 shadow-sm">
                   <div className="w-full aspect-square bg-stone/20" />
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            {/* Doodles */}
             <StarDoodle className="absolute top-6 right-6 text-ink/20" />
-            <StarDoodle className="absolute bottom-10 left-6 text-terracotta/35 scale-75" />
+            <motion.div
+              className="absolute bottom-10 left-6"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 0.35, scale: 0.75 }}
+              transition={{ delay: 1.3, type: "spring" }}
+            >
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M16 3l2.8 8.6H28l-7.4 5.4 2.8 8.6L16 20.2l-7.4 5.4 2.8-8.6L4 11.6h9.2z"
+                  stroke="#b83a2a" strokeWidth="1.5" strokeLinejoin="round" />
+              </svg>
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Bandeau stats rapides sous le hero */}
+        {/* Stats rapides */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.65 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
           className="grid grid-cols-3 border-x border-b border-rule bg-cream"
         >
           {[
-            { value: "400+", label: "personnes aidées / semaine" },
-            { value: "30 ans", label: "d'engagement local" },
-            { value: "40", label: "bénévoles actifs" },
-          ].map((stat) => (
-            <div
+            { value: "400+", label: "personnes / semaine" },
+            { value: "30 ans", label: "d'engagement" },
+            { value: "40", label: "bénévoles" },
+          ].map((stat, i) => (
+            <motion.div
               key={stat.label}
-              className="flex flex-col items-center justify-center py-5 px-4 text-center border-r border-rule last:border-r-0"
+              className="flex flex-col items-center justify-center py-4 sm:py-5 px-2 text-center border-r border-rule last:border-r-0"
+              whileHover={{ backgroundColor: "rgba(237,229,206,0.6)" }}
+              transition={{ duration: 0.2 }}
             >
-              <span className="font-display text-3xl md:text-4xl text-terracotta">
+              <span className="font-display text-2xl sm:text-3xl md:text-4xl text-terracotta leading-none">
                 {stat.value}
               </span>
-              <span className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-ink-soft font-medium">
+              <span className="mt-1 text-[9px] sm:text-[11px] uppercase tracking-[0.15em] sm:tracking-[0.18em] text-ink-soft font-medium leading-snug">
                 {stat.label}
               </span>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
