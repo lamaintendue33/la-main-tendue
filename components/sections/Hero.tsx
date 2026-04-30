@@ -1,306 +1,263 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionTemplate,
+} from "framer-motion"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { useRef, useState, useEffect, useMemo } from "react"
-import dynamic from "next/dynamic"
+import Image from "next/image"
+import { ArrowRight, Heart } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
 import { SITE } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 
-// Chargement client-side uniquement (WebGL ne tourne pas côté serveur)
-const ShaderBackground = dynamic(
-  () => import("@/components/ui/hero").then((m) => m.ShaderBackground),
-  { ssr: false }
-)
-const ShaderPulse = dynamic(
-  () => import("@/components/ui/hero").then((m) => m.ShaderPulse),
-  { ssr: false }
-)
+/* ─── Verbes rotatifs ──────────────────────────────────────────── */
+const VERBS = ["Nourrir", "Écouter", "Soutenir", "Partager", "Fédérer"]
 
-function TapeStrip({ className }: { className?: string }) {
-  return (
-    <motion.span
-      aria-hidden
-      initial={{ scaleX: 0, opacity: 0 }}
-      animate={{ scaleX: 1, opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-      className={`absolute block h-7 bg-clay/55 origin-left ${className ?? ""}`}
-    />
-  )
-}
+/* ─── Stats barre du bas ───────────────────────────────────────── */
+const STATS = [
+  { value: "500+", label: "personnes / semaine" },
+  { value: "160",  label: "colis / mercredi" },
+  { value: "30",   label: "ans de solidarité" },
+  { value: "30",   label: "bénévoles" },
+]
 
-function ScribbleLine({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden width="90" height="14" viewBox="0 0 90 14" fill="none" className={className}>
-      <motion.path
-        d="M2 9 Q22 3 45 9 Q68 15 88 9"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        fill="none"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{ duration: 1, delay: 0.7, ease: "easeInOut" }}
-      />
-    </svg>
-  )
-}
-
-function StarDoodle({ className }: { className?: string }) {
-  return (
-    <motion.svg
-      aria-hidden
-      width="32" height="32" viewBox="0 0 32 32" fill="none"
-      className={className}
-      initial={{ opacity: 0, scale: 0, rotate: -30 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-      transition={{ duration: 0.6, delay: 1.2, type: "spring", stiffness: 200 }}
-    >
-      <path
-        d="M16 3l2.8 8.6H28l-7.4 5.4 2.8 8.6L16 20.2l-7.4 5.4 2.8-8.6L4 11.6h9.2z"
-        stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
-      />
-    </motion.svg>
-  )
-}
-
-const words = ["La", "Main", "Tendue"]
-
-const rotatingVerbs = ["Nourrir", "Écouter", "Soutenir", "Partager", "Fédérer"]
+/* ─── Titre mot par mot ────────────────────────────────────────── */
+const TITLE_WORDS = ["La", "Main", "Tendue"]
 
 export default function Hero() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true })
+  const sectionRef = useRef<HTMLElement>(null)
 
-  const [verbIndex, setVerbIndex] = useState(0)
+  /* Parallax photo — la photo scroll 40% plus lentement que le contenu */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  })
+  const rawY    = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
+  const parallaxY = useSpring(rawY, { stiffness: 60, damping: 20 })
+
+  /* Scale léger de la photo à l'entrée */
+  const imageScale = useTransform(scrollYProgress, [0, 0.5], [1.06, 1])
+
+  /* Fondu de l'overlay en scrollant — la photo reste visible */
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.6], [0.78, 0.92])
+  const overlayBg = useMotionTemplate`rgba(26,58,92,${overlayOpacity})`
+
+  /* Verbe rotatif */
+  const [verbIdx, setVerbIdx] = useState(0)
   useEffect(() => {
-    const id = setTimeout(() => {
-      setVerbIndex((i) => (i + 1) % rotatingVerbs.length)
-    }, 2200)
+    const id = setTimeout(() => setVerbIdx(i => (i + 1) % VERBS.length), 2400)
     return () => clearTimeout(id)
-  }, [verbIndex])
+  }, [verbIdx])
 
   return (
-    <section className="pt-14 md:pt-16 pb-4 px-4 md:px-8 bg-paper">
-      <div className="max-w-[1300px] mx-auto" ref={ref}>
-        <div className="grid grid-cols-1 md:grid-cols-[55%_45%] border border-rule overflow-hidden shadow-[6px_8px_0_0_rgba(28,18,9,0.08)]">
+    <section
+      ref={sectionRef}
+      className="relative min-h-[100svh] flex flex-col overflow-hidden bg-sage"
+    >
+      {/* ── Photo plein fond avec parallax ────────────────── */}
+      <motion.div
+        className="absolute inset-0 will-change-transform"
+        style={{ y: parallaxY, scale: imageScale }}
+      >
+        <Image
+          src="/images/distribution/salle-distribution.jpg"
+          alt="Salle de distribution de La Main Tendue — caisses bleues remplies de légumes frais"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+      </motion.div>
 
-          {/* Gauche — Texte */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative bg-sage text-paper flex flex-col justify-center px-7 sm:px-12 md:px-16 py-10 md:py-16 overflow-hidden paper-texture"
-          >
-            {/* Shader mesh gradient — s'affiche par dessus bg-sage (fallback SSR) */}
-            <ShaderBackground />
+      {/* ── Overlay directionnel animé ─────────────────────── */}
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(105deg, rgba(26,58,92,0.97) 0%, rgba(26,58,92,0.82) 45%, rgba(26,58,92,0.28) 100%)`,
+        }}
+      />
+      {/* Vignette bas pour les stats */}
+      <div className="absolute inset-0 bg-gradient-to-t from-sage/95 via-transparent to-transparent" />
+      {/* Grain texture */}
+      <div className="absolute inset-0 paper-texture opacity-30 pointer-events-none" />
 
-            {/* Lignes cahier — texture par dessus le shader */}
-            <span aria-hidden className="pointer-events-none absolute inset-0 opacity-10 notebook-lines" />
+      {/* ── Contenu principal ──────────────────────────────── */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-20 pt-24 pb-10 max-w-[1300px] mx-auto w-full">
 
-            {/* Scotch */}
-            <TapeStrip className="top-5 -left-2 w-24 rotate-[-8deg]" />
-
-            {/* Eyebrow */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative mb-5"
-            >
-              <AnimatedShinyText
-                shimmerWidth={160}
-                className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-paper/80 via-white/90 font-semibold max-w-none mx-0"
-              >
-                Aide alimentaire · Eysines · Depuis 1995
-              </AnimatedShinyText>
-            </motion.div>
-
-            {/* Titre — mot par mot */}
-            <h1 className="relative font-display leading-[0.92]">
-              {words.map((word, i) => (
-                <span key={word} className="block overflow-hidden">
-                  <motion.span
-                    className="block text-[3.25rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[5.5rem] text-paper"
-                    initial={{ y: "110%", opacity: 0 }}
-                    animate={inView ? { y: 0, opacity: 1 } : {}}
-                    transition={{ duration: 0.7, delay: 0.35 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    {word}
-                  </motion.span>
-                </span>
-              ))}
-            </h1>
-
-            {/* Verbe rotatif — slot machine vertical */}
-            <div className="relative mt-3 h-[3.2rem] overflow-hidden" aria-live="polite" aria-atomic="true">
-              <span className="sr-only">{rotatingVerbs[verbIndex]}</span>
-              {rotatingVerbs.map((verb, i) => (
-                <motion.span
-                  key={verb}
-                  aria-hidden
-                  className="absolute left-0 font-display text-[2.6rem] sm:text-[3.2rem] font-semibold leading-none text-terracotta"
-                  initial={{ opacity: 0, y: 60 }}
-                  animate={
-                    verbIndex === i
-                      ? { opacity: 1, y: 0 }
-                      : { opacity: 0, y: verbIndex > i ? -60 : 60 }
-                  }
-                  transition={{ type: "spring", stiffness: 80, damping: 16 }}
-                >
-                  {verb}
-                </motion.span>
-              ))}
-            </div>
-
-            {/* Trait gribouillé */}
-            <ScribbleLine className="relative mt-2 text-terracotta/90" />
-
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.75 }}
-              className="relative mt-6 text-[14px] sm:text-[15px] text-paper/80 leading-relaxed max-w-sm"
-            >
-              Depuis 1992, nous distribuons chaque semaine des colis alimentaires
-              à plus de{" "}
-              <strong className="text-paper font-semibold">500 personnes</strong>{" "}
-              grâce à une trentaine de bénévoles engagés.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.95 }}
-              className="relative mt-8 flex flex-col sm:flex-row gap-3"
-            >
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                <Link
-                  href="/aider"
-                  className="inline-flex items-center justify-center gap-2 bg-terracotta text-paper px-6 py-3.5 text-[12px] sm:text-[13px] uppercase tracking-[0.14em] font-bold hover:bg-terracotta-soft transition-colors w-full sm:w-auto whitespace-nowrap"
-                >
-                  Nous rejoindre
-                  <ArrowRight size={14} strokeWidth={2.2} />
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                <Link
-                  href="/distribution"
-                  className="inline-flex items-center justify-center gap-2 border border-paper/40 text-paper px-6 py-3.5 text-[12px] sm:text-[13px] uppercase tracking-[0.2em] font-bold hover:border-paper hover:bg-paper/10 transition-colors w-full sm:w-auto"
-                >
-                  La distribution
-                </Link>
-              </motion.div>
-            </motion.div>
-
-            {/* PulsingBorder décoratif — remplace le star doodle */}
-            <ShaderPulse
-              className="absolute bottom-5 right-6 opacity-80"
-              style={{ width: "52px", height: "52px", borderRadius: "50%" }}
-            />
-          </motion.div>
-
-          {/* Droite — Citation */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="relative bg-cream-soft hidden sm:flex items-center justify-center px-10 md:px-14 py-12 md:py-16 overflow-hidden min-h-[300px]"
-          >
-            {/* Fond ligné */}
-            <span aria-hidden className="pointer-events-none absolute inset-0 opacity-35 notebook-lines" />
-
-            {/* Scotch en haut */}
-            <motion.span
-              aria-hidden
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.8 }}
-              className="absolute top-6 left-1/2 -translate-x-1/2 block h-7 w-24 bg-clay/55 rotate-[1deg] origin-left"
-            />
-
-            {/* Contenu de la note */}
-            <div className="relative z-10 max-w-xs md:max-w-sm">
-              {/* Grand guillemet décoratif */}
-              <motion.span
-                aria-hidden
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
-                className="block font-display text-[6rem] leading-none text-terracotta/20 select-none -mb-6 -ml-2"
-              >
-                "
-              </motion.span>
-
-              {/* Citation */}
-              <motion.blockquote
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-[1.35rem] md:text-[1.5rem] text-ink leading-[1.35]"
-              >
-                {SITE.quote}
-              </motion.blockquote>
-
-              {/* Trait gribouillé */}
-              <motion.svg
-                aria-hidden
-                width="60" height="8" viewBox="0 0 60 8" fill="none"
-                className="mt-5 text-terracotta/50"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.1 }}
-              >
-                <path d="M2 5 Q15 2 30 5 Q45 8 58 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-              </motion.svg>
-
-              {/* Attribution */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1.2 }}
-                className="mt-3 text-[10px] uppercase tracking-[0.25em] text-ink-soft/70 font-semibold"
-              >
-                La Main Tendue · Eysines
-              </motion.p>
-            </div>
-
-            {/* Étoile déco coin */}
-            <StarDoodle className="absolute bottom-6 right-6 text-ink/15" />
-          </motion.div>
-        </div>
-
-        {/* Stats rapides */}
+        {/* Eyebrow animé — AnimatedShinyText 21st.dev */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.1 }}
-          className="grid grid-cols-3 border-x border-b border-rule bg-cream"
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-6"
         >
-          {[
-            { value: "500+", label: "personnes / semaine" },
-            { value: "30 ans", label: "d'engagement" },
-            { value: "160", label: "colis / mercredi" },
-          ].map((stat, i) => (
+          <AnimatedShinyText
+            shimmerWidth={220}
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.38em] text-paper/65 via-white/90 font-semibold max-w-none mx-0"
+          >
+            Aide alimentaire · Eysines · Depuis 1992
+          </AnimatedShinyText>
+        </motion.div>
+
+        {/* Titre massif — chaque mot entre par le bas */}
+        <h1 className="font-display leading-[0.82] mb-5">
+          {TITLE_WORDS.map((word, i) => (
+            <span key={word} className="block overflow-hidden">
+              <motion.span
+                className="block text-[5.5rem] sm:text-[7.5rem] md:text-[10rem] lg:text-[11.5rem] text-paper"
+                initial={{ y: "110%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.3 + i * 0.14,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                {word}
+              </motion.span>
+            </span>
+          ))}
+        </h1>
+
+        {/* Verbe rotatif slot-machine */}
+        <div
+          className="relative h-[3rem] sm:h-[4rem] md:h-[5rem] overflow-hidden mb-8 md:mb-10"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span className="sr-only">{VERBS[verbIdx]}</span>
+          {VERBS.map((verb, i) => (
+            <motion.span
+              key={verb}
+              aria-hidden
+              className="absolute left-0 font-display text-[2.4rem] sm:text-[3.2rem] md:text-[4rem] font-semibold leading-none text-terracotta"
+              initial={{ opacity: 0, y: 70 }}
+              animate={
+                verbIdx === i
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: verbIdx > i ? -70 : 70 }
+              }
+              transition={{ type: "spring", stiffness: 75, damping: 14 }}
+            >
+              {verb}
+            </motion.span>
+          ))}
+        </div>
+
+        {/* Citation + CTAs */}
+        <div className="max-w-lg md:max-w-xl">
+          <motion.blockquote
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-[1.15rem] sm:text-[1.3rem] md:text-[1.45rem] text-paper/75 leading-[1.38] italic mb-9"
+          >
+            "{SITE.quote}"
+          </motion.blockquote>
+
+          {/* Boutons avec hover magnétique */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.1 }}
+            className="flex flex-col sm:flex-row gap-3"
+          >
+            <MagneticButton href="/don" variant="primary">
+              <Heart size={13} strokeWidth={2.5} />
+              Faire un don
+            </MagneticButton>
+            <MagneticButton href="/activites" variant="outline">
+              Nos activités
+              <ArrowRight size={13} strokeWidth={2.2} />
+            </MagneticButton>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ── Barre de stats en bas ─────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 1.3 }}
+        className="relative z-10 border-t border-paper/15 bg-sage/55 backdrop-blur-md"
+      >
+        <div className="max-w-[1300px] mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-paper/15">
+          {STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="flex flex-col items-center justify-center py-4 sm:py-5 px-2 text-center border-r border-rule last:border-r-0"
-              whileHover={{ backgroundColor: "rgba(237,229,206,0.6)" }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.4 + i * 0.08 }}
+              whileHover={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+              className="flex flex-col items-center justify-center py-4 md:py-5 px-3 text-center cursor-default transition-colors"
             >
-              <span className="font-display text-2xl sm:text-3xl md:text-4xl text-terracotta leading-none">
+              <motion.span
+                className="font-display text-2xl sm:text-3xl md:text-4xl text-terracotta leading-none"
+                whileHover={{ scale: 1.12 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              >
                 {stat.value}
-              </span>
-              <span className="mt-1 text-[9px] sm:text-[11px] uppercase tracking-[0.15em] sm:tracking-[0.18em] text-ink-soft font-medium leading-snug">
+              </motion.span>
+              <span className="mt-1 text-[9px] sm:text-[10px] uppercase tracking-[0.16em] text-paper/50 font-medium leading-snug">
                 {stat.label}
               </span>
             </motion.div>
           ))}
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </section>
+  )
+}
+
+/* ─── Bouton avec effet magnétique au survol ───────────────────── */
+function MagneticButton({
+  href,
+  variant,
+  children,
+}: {
+  href: string
+  variant: "primary" | "outline"
+  children: React.ReactNode
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+  const x = useSpring(0, { stiffness: 200, damping: 20 })
+  const y = useSpring(0, { stiffness: 200, damping: 20 })
+
+  function handleMouseMove(e: React.MouseEvent) {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    const cx = rect.left + rect.width / 2
+    const cy = rect.top + rect.height / 2
+    x.set((e.clientX - cx) * 0.25)
+    y.set((e.clientY - cy) * 0.25)
+  }
+
+  function handleMouseLeave() {
+    x.set(0)
+    y.set(0)
+  }
+
+  const base = "inline-flex items-center justify-center gap-2 px-7 py-4 text-[12px] sm:text-[13px] uppercase tracking-[0.14em] font-bold transition-colors w-full sm:w-auto whitespace-nowrap"
+  const styles =
+    variant === "primary"
+      ? `${base} bg-terracotta text-paper hover:bg-terracotta-soft`
+      : `${base} border border-paper/40 text-paper hover:border-paper hover:bg-paper/10`
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x, y }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileTap={{ scale: 0.96 }}
+    >
+      <Link href={href} className={styles}>
+        {children}
+      </Link>
+    </motion.div>
   )
 }
