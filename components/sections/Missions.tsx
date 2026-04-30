@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { HeartHandshake, Users, Sparkles } from "lucide-react"
 import { MISSIONS } from "@/lib/constants"
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 
 const icons = { HeartHandshake, Users, Sparkles } as const
 const tapeAngles = ["rotate-[-3deg]", "rotate-[2deg]", "rotate-[-1.5deg]"]
@@ -79,14 +80,19 @@ export default function Missions() {
     <section className="py-20 md:py-28 px-4 md:px-8 bg-paper">
       <div className="max-w-[1100px] mx-auto">
         <div className="mb-14" ref={ref}>
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-[11px] uppercase tracking-[0.35em] text-ink-soft font-semibold mb-3"
+            className="mb-3"
           >
-            Notre mission
-          </motion.p>
+            <AnimatedShinyText
+              shimmerWidth={90}
+              className="text-[11px] uppercase tracking-[0.35em] text-ink-soft via-ink/80 font-semibold max-w-none mx-0"
+            >
+              Notre mission
+            </AnimatedShinyText>
+          </motion.div>
           <div className="overflow-hidden">
             <motion.h2
               initial={{ y: "100%" }}

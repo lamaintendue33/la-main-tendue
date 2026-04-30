@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react"
 import { useRef } from "react"
 import dynamic from "next/dynamic"
 import { SITE } from "@/lib/constants"
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 
 // Chargement client-side uniquement (WebGL ne tourne pas côté serveur)
 const ShaderBackground = dynamic(
@@ -92,14 +93,19 @@ export default function Hero() {
             <TapeStrip className="top-5 -left-2 w-24 rotate-[-8deg]" />
 
             {/* Eyebrow */}
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-paper/80 font-semibold mb-5"
+              className="relative mb-5"
             >
-              Aide alimentaire · Eysines · Depuis 1995
-            </motion.p>
+              <AnimatedShinyText
+                shimmerWidth={160}
+                className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-paper/80 via-white/90 font-semibold max-w-none mx-0"
+              >
+                Aide alimentaire · Eysines · Depuis 1995
+              </AnimatedShinyText>
+            </motion.div>
 
             {/* Titre — mot par mot */}
             <h1 className="relative font-display leading-[0.92]">
