@@ -10,9 +10,9 @@ import { SITE } from "@/lib/constants"
 
 const links = [
   { href: "/", label: "Accueil" },
+  { href: "/histoire", label: "Notre histoire" },
   { href: "/distribution", label: "Distribution" },
   { href: "/aider", label: "Aider" },
-  { href: "/mission", label: "Mission" },
   { href: "/contact", label: "Contact" },
 ]
 

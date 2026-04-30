@@ -164,10 +164,10 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.75 }}
               className="relative mt-6 text-[14px] sm:text-[15px] text-paper/80 leading-relaxed max-w-sm"
             >
-              {SITE.slogan}. Depuis 1995, nous distribuons chaque semaine des
-              colis alimentaires à plus de{" "}
-              <strong className="text-paper font-semibold">400 personnes</strong>{" "}
-              grâce à 40 bénévoles engagés.
+              Depuis 1992, nous distribuons chaque semaine des colis alimentaires
+              à plus de{" "}
+              <strong className="text-paper font-semibold">500 personnes</strong>{" "}
+              grâce à une trentaine de bénévoles engagés.
             </motion.p>
 
             {/* CTAs */}
