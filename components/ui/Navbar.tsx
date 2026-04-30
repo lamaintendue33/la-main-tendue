@@ -10,9 +10,11 @@ import { SITE } from "@/lib/constants"
 
 const links = [
   { href: "/", label: "Accueil" },
-  { href: "/histoire", label: "Notre histoire" },
-  { href: "/distribution", label: "Distribution" },
-  { href: "/aider", label: "Aider" },
+  { href: "/a-propos", label: "À propos" },
+  { href: "/activites", label: "Activités" },
+  { href: "/partenaires", label: "Partenaires" },
+  { href: "/temoignages", label: "Témoignages" },
+  { href: "/don", label: "Faire un don" },
   { href: "/contact", label: "Contact" },
 ]
 
