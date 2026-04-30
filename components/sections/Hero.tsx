@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { useRef } from "react"
+import { useRef, useState, useEffect, useMemo } from "react"
 import dynamic from "next/dynamic"
 import { SITE } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
@@ -67,9 +67,19 @@ function StarDoodle({ className }: { className?: string }) {
 
 const words = ["La", "Main", "Tendue"]
 
+const rotatingVerbs = ["Nourrir", "Écouter", "Soutenir", "Partager", "Fédérer"]
+
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true })
+
+  const [verbIndex, setVerbIndex] = useState(0)
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setVerbIndex((i) => (i + 1) % rotatingVerbs.length)
+    }, 2200)
+    return () => clearTimeout(id)
+  }, [verbIndex])
 
   return (
     <section className="pt-14 md:pt-16 pb-4 px-4 md:px-8 bg-paper">
@@ -123,8 +133,29 @@ export default function Hero() {
               ))}
             </h1>
 
+            {/* Verbe rotatif — slot machine vertical */}
+            <div className="relative mt-3 h-[3.2rem] overflow-hidden" aria-live="polite" aria-atomic="true">
+              <span className="sr-only">{rotatingVerbs[verbIndex]}</span>
+              {rotatingVerbs.map((verb, i) => (
+                <motion.span
+                  key={verb}
+                  aria-hidden
+                  className="absolute left-0 font-display text-[2.6rem] sm:text-[3.2rem] font-semibold leading-none text-terracotta"
+                  initial={{ opacity: 0, y: 60 }}
+                  animate={
+                    verbIndex === i
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: 0, y: verbIndex > i ? -60 : 60 }
+                  }
+                  transition={{ type: "spring", stiffness: 80, damping: 16 }}
+                >
+                  {verb}
+                </motion.span>
+              ))}
+            </div>
+
             {/* Trait gribouillé */}
-            <ScribbleLine className="relative mt-4 text-terracotta/90" />
+            <ScribbleLine className="relative mt-2 text-terracotta/90" />
 
             {/* Description */}
             <motion.p
