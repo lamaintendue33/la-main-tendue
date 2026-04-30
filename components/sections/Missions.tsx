@@ -7,67 +7,120 @@ import { MISSIONS } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 
 const icons = { HeartHandshake, Users, Sparkles } as const
-const tapeAngles = ["rotate-[-3deg]", "rotate-[2deg]", "rotate-[-1.5deg]"]
-const slideX = [-30, 0, 30] // alternating slide direction
 
-function MissionCard({ mission, index }: { mission: (typeof MISSIONS)[number]; index: number }) {
+// Couleurs post-it légèrement différenciées dans la palette kraft
+const postItColors = ["#faf7f0", "#f5efe0", "#ede5ce"]
+// Rotations permanentes — chaque note légèrement de travers
+const finalRotations = [-2.8, 1.6, -1.0]
+// Scotch : angle + position unique par note
+const tapeProps = [
+  { angle: "rotate-[-5deg]", x: "left-8" },
+  { angle: "rotate-[4deg]",  x: "left-1/2 -translate-x-1/2" },
+  { angle: "rotate-[-3deg]", x: "right-10" },
+]
+
+function PostIt({
+  mission,
+  index,
+}: {
+  mission: (typeof MISSIONS)[number]
+  index: number
+}) {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, amount: 0.12 })
+  const inView = useInView(ref, { once: true, amount: 0.1 })
   const Icon = icons[mission.iconKey as keyof typeof icons]
 
   return (
     <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 36, x: slideX[index] }}
-      animate={inView ? { opacity: 1, y: 0, x: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -6, boxShadow: "6px 14px 0 0 rgba(184,58,42,0.13)" }}
-      whileTap={{ scale: 0.98 }}
-      className="relative bg-white border border-rule p-7 md:p-9 shadow-[4px_6px_0_0_rgba(28,18,9,0.07)] transition-shadow duration-300 cursor-default"
+      initial={{ opacity: 0, y: -80, rotate: finalRotations[index] - 4 }}
+      animate={inView ? { opacity: 1, y: 0, rotate: finalRotations[index] } : {}}
+      transition={{
+        type: "spring",
+        stiffness: 90,
+        damping: 13,
+        delay: index * 0.18,
+      }}
+      whileHover={{
+        rotate: 0,
+        y: -10,
+        scale: 1.03,
+        zIndex: 10,
+        boxShadow: "8px 20px 48px rgba(28,18,9,0.22)",
+        transition: { type: "spring", stiffness: 260, damping: 20 },
+      }}
+      style={{
+        backgroundColor: postItColors[index],
+        position: "relative",
+      }}
+      className="relative p-7 pb-10 shadow-[4px_10px_28px_rgba(28,18,9,0.13)] cursor-default"
     >
-      {/* Scotch */}
+      {/* Scotch tape */}
       <motion.span
         aria-hidden
         initial={{ scaleX: 0, opacity: 0 }}
         animate={inView ? { scaleX: 1, opacity: 1 } : {}}
-        transition={{ duration: 0.4, delay: index * 0.14 + 0.3 }}
-        className={`absolute -top-3.5 left-8 block h-6 w-20 bg-clay/55 origin-left ${tapeAngles[index]}`}
+        transition={{ duration: 0.35, delay: index * 0.18 + 0.25 }}
+        className={`absolute -top-4 ${tapeProps[index].x} block h-7 w-20 bg-clay/60 origin-center ${tapeProps[index].angle}`}
+        style={{ backdropFilter: "blur(1px)" }}
       />
 
-      {/* Trait gauche */}
-      <motion.span
-        initial={{ scaleY: 0 }}
-        animate={inView ? { scaleY: 1 } : {}}
-        transition={{ duration: 0.5, delay: index * 0.14 + 0.2, ease: "easeOut" }}
-        className="absolute top-0 left-0 bottom-0 w-1 bg-terracotta origin-top"
-      />
+      {/* Lede — petite étiquette catégorie */}
+      <span className="inline-block mb-4 text-[9px] uppercase tracking-[0.28em] font-semibold text-ink-soft/70 border border-rule px-2 py-0.5">
+        {mission.lede}
+      </span>
 
       {/* Icône */}
       <motion.div
         initial={{ scale: 0, rotate: -20 }}
         animate={inView ? { scale: 1, rotate: 0 } : {}}
-        transition={{ type: "spring", stiffness: 220, damping: 14, delay: index * 0.14 + 0.35 }}
-        whileHover={{ rotate: 12, scale: 1.1 }}
-        className="w-12 h-12 rounded-full bg-teal/10 border border-teal/20 flex items-center justify-center mb-5"
+        transition={{ type: "spring", stiffness: 220, damping: 14, delay: index * 0.18 + 0.35 }}
+        className="w-11 h-11 rounded-full bg-teal/10 border border-teal/20 flex items-center justify-center mb-5"
       >
         <Icon size={20} strokeWidth={1.8} className="text-teal" />
       </motion.div>
 
       {/* Numéro fantôme */}
-      <div className="font-display text-6xl text-ink/[0.12] leading-none mb-1 select-none">
+      <div className="font-display text-7xl text-ink/[0.07] leading-none select-none -mb-2">
         {mission.num}
       </div>
 
-      <h3 className="font-display text-3xl text-ink leading-tight mb-3">{mission.title}</h3>
+      {/* Titre */}
+      <h3 className="font-display text-[2rem] text-ink leading-tight mb-2">
+        {mission.title}
+      </h3>
 
-      <motion.span
-        initial={{ scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : {}}
-        transition={{ duration: 0.5, delay: index * 0.14 + 0.5 }}
-        className="block h-px w-10 bg-terracotta mb-4 origin-left"
+      {/* Trait gribouillé manuscrit */}
+      <svg
+        aria-hidden
+        width="56"
+        height="8"
+        viewBox="0 0 56 8"
+        fill="none"
+        className="mb-4 text-terracotta/50"
+      >
+        <path
+          d="M2 5 Q14 2 28 5 Q42 8 54 5"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+        />
+      </svg>
+
+      {/* Description */}
+      <p className="text-[13px] sm:text-[14px] text-ink/65 leading-relaxed">
+        {mission.description}
+      </p>
+
+      {/* Coin plié en bas à droite */}
+      <span
+        aria-hidden
+        className="absolute bottom-0 right-0 w-8 h-8"
+        style={{
+          background: `linear-gradient(225deg, rgba(180,160,120,0.18) 50%, transparent 50%)`,
+        }}
       />
-
-      <p className="text-[14px] text-ink-soft leading-relaxed">{mission.description}</p>
     </motion.article>
   )
 }
@@ -77,14 +130,26 @@ export default function Missions() {
   const inView = useInView(ref, { once: true, amount: 0.1 })
 
   return (
-    <section className="py-20 md:py-28 px-4 md:px-8 bg-paper">
+    <section className="py-20 md:py-32 px-4 md:px-8 bg-cream-soft">
+      {/* Texture fond liège subtil */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, #6b4e2a 1px, transparent 1px)",
+          backgroundSize: "18px 18px",
+        }}
+      />
+
       <div className="max-w-[1100px] mx-auto">
-        <div className="mb-14" ref={ref}>
+        {/* En-tête */}
+        <div className="mb-20 md:mb-24 text-center" ref={ref}>
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="mb-3"
+            className="inline-block mb-3"
           >
             <AnimatedShinyText
               shimmerWidth={90}
@@ -93,6 +158,7 @@ export default function Missions() {
               Notre mission
             </AnimatedShinyText>
           </motion.div>
+
           <div className="overflow-hidden">
             <motion.h2
               initial={{ y: "100%" }}
@@ -100,23 +166,35 @@ export default function Missions() {
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="font-display text-5xl md:text-6xl text-ink leading-[1.0]"
             >
-              Nourrir, écouter,<br />fédérer.
+              Nourrir, écouter,
+              <br />
+              fédérer.
             </motion.h2>
           </div>
+
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-5 text-[15px] text-ink-soft leading-relaxed max-w-xl"
+            className="mt-5 text-[15px] text-ink-soft leading-relaxed max-w-xl mx-auto"
           >
-            Depuis 30 ans, nous tendons la main à celles et ceux que la précarité alimentaire frappe.
-            Trois engagements guident nos gestes du quotidien.
+            Depuis 30 ans, nous tendons la main à celles et ceux que la
+            précarité alimentaire frappe. Trois engagements guident nos gestes
+            du quotidien.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+        {/* Post-its — décalés verticalement sur desktop pour l'effet tableau */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-8 md:items-start">
           {MISSIONS.map((m, i) => (
-            <MissionCard key={m.title} mission={m} index={i} />
+            <div
+              key={m.title}
+              className={
+                i === 1 ? "md:mt-10" : i === 2 ? "md:mt-4" : ""
+              }
+            >
+              <PostIt mission={m} index={i} />
+            </div>
           ))}
         </div>
       </div>
