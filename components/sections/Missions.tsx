@@ -47,9 +47,9 @@ function MissionCard({ mission, index }: { mission: (typeof MISSIONS)[number]; i
         animate={inView ? { scale: 1, rotate: 0 } : {}}
         transition={{ type: "spring", stiffness: 220, damping: 14, delay: index * 0.14 + 0.35 }}
         whileHover={{ rotate: 12, scale: 1.1 }}
-        className="w-12 h-12 rounded-full bg-terracotta/10 border border-terracotta/20 flex items-center justify-center mb-5"
+        className="w-12 h-12 rounded-full bg-teal/10 border border-teal/20 flex items-center justify-center mb-5"
       >
-        <Icon size={20} strokeWidth={1.8} className="text-terracotta" />
+        <Icon size={20} strokeWidth={1.8} className="text-teal" />
       </motion.div>
 
       {/* Numéro fantôme */}

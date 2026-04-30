@@ -2,25 +2,32 @@
 
 @theme {
   /* ────────────────────────────────────────────────
-     Palette Carnet — Kraft · Encre · Terracotta
+     Palette Logo — Bleu · Teal · Orange · Kraft
+     Couleurs extraites du logo officiel La Main Tendue
      ──────────────────────────────────────────────── */
 
   /* Textes */
-  --color-ink: #1c1209;
-  --color-ink-soft: #6b5744;
-  --color-olive: #4a3520;
+  --color-ink: #12263a;
+  --color-ink-soft: #4a6278;
+  --color-olive: #2b5f8e;
 
-  /* DOMINANT : brun foncé encre (sections sombres) */
-  --color-sage: #2a1f14;
-  --color-sage-deep: #1a120b;
-  --color-sage-soft: #7a5c3c;
+  /* DOMINANT : bleu institutionnel (sections sombres) */
+  --color-sage: #1a3a5c;
+  --color-sage-deep: #0f2840;
+  --color-sage-soft: #2b5f8e;
 
-  /* ACCENT : rouge brique */
-  --color-terracotta: #b83a2a;
-  --color-terracotta-soft: #d4614f;
+  /* ACCENT CHAUD : orange du logo (silhouette droite) */
+  --color-terracotta: #c87028;
+  --color-terracotta-soft: #d98c3e;
+
+  /* ACCENT FROID : teal du logo (silhouette gauche) */
+  --color-teal: #3a8c8c;
+  --color-teal-soft: #5aacac;
+
+  /* DÉCORATIF : scotch / tape */
   --color-clay: #c9a96e;
 
-  /* BACKGROUNDS : papier kraft */
+  /* BACKGROUNDS : papier kraft (inchangés) */
   --color-paper: #f2ead6;
   --color-cream: #faf7f0;
   --color-cream-soft: #ede5ce;

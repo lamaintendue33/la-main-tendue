@@ -21,7 +21,7 @@ export default function Ticker() {
             key={i}
             className="inline-flex items-center gap-3 font-display text-2xl md:text-3xl text-ink/80"
           >
-            <Icon size={18} strokeWidth={1.6} className="text-terracotta" />
+            <Icon size={18} strokeWidth={1.6} className="text-teal" />
             {label}
             <span className="mx-6 text-rule">✦</span>
           </span>
