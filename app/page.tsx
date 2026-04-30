@@ -13,12 +13,14 @@ export default function Home() {
       {/* paper → cream-soft */}
       <WaveDivider top="text-paper" bottom="bg-cream-soft" variant="gentle" />
       <Ticker />
-      {/* cream-soft → paper */}
-      <WaveDivider top="text-cream-soft" bottom="bg-paper" variant="choppy" />
+      {/* cream-soft → sage */}
+      <WaveDivider top="text-cream-soft" bottom="bg-sage" variant="choppy" />
       <Missions />
+      {/* sage → paper */}
+      <WaveDivider top="text-sage" bottom="bg-paper" variant="organic" />
       <BoutiqueSection />
       {/* paper → sage */}
-      <WaveDivider top="text-paper" bottom="bg-sage" variant="organic" />
+      <WaveDivider top="text-paper" bottom="bg-sage" variant="gentle" />
       <Stats />
       {/* sage → cream-soft */}
       <WaveDivider top="text-sage" bottom="bg-cream-soft" variant="gentle" flip />

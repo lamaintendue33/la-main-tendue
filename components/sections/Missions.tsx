@@ -130,7 +130,7 @@ export default function Missions() {
   const inView = useInView(ref, { once: true, amount: 0.1 })
 
   return (
-    <section className="py-20 md:py-32 px-4 md:px-8 bg-cream-soft">
+    <section className="py-20 md:py-32 px-4 md:px-8 bg-sage paper-texture">
       {/* Texture fond liège subtil */}
       <div
         aria-hidden
@@ -153,7 +153,7 @@ export default function Missions() {
           >
             <AnimatedShinyText
               shimmerWidth={90}
-              className="text-[11px] uppercase tracking-[0.35em] text-ink-soft via-ink/80 font-semibold max-w-none mx-0"
+              className="text-[11px] uppercase tracking-[0.35em] text-paper/60 via-white/90 font-semibold max-w-none mx-0"
             >
               Notre mission
             </AnimatedShinyText>
@@ -164,7 +164,7 @@ export default function Missions() {
               initial={{ y: "100%" }}
               animate={inView ? { y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-5xl md:text-6xl text-ink leading-[1.0]"
+              className="font-display text-5xl md:text-6xl text-paper leading-[1.0]"
             >
               Nourrir, écouter,
               <br />
@@ -176,7 +176,7 @@ export default function Missions() {
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-5 text-[15px] text-ink-soft leading-relaxed max-w-xl mx-auto"
+            className="mt-5 text-[15px] text-paper/65 leading-relaxed max-w-xl mx-auto"
           >
             Depuis 30 ans, nous tendons la main à celles et ceux que la
             précarité alimentaire frappe. Trois engagements guident nos gestes
