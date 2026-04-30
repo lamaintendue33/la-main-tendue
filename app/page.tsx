@@ -3,7 +3,6 @@ import Ticker from "@/components/sections/Ticker"
 import Missions from "@/components/sections/Missions"
 import Stats from "@/components/sections/Stats"
 import DonSteps from "@/components/sections/DonSteps"
-import Quote from "@/components/sections/Quote"
 import PhotoGallery from "@/components/sections/PhotoGallery"
 import WaveDivider from "@/components/ui/WaveDivider"
 
@@ -14,10 +13,7 @@ export default function Home() {
       {/* paper → cream-soft */}
       <WaveDivider top="text-paper" bottom="bg-cream-soft" variant="gentle" />
       <Ticker />
-      {/* cream-soft → paper */}
-      <WaveDivider top="text-cream-soft" bottom="bg-paper" variant="choppy" />
-      <Quote />
-      {/* paper → sage */}
+      {/* cream-soft → sage */}
       <WaveDivider top="text-paper" bottom="bg-sage" variant="organic" />
       <Missions />
       {/* sage → cream */}

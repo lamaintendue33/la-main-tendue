@@ -203,73 +203,73 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Droite — Polaroid (masqué sur très petit mobile) */}
+          {/* Droite — Citation */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="relative bg-cream-soft hidden sm:flex items-center justify-center px-8 py-10 md:py-14 overflow-hidden min-h-[300px]"
+            className="relative bg-cream-soft hidden sm:flex items-center justify-center px-10 md:px-14 py-12 md:py-16 overflow-hidden min-h-[300px]"
           >
             {/* Fond ligné */}
-            <span aria-hidden className="pointer-events-none absolute inset-0 opacity-40 notebook-lines" />
+            <span aria-hidden className="pointer-events-none absolute inset-0 opacity-35 notebook-lines" />
 
-            {/* Polaroid principal */}
-            <motion.div
-              className="relative z-10"
-              initial={{ rotate: -6, y: 20, opacity: 0 }}
-              animate={{ rotate: -2.5, y: 0, opacity: 1 }}
-              transition={{ duration: 0.9, delay: 0.6, type: "spring", stiffness: 120, damping: 14 }}
-            >
-              <div className="relative shadow-[6px_10px_40px_rgba(28,18,9,0.2)]">
-                <motion.span
-                  aria-hidden
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.4, delay: 1 }}
-                  className="absolute -top-3.5 left-1/2 -translate-x-1/2 block h-6 w-20 bg-clay/55 rotate-[1deg] z-20 origin-left"
-                />
-                <div className="bg-white p-3 pb-10 w-52 sm:w-60 border border-stone/40">
-                  <div className="w-full aspect-square bg-stone/30 flex flex-col items-center justify-center gap-2">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" className="text-ink-soft/40">
-                      <rect x="4" y="8" width="36" height="28" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                      <circle cx="22" cy="22" r="7" stroke="currentColor" strokeWidth="1.5" />
-                      <circle cx="34" cy="13" r="2" fill="currentColor" opacity="0.5" />
-                    </svg>
-                    <span className="text-[10px] text-ink-soft/50 font-medium uppercase tracking-wider">
-                      Photo à venir
-                    </span>
-                  </div>
-                  <p className="mt-3 text-center font-display text-xl text-ink/60">
-                    Nos bénévoles ✦
-                  </p>
-                </div>
-              </div>
+            {/* Scotch en haut */}
+            <motion.span
+              aria-hidden
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.8 }}
+              className="absolute top-6 left-1/2 -translate-x-1/2 block h-7 w-24 bg-clay/55 rotate-[1deg] origin-left"
+            />
 
-              {/* Petit polaroid arrière */}
-              <motion.div
-                className="absolute -bottom-4 -right-8 z-0"
-                initial={{ rotate: 8, opacity: 0 }}
-                animate={{ rotate: 5, opacity: 0.65 }}
-                transition={{ duration: 0.7, delay: 0.9 }}
+            {/* Contenu de la note */}
+            <div className="relative z-10 max-w-xs md:max-w-sm">
+              {/* Grand guillemet décoratif */}
+              <motion.span
+                aria-hidden
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
+                className="block font-display text-[6rem] leading-none text-terracotta/20 select-none -mb-6 -ml-2"
               >
-                <div className="bg-white p-2 pb-6 w-28 border border-stone/30 shadow-sm">
-                  <div className="w-full aspect-square bg-stone/20" />
-                </div>
-              </motion.div>
-            </motion.div>
+                "
+              </motion.span>
 
-            <StarDoodle className="absolute top-6 right-6 text-ink/20" />
-            <motion.div
-              className="absolute bottom-10 left-6"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.35, scale: 0.75 }}
-              transition={{ delay: 1.3, type: "spring" }}
-            >
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M16 3l2.8 8.6H28l-7.4 5.4 2.8 8.6L16 20.2l-7.4 5.4 2.8-8.6L4 11.6h9.2z"
-                  stroke="#b83a2a" strokeWidth="1.5" strokeLinejoin="round" />
-              </svg>
-            </motion.div>
+              {/* Citation */}
+              <motion.blockquote
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="font-display text-[1.35rem] md:text-[1.5rem] text-ink leading-[1.35]"
+              >
+                {SITE.quote}
+              </motion.blockquote>
+
+              {/* Trait gribouillé */}
+              <motion.svg
+                aria-hidden
+                width="60" height="8" viewBox="0 0 60 8" fill="none"
+                className="mt-5 text-terracotta/50"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.1 }}
+              >
+                <path d="M2 5 Q15 2 30 5 Q45 8 58 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+              </motion.svg>
+
+              {/* Attribution */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.2 }}
+                className="mt-3 text-[10px] uppercase tracking-[0.25em] text-ink-soft/70 font-semibold"
+              >
+                La Main Tendue · Eysines
+              </motion.p>
+            </div>
+
+            {/* Étoile déco coin */}
+            <StarDoodle className="absolute bottom-6 right-6 text-ink/15" />
           </motion.div>
         </div>
 
@@ -281,9 +281,9 @@ export default function Hero() {
           className="grid grid-cols-3 border-x border-b border-rule bg-cream"
         >
           {[
-            { value: "400+", label: "personnes / semaine" },
+            { value: "500+", label: "personnes / semaine" },
             { value: "30 ans", label: "d'engagement" },
-            { value: "40", label: "bénévoles" },
+            { value: "160", label: "colis / mercredi" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
