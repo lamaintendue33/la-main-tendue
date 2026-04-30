@@ -4,7 +4,18 @@ import { motion, useInView } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useRef } from "react"
+import dynamic from "next/dynamic"
 import { SITE } from "@/lib/constants"
+
+// Chargement client-side uniquement (WebGL ne tourne pas côté serveur)
+const ShaderBackground = dynamic(
+  () => import("@/components/ui/hero").then((m) => m.ShaderBackground),
+  { ssr: false }
+)
+const ShaderPulse = dynamic(
+  () => import("@/components/ui/hero").then((m) => m.ShaderPulse),
+  { ssr: false }
+)
 
 function TapeStrip({ className }: { className?: string }) {
   return (
@@ -71,7 +82,10 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="relative bg-sage text-paper flex flex-col justify-center px-7 sm:px-12 md:px-16 py-10 md:py-16 overflow-hidden paper-texture"
           >
-            {/* Lignes cahier */}
+            {/* Shader mesh gradient — s'affiche par dessus bg-sage (fallback SSR) */}
+            <ShaderBackground />
+
+            {/* Lignes cahier — texture par dessus le shader */}
             <span aria-hidden className="pointer-events-none absolute inset-0 opacity-10 notebook-lines" />
 
             {/* Scotch */}
@@ -145,7 +159,11 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            <StarDoodle className="absolute bottom-6 right-8 text-paper/15" />
+            {/* PulsingBorder décoratif — remplace le star doodle */}
+            <ShaderPulse
+              className="absolute bottom-5 right-6 opacity-80"
+              style={{ width: "52px", height: "52px", borderRadius: "50%" }}
+            />
           </motion.div>
 
           {/* Droite — Polaroid (masqué sur très petit mobile) */}
