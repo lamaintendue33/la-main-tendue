@@ -57,18 +57,19 @@ function AnimatedTimelineLine() {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 0.85", "end 0.5"],
+    offset: ["start end", "end start"],
   })
-  const scaleY = useSpring(scrollYProgress, { stiffness: 60, damping: 20 })
+  const rawProgress = useSpring(scrollYProgress, { stiffness: 40, damping: 22 })
+  const lineHeight  = useTransform(rawProgress, [0, 1], ["0%", "100%"])
 
   return (
-    <div ref={ref} className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 overflow-hidden pointer-events-none">
-      {/* Fond pâle */}
+    <div ref={ref} className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 pointer-events-none">
+      {/* Fond pâle toujours visible */}
       <div className="absolute inset-0 bg-sage/15" />
-      {/* Ligne qui monte au scroll */}
+      {/* Ligne qui se dessine du haut vers le bas au scroll */}
       <motion.div
-        style={{ scaleY, transformOrigin: "top" }}
-        className="absolute inset-0 bg-sage/60"
+        style={{ height: lineHeight }}
+        className="absolute top-0 left-0 right-0 bg-sage"
       />
     </div>
   )

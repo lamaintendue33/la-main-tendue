@@ -267,9 +267,9 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.0 }}
-              className="relative mt-4 text-[11px] text-ink-soft/55 leading-relaxed"
+              className="relative mt-4 text-[10px] uppercase tracking-[0.14em] text-ink-soft/40 leading-relaxed"
             >
-              🚌 Bus 2, 38, 76 · 🚃 Tram · Parking devant l'association
+              Bus 2, 38, 76 · Tram · Parking devant l'association
             </motion.p>
           </motion.div>
         </div>
