@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useInView, useScroll, useSpring } from "framer-motion"
+import { motion, useInView, useScroll, useSpring, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { TIMELINE } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
@@ -59,17 +59,14 @@ function AnimatedTimelineLine() {
     target: ref,
     offset: ["start end", "end start"],
   })
-  const rawProgress = useSpring(scrollYProgress, { stiffness: 40, damping: 22 })
-  const lineHeight  = useTransform(rawProgress, [0, 1], ["0%", "100%"])
+  const scaleY = useSpring(scrollYProgress, { stiffness: 40, damping: 22 })
 
   return (
     <div ref={ref} className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 pointer-events-none">
-      {/* Fond pâle toujours visible */}
       <div className="absolute inset-0 bg-sage/15" />
-      {/* Ligne qui se dessine du haut vers le bas au scroll */}
       <motion.div
-        style={{ height: lineHeight }}
-        className="absolute top-0 left-0 right-0 bg-sage"
+        style={{ scaleY, transformOrigin: "top" }}
+        className="absolute inset-0 bg-sage"
       />
     </div>
   )
