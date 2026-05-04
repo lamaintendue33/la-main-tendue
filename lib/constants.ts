@@ -13,7 +13,7 @@ export const SITE = {
   emailHref: "mailto:lamaintendue33@gmail.com",
   facebook: "https://www.facebook.com/lamaintendue33",
   blog: "https://lamaintendue33.wordpress.com/",
-  helloasso: "https://www.helloasso.com",
+  helloasso: "https://www.helloasso.com/associations/la-main-tendue-33/collectes/un-fourgon-pour-nourrir-750-personnes-chaque-semaine",
   siret: "—",
   founded: "1992",
   foundedOfficial: "1995",

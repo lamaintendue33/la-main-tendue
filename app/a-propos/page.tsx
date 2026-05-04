@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, useScroll, useSpring } from "framer-motion"
 import { useRef } from "react"
 import { TIMELINE } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
@@ -49,6 +49,27 @@ function TimelineItem({
         />
         {!isLast && <div className="w-px flex-1 bg-rule min-h-[60px]" />}
       </div>
+    </div>
+  )
+}
+
+function AnimatedTimelineLine() {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.85", "end 0.5"],
+  })
+  const scaleY = useSpring(scrollYProgress, { stiffness: 60, damping: 20 })
+
+  return (
+    <div ref={ref} className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 overflow-hidden pointer-events-none">
+      {/* Fond pâle */}
+      <div className="absolute inset-0 bg-sage/15" />
+      {/* Ligne qui monte au scroll */}
+      <motion.div
+        style={{ scaleY, transformOrigin: "top" }}
+        className="absolute inset-0 bg-sage/60"
+      />
     </div>
   )
 }
@@ -103,9 +124,10 @@ export default function HistoirePage() {
       {/* ── Timeline ── */}
       <section className="py-20 md:py-28 px-4 md:px-8">
         <div className="max-w-[860px] mx-auto">
-          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-rule pointer-events-none" />
+          <AnimatedTimelineLine />
           <div className="flex flex-col gap-10 md:gap-0 relative">
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-rule md:hidden" />
+            {/* Ligne mobile — bleue et fine */}
+            <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-sage/40 md:hidden" />
             {TIMELINE.map((item, i) => (
               <TimelineItem
                 key={item.year}

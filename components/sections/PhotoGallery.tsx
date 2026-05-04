@@ -69,7 +69,7 @@ function PolaroidPhoto({
         boxShadow: "10px 18px 48px rgba(28,18,9,0.25)",
         transition: { type: "spring", stiffness: 240, damping: 18 },
       }}
-      className="relative bg-white p-3 pb-10 shadow-[4px_8px_24px_rgba(28,18,9,0.14)] cursor-default"
+      className="relative bg-white p-3 pb-3 shadow-[4px_8px_24px_rgba(28,18,9,0.14)] cursor-default"
     >
       {/* Scotch */}
       <span
@@ -87,11 +87,6 @@ function PolaroidPhoto({
           sizes="(max-width: 640px) 85vw, (max-width: 1024px) 40vw, 280px"
         />
       </div>
-
-      {/* Légende */}
-      <p className="mt-2 text-center font-display text-lg text-ink/70">
-        {caption} ✦
-      </p>
     </motion.div>
   )
 }

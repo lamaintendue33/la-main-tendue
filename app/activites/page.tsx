@@ -195,30 +195,108 @@ export default function DistributionPage() {
         </div>
       </section>
 
-      {/* ── Galerie ── */}
-      <section className="py-12 px-4 md:px-8 bg-cream-soft overflow-hidden">
+      {/* ── Galerie éditoriale ── */}
+      <section className="py-16 md:py-20 px-4 md:px-8 bg-cream-soft overflow-hidden">
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            {galleryPhotos.map((photo, i) => (
-              <motion.div
-                key={photo.src}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ scale: 1.02, zIndex: 10 }}
-                className={`relative overflow-hidden ${i === 0 ? "aspect-[3/4]" : "aspect-square"}`}
-              >
+
+          {/* En-tête */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+            className="mb-8"
+          >
+            <p className="text-[11px] uppercase tracking-[0.35em] text-ink-soft font-semibold mb-2">En images</p>
+            <h2 className="font-display text-3xl md:text-4xl text-ink">Dans nos locaux</h2>
+          </motion.div>
+
+          {/* Grille masonry 2 lignes */}
+          <div className="grid grid-cols-2 md:grid-cols-12 gap-3 md:gap-4">
+
+            {/* Photo 1 — grande gauche, couvre 2 rangées */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="col-span-1 md:col-span-7 md:row-span-2 relative group overflow-hidden border-2 border-rule"
+              style={{ aspectRatio: "auto" }}
+            >
+              <div className="relative w-full h-full min-h-[220px] md:min-h-[420px]">
                 <Image
-                  src={photo.src}
-                  alt={photo.alt}
+                  src={galleryPhotos[0].src}
+                  alt={galleryPhotos[0].alt}
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  sizes="(max-width: 768px) 50vw, 58vw"
                 />
-              </motion.div>
-            ))}
+                {/* Overlay hover */}
+                <div className="absolute inset-0 bg-sage/0 group-hover:bg-sage/25 transition-colors duration-500" />
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-terracotta/60 transition-colors duration-500" />
+              </div>
+            </motion.div>
+
+            {/* Photo 2 — petite haute droite */}
+            <motion.div
+              initial={{ opacity: 0, y: -16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="col-span-1 md:col-span-5 relative aspect-square group overflow-hidden border-2 border-rule"
+            >
+              <Image
+                src={galleryPhotos[1].src}
+                alt={galleryPhotos[1].alt}
+                fill
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                sizes="(max-width: 768px) 50vw, 42vw"
+              />
+              <div className="absolute inset-0 bg-terracotta/0 group-hover:bg-terracotta/15 transition-colors duration-500" />
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-terracotta/50 transition-colors duration-500" />
+            </motion.div>
+
+            {/* Photo 3 — petite basse droite */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="col-span-1 md:col-span-5 relative aspect-square group overflow-hidden border-2 border-rule"
+            >
+              <Image
+                src={galleryPhotos[2].src}
+                alt={galleryPhotos[2].alt}
+                fill
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                sizes="(max-width: 768px) 50vw, 42vw"
+              />
+              <div className="absolute inset-0 bg-sage/0 group-hover:bg-sage/20 transition-colors duration-500" />
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-sage/50 transition-colors duration-500" />
+            </motion.div>
           </div>
+
+          {/* Photo 4 — bandeau pleine largeur */}
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0.94 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-3 md:mt-4 relative aspect-[21/6] group overflow-hidden border-2 border-rule"
+          >
+            <Image
+              src={galleryPhotos[3].src}
+              alt={galleryPhotos[3].alt}
+              fill
+              className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-terracotta/0 group-hover:bg-terracotta/10 transition-colors duration-500" />
+            {/* Numéro flottant */}
+            <div className="absolute bottom-3 right-4 font-display text-[10px] uppercase tracking-[0.3em] text-paper/70 bg-sage/50 backdrop-blur-sm px-3 py-1">
+              Nos réserves
+            </div>
+          </motion.div>
         </div>
       </section>
 
