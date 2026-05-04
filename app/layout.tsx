@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter, Playfair_Display } from "next/font/google"
+import { Inter, Lora } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/ui/Navbar"
 import Footer from "@/components/ui/Footer"
@@ -10,9 +10,9 @@ import JsonLd from "@/components/ui/JsonLd"
 import { SITE } from "@/lib/constants"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" })
-const playfair = Playfair_Display({
+const lora = Lora({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-lora",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 })
@@ -62,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="fr" className={`${inter.variable} ${lora.variable}`}>
       <body className="min-h-screen flex flex-col antialiased bg-paper text-ink">
         <JsonLd />
         <ScrollProgress />
