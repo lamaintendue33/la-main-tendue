@@ -2,13 +2,12 @@
 
 import { motion, useInView } from "framer-motion"
 import Link from "next/link"
-import { ArrowRight, Heart } from "lucide-react"
+import { ArrowRight, Heart, Clock, MapPin, Phone, Mail } from "lucide-react"
 import { useRef, useState, useEffect } from "react"
 import dynamic from "next/dynamic"
 import { SITE } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 
-// Chargement client-side uniquement (WebGL ne tourne pas côté serveur)
 const ShaderBackground = dynamic(
   () => import("@/components/ui/hero").then((m) => m.ShaderBackground),
   { ssr: false }
@@ -47,37 +46,40 @@ function ScribbleLine({ className }: { className?: string }) {
   )
 }
 
-function StarDoodle({ className }: { className?: string }) {
-  return (
-    <motion.svg
-      aria-hidden
-      width="32" height="32" viewBox="0 0 32 32" fill="none"
-      className={className}
-      initial={{ opacity: 0, scale: 0, rotate: -30 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-      transition={{ duration: 0.6, delay: 1.2, type: "spring", stiffness: 200 }}
-    >
-      <path
-        d="M16 3l2.8 8.6H28l-7.4 5.4 2.8 8.6L16 20.2l-7.4 5.4 2.8-8.6L4 11.6h9.2z"
-        stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
-      />
-    </motion.svg>
-  )
-}
-
-const words = ["La", "Main", "Tendue"]
-
 const rotatingVerbs = ["Nourrir", "Écouter", "Soutenir", "Partager", "Fédérer"]
 
+const INFO_ROWS = [
+  {
+    Icon: Clock,
+    label: "Distribution",
+    lines: ["Mercredi 11h00 – 12h00", "Mercredi 13h30 – 17h00"],
+  },
+  {
+    Icon: MapPin,
+    label: "Adresse",
+    lines: [SITE.address],
+  },
+  {
+    Icon: Phone,
+    label: "Téléphone",
+    lines: [SITE.phone],
+    href: SITE.phoneHref,
+  },
+  {
+    Icon: Mail,
+    label: "Email",
+    lines: [SITE.email],
+    href: SITE.emailHref,
+  },
+]
+
 export default function Hero() {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref    = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true })
 
   const [verbIndex, setVerbIndex] = useState(0)
   useEffect(() => {
-    const id = setTimeout(() => {
-      setVerbIndex((i) => (i + 1) % rotatingVerbs.length)
-    }, 2200)
+    const id = setTimeout(() => setVerbIndex((i) => (i + 1) % rotatingVerbs.length), 2200)
     return () => clearTimeout(id)
   }, [verbIndex])
 
@@ -86,20 +88,15 @@ export default function Hero() {
       <div className="max-w-[1300px] mx-auto" ref={ref}>
         <div className="grid grid-cols-1 md:grid-cols-[55%_45%] border border-rule overflow-hidden shadow-[6px_8px_0_0_rgba(28,18,9,0.08)]">
 
-          {/* Gauche — Texte */}
+          {/* ── Gauche — Poétique ──────────────────────────── */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="relative bg-sage text-paper flex flex-col justify-center px-7 sm:px-12 md:px-16 py-10 md:py-16 overflow-hidden paper-texture"
           >
-            {/* Shader mesh gradient — s'affiche par dessus bg-sage (fallback SSR) */}
             <ShaderBackground />
-
-            {/* Lignes cahier — texture par dessus le shader */}
             <span aria-hidden className="pointer-events-none absolute inset-0 opacity-10 notebook-lines" />
-
-            {/* Scotch */}
             <TapeStrip className="top-5 -left-2 w-24 rotate-[-8deg]" />
 
             {/* Eyebrow */}
@@ -117,23 +114,19 @@ export default function Hero() {
               </AnimatedShinyText>
             </motion.div>
 
-            {/* Titre — mot par mot */}
-            <h1 className="relative font-display leading-[0.92]">
-              {words.map((word, i) => (
-                <span key={word} className="block overflow-hidden">
-                  <motion.span
-                    className="block text-[3.25rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[5.5rem] text-paper"
-                    initial={{ y: "110%", opacity: 0 }}
-                    animate={inView ? { y: 0, opacity: 1 } : {}}
-                    transition={{ duration: 0.7, delay: 0.35 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    {word}
-                  </motion.span>
-                </span>
-              ))}
-            </h1>
+            {/* Titre — une seule ligne */}
+            <div className="overflow-hidden">
+              <motion.h1
+                className="relative font-display text-[2.8rem] sm:text-[3.5rem] md:text-[4rem] lg:text-[4.6rem] text-paper leading-none whitespace-nowrap"
+                initial={{ y: "110%", opacity: 0 }}
+                animate={inView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              >
+                La Main Tendue
+              </motion.h1>
+            </div>
 
-            {/* Verbe rotatif — slot machine vertical */}
+            {/* Verbe rotatif */}
             <div className="relative mt-3 h-[3.2rem] overflow-hidden" aria-live="polite" aria-atomic="true">
               <span className="sr-only">{rotatingVerbs[verbIndex]}</span>
               {rotatingVerbs.map((verb, i) => (
@@ -154,21 +147,17 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* Trait gribouillé */}
             <ScribbleLine className="relative mt-2 text-terracotta/90" />
 
-            {/* Description */}
-            <motion.p
+            {/* Citation poétique — remplace la description factuelle */}
+            <motion.blockquote
               initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.75 }}
-              className="relative mt-6 text-[14px] sm:text-[15px] text-paper/80 leading-relaxed max-w-sm"
+              transition={{ duration: 0.8, delay: 0.75 }}
+              className="relative mt-6 font-display text-[1.05rem] sm:text-[1.15rem] text-paper/80 leading-[1.45] italic max-w-sm"
             >
-              Depuis 1992, nous distribuons chaque semaine des colis alimentaires
-              à plus de{" "}
-              <strong className="text-paper font-semibold">500 personnes</strong>{" "}
-              grâce à une trentaine de bénévoles engagés.
-            </motion.p>
+              "{SITE.quote}"
+            </motion.blockquote>
 
             {/* CTAs */}
             <motion.div
@@ -197,22 +186,21 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            {/* PulsingBorder décoratif */}
             <ShaderPulse
               className="absolute bottom-5 right-6 opacity-80"
               style={{ width: "52px", height: "52px", borderRadius: "50%" }}
             />
           </motion.div>
 
-          {/* Droite — Citation */}
+          {/* ── Droite — Informations pratiques ───────────── */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="relative bg-cream-soft hidden sm:flex items-center justify-center px-10 md:px-14 py-12 md:py-16 overflow-hidden min-h-[300px]"
+            className="relative bg-cream-soft hidden sm:flex flex-col justify-center px-10 md:px-12 py-10 md:py-14 overflow-hidden min-h-[320px]"
           >
-            {/* Fond ligné */}
-            <span aria-hidden className="pointer-events-none absolute inset-0 opacity-35 notebook-lines" />
+            {/* Lignes de cahier */}
+            <span aria-hidden className="pointer-events-none absolute inset-0 opacity-30 notebook-lines" />
 
             {/* Scotch en haut */}
             <motion.span
@@ -220,61 +208,74 @@ export default function Hero() {
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.8 }}
-              className="absolute top-6 left-1/2 -translate-x-1/2 block h-7 w-24 bg-clay/55 rotate-[1deg] origin-left"
+              className="absolute top-5 left-1/2 -translate-x-1/2 block h-6 w-20 bg-clay/50 rotate-[1.5deg] origin-left"
             />
 
-            {/* Contenu de la note */}
-            <div className="relative z-10 max-w-xs md:max-w-sm">
-              {/* Grand guillemet décoratif */}
-              <motion.span
-                aria-hidden
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
-                className="block font-display text-[6rem] leading-none text-terracotta/20 select-none -mb-6 -ml-2"
-              >
-                "
-              </motion.span>
+            {/* Titre section */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="relative text-[10px] uppercase tracking-[0.3em] text-ink-soft/70 font-semibold mb-5"
+            >
+              Venir nous voir
+            </motion.p>
 
-              {/* Citation */}
-              <motion.blockquote
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-[1.35rem] md:text-[1.5rem] text-ink leading-[1.35]"
-              >
-                {SITE.quote}
-              </motion.blockquote>
+            {/* Lignes d'info */}
+            <div className="relative flex flex-col gap-4">
+              {INFO_ROWS.map(({ Icon, label, lines, href }, i) => (
+                <motion.div
+                  key={label}
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
+                  className="flex items-start gap-4"
+                >
+                  {/* Icône */}
+                  <div className="shrink-0 w-8 h-8 bg-sage/10 border border-sage/20 flex items-center justify-center mt-0.5">
+                    <Icon size={14} strokeWidth={1.8} className="text-sage" />
+                  </div>
 
-              {/* Trait gribouillé */}
-              <motion.svg
-                aria-hidden
-                width="60" height="8" viewBox="0 0 60 8" fill="none"
-                className="mt-5 text-terracotta/50"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.1 }}
-              >
-                <path d="M2 5 Q15 2 30 5 Q45 8 58 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-              </motion.svg>
-
-              {/* Attribution */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1.2 }}
-                className="mt-3 text-[10px] uppercase tracking-[0.25em] text-ink-soft/70 font-semibold"
-              >
-                La Main Tendue · Eysines
-              </motion.p>
+                  {/* Texte */}
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-ink-soft/60 font-semibold mb-0.5">
+                      {label}
+                    </p>
+                    {lines.map((line) =>
+                      href ? (
+                        <a
+                          key={line}
+                          href={href}
+                          className="block text-[13px] text-ink font-medium hover:text-terracotta transition-colors"
+                        >
+                          {line}
+                        </a>
+                      ) : (
+                        <p key={line} className="text-[13px] text-ink font-medium leading-snug">
+                          {line}
+                        </p>
+                      )
+                    )}
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
-            {/* Étoile déco coin */}
-            <StarDoodle className="absolute bottom-6 right-6 text-ink/15" />
+            {/* Séparateur + note accès */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2 }}
+              className="relative mt-6 pt-5 border-t border-rule/60"
+            >
+              <p className="text-[11px] text-ink-soft/60 leading-relaxed">
+                🚌 Bus 2, 38, 76 · 🚃 Tram · Parking devant l'association
+              </p>
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Stats rapides */}
+        {/* ── Stats rapides ──────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -285,7 +286,7 @@ export default function Hero() {
             { value: "500+", label: "personnes / semaine" },
             { value: "30 ans", label: "d'engagement" },
             { value: "160", label: "colis / mercredi" },
-          ].map((stat, i) => (
+          ].map((stat) => (
             <motion.div
               key={stat.label}
               className="flex flex-col items-center justify-center py-4 sm:py-5 px-2 text-center border-r border-rule last:border-r-0"
