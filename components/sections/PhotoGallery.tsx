@@ -1,44 +1,38 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import { useRef } from "react"
 
+// Images exclusives à l'accueil (pas utilisées sur /activites)
 const photos = [
   {
-    src: "/images/distribution/baguettes-caisses.jpg",
-    alt: "Baguettes empilées prêtes pour la distribution, caisses bleues en arrière-plan",
-    caption: "Préparation des colis",
-    rotate: "-1.5deg",
+    src: "/images/distribution/salle-distribution.jpg",
+    alt: "Vue d'ensemble de la salle de distribution — caisses bleues remplies de légumes frais",
+    caption: "Salle de distribution",
+    rotate: "-1.8deg",
     delay: 0,
   },
   {
-    src: "/images/distribution/caisses-legumes.jpg",
-    alt: "Salle remplie de caisses bleues chargées de légumes frais",
-    caption: "Jour de distribution",
-    rotate: "1.8deg",
+    src: "/images/distribution/preparation.jpg",
+    alt: "Bénévoles en train de préparer les colis alimentaires",
+    caption: "Préparation des colis",
+    rotate: "1.5deg",
     delay: 0.1,
   },
   {
-    src: "/images/distribution/etageres-frais.jpg",
-    alt: "Étagères avec yaourts, jus de fruits et produits frais",
-    caption: "Nos réserves",
-    rotate: "-0.8deg",
+    src: "/images/distribution/colis-prepares.jpg",
+    alt: "Colis alimentaires préparés et prêts à être distribués",
+    caption: "Colis prêts",
+    rotate: "-0.6deg",
     delay: 0.2,
   },
   {
-    src: "/images/distribution/etageres-secs.jpg",
-    alt: "Étagères de produits secs — pâtes, riz, conserves",
-    caption: "Produits secs",
-    rotate: "2.2deg",
+    src: "/images/distribution/etageres-frais-2.jpg",
+    alt: "Étagères garnies de produits frais pour la distribution",
+    caption: "Produits frais",
+    rotate: "2.0deg",
     delay: 0.3,
-  },
-  {
-    src: "/images/distribution/caisses-legumes-2.jpg",
-    alt: "Rangée de caisses bleues remplies de légumes et champignons frais",
-    caption: "Fruits & légumes frais",
-    rotate: "-1.2deg",
-    delay: 0.4,
   },
 ]
 
@@ -48,27 +42,32 @@ function PolaroidPhoto({
   caption,
   rotate,
   delay,
-}: (typeof photos)[number]) {
-  const ref = useRef<HTMLDivElement>(null)
+  index,
+}: (typeof photos)[number] & { index: number }) {
+  const ref    = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.15 })
+
+  // Décalage vertical alterné pour un effet naturel
+  const offsets = [0, 28, 8, 20]
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40, rotate: 0 }}
-      animate={inView ? { opacity: 1, y: 0, rotate } : {}}
+      style={{ marginTop: offsets[index] }}
+      initial={{ opacity: 0, y: 50, rotate: 0, scale: 0.95 }}
+      animate={inView ? { opacity: 1, y: 0, rotate, scale: 1 } : {}}
       transition={{
         type: "spring",
-        stiffness: 100,
+        stiffness: 90,
         damping: 14,
         delay,
       }}
       whileHover={{
-        scale: 1.04,
+        scale: 1.05,
         rotate: "0deg",
         zIndex: 20,
-        boxShadow: "8px 16px 40px rgba(28,18,9,0.22)",
-        transition: { type: "spring", stiffness: 260, damping: 20 },
+        boxShadow: "10px 18px 48px rgba(28,18,9,0.25)",
+        transition: { type: "spring", stiffness: 240, damping: 18 },
       }}
       className="relative bg-white p-3 pb-10 shadow-[4px_8px_24px_rgba(28,18,9,0.14)] cursor-default"
     >
@@ -79,13 +78,13 @@ function PolaroidPhoto({
       />
 
       {/* Photo */}
-      <div className="relative w-full aspect-square overflow-hidden bg-stone/20">
+      <div className="relative w-full aspect-square overflow-hidden">
         <Image
           src={src}
           alt={alt}
           fill
           className="object-cover"
-          sizes="(max-width: 640px) 85vw, (max-width: 1024px) 40vw, 260px"
+          sizes="(max-width: 640px) 85vw, (max-width: 1024px) 40vw, 280px"
         />
       </div>
 
@@ -98,28 +97,34 @@ function PolaroidPhoto({
 }
 
 export default function PhotoGallery() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, amount: 0.1 })
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const headRef    = useRef<HTMLDivElement>(null)
+  const inView     = useInView(headRef, { once: true, amount: 0.1 })
+
+  // Parallax léger sur le titre au scroll
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] })
+  const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"])
 
   return (
-    <section className="py-16 md:py-24 px-4 md:px-8 bg-cream overflow-hidden">
-      <div className="max-w-[1200px] mx-auto">
+    <section ref={sectionRef} className="py-16 md:py-24 px-4 md:px-8 bg-cream overflow-hidden">
+      <div className="max-w-[1100px] mx-auto">
 
         {/* En-tête */}
-        <div className="mb-14 md:mb-20" ref={ref}>
+        <div className="mb-14 md:mb-20" ref={headRef}>
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
             className="text-[11px] uppercase tracking-[0.35em] text-ink-soft font-semibold mb-3"
           >
             En images
           </motion.p>
           <div className="overflow-hidden">
             <motion.h2
-              initial={{ y: "100%" }}
-              animate={inView ? { y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              style={{ y: titleY }}
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="font-display text-4xl md:text-5xl text-ink"
             >
               Le quotidien de l'association
@@ -127,15 +132,10 @@ export default function PhotoGallery() {
           </div>
         </div>
 
-        {/* Grille polaroids */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8 items-start">
+        {/* Grille 4 polaroids */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 items-start">
           {photos.map((photo, i) => (
-            <div
-              key={photo.src}
-              className={i === 1 ? "mt-6" : i === 3 ? "mt-10" : i === 4 ? "mt-4" : ""}
-            >
-              <PolaroidPhoto {...photo} />
-            </div>
+            <PolaroidPhoto key={photo.src} {...photo} index={i} />
           ))}
         </div>
       </div>

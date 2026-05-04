@@ -48,31 +48,6 @@ function ScribbleLine({ className }: { className?: string }) {
 
 const rotatingVerbs = ["Nourrir", "Écouter", "Soutenir", "Partager", "Fédérer"]
 
-const INFO_ROWS = [
-  {
-    Icon: Clock,
-    label: "Distribution",
-    lines: ["Mercredi 11h00 – 12h00", "Mercredi 13h30 – 17h00"],
-  },
-  {
-    Icon: MapPin,
-    label: "Adresse",
-    lines: [SITE.address],
-  },
-  {
-    Icon: Phone,
-    label: "Téléphone",
-    lines: [SITE.phone],
-    href: SITE.phoneHref,
-  },
-  {
-    Icon: Mail,
-    label: "Email",
-    lines: [SITE.email],
-    href: SITE.emailHref,
-  },
-]
-
 export default function Hero() {
   const ref    = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true })
@@ -93,7 +68,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="relative bg-sage text-paper flex flex-col justify-center px-7 sm:px-12 md:px-16 py-10 md:py-16 overflow-hidden paper-texture"
+            className="relative bg-sage text-paper flex flex-col justify-center px-7 sm:px-10 md:px-14 py-10 md:py-16 overflow-hidden paper-texture"
           >
             <ShaderBackground />
             <span aria-hidden className="pointer-events-none absolute inset-0 opacity-10 notebook-lines" />
@@ -114,10 +89,10 @@ export default function Hero() {
               </AnimatedShinyText>
             </motion.div>
 
-            {/* Titre — une seule ligne */}
+            {/* Titre — une ligne, taille fluide */}
             <div className="overflow-hidden">
               <motion.h1
-                className="relative font-display text-[2.8rem] sm:text-[3.5rem] md:text-[4rem] lg:text-[4.6rem] text-paper leading-none whitespace-nowrap"
+                className="relative font-display text-[clamp(2.8rem,6vw,5rem)] text-paper leading-none"
                 initial={{ y: "110%", opacity: 0 }}
                 animate={inView ? { y: 0, opacity: 1 } : {}}
                 transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -127,13 +102,13 @@ export default function Hero() {
             </div>
 
             {/* Verbe rotatif */}
-            <div className="relative mt-3 h-[3.2rem] overflow-hidden" aria-live="polite" aria-atomic="true">
+            <div className="relative mt-4 h-[3.6rem] sm:h-[4rem] overflow-hidden" aria-live="polite" aria-atomic="true">
               <span className="sr-only">{rotatingVerbs[verbIndex]}</span>
               {rotatingVerbs.map((verb, i) => (
                 <motion.span
                   key={verb}
                   aria-hidden
-                  className="absolute left-0 font-display text-[2.6rem] sm:text-[3.2rem] font-semibold leading-none text-terracotta"
+                  className="absolute left-0 font-display text-[2.8rem] sm:text-[3.4rem] font-semibold leading-none text-terracotta"
                   initial={{ opacity: 0, y: 60 }}
                   animate={
                     verbIndex === i
@@ -149,12 +124,12 @@ export default function Hero() {
 
             <ScribbleLine className="relative mt-2 text-terracotta/90" />
 
-            {/* Citation poétique — remplace la description factuelle */}
+            {/* Citation poétique — plus grande */}
             <motion.blockquote
               initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.75 }}
-              className="relative mt-6 font-display text-[1.05rem] sm:text-[1.15rem] text-paper/80 leading-[1.45] italic max-w-sm"
+              className="relative mt-5 font-display text-[1.15rem] sm:text-[1.3rem] md:text-[1.4rem] text-paper/85 leading-[1.45] italic max-w-sm"
             >
               "{SITE.quote}"
             </motion.blockquote>
@@ -197,12 +172,12 @@ export default function Hero() {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="relative bg-cream-soft hidden sm:flex flex-col justify-center px-10 md:px-12 py-10 md:py-14 overflow-hidden min-h-[320px]"
+            className="relative bg-cream-soft hidden sm:flex flex-col justify-center px-8 md:px-10 py-10 md:py-14 overflow-hidden min-h-[320px]"
           >
             {/* Lignes de cahier */}
             <span aria-hidden className="pointer-events-none absolute inset-0 opacity-30 notebook-lines" />
 
-            {/* Scotch en haut */}
+            {/* Scotch */}
             <motion.span
               aria-hidden
               initial={{ scaleX: 0, opacity: 0 }}
@@ -211,71 +186,95 @@ export default function Hero() {
               className="absolute top-5 left-1/2 -translate-x-1/2 block h-6 w-20 bg-clay/50 rotate-[1.5deg] origin-left"
             />
 
-            {/* Titre section */}
+            {/* Intro factuelle */}
             <motion.p
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="relative text-[10px] uppercase tracking-[0.3em] text-ink-soft/70 font-semibold mb-5"
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="relative text-[13px] sm:text-[14px] text-ink/80 leading-relaxed mb-5"
             >
-              Venir nous voir
+              Depuis 1992, nous distribuons chaque semaine des colis alimentaires
+              à plus de{" "}
+              <strong className="text-ink font-semibold">500 personnes</strong>{" "}
+              grâce à une trentaine de bénévoles engagés.
             </motion.p>
 
-            {/* Lignes d'info */}
-            <div className="relative flex flex-col gap-4">
-              {INFO_ROWS.map(({ Icon, label, lines, href }, i) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, x: 12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
-                  className="flex items-start gap-4"
-                >
-                  {/* Icône */}
-                  <div className="shrink-0 w-8 h-8 bg-sage/10 border border-sage/20 flex items-center justify-center mt-0.5">
-                    <Icon size={14} strokeWidth={1.8} className="text-sage" />
-                  </div>
-
-                  {/* Texte */}
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-ink-soft/60 font-semibold mb-0.5">
-                      {label}
-                    </p>
-                    {lines.map((line) =>
-                      href ? (
-                        <a
-                          key={line}
-                          href={href}
-                          className="block text-[13px] text-ink font-medium hover:text-terracotta transition-colors"
-                        >
-                          {line}
-                        </a>
-                      ) : (
-                        <p key={line} className="text-[13px] text-ink font-medium leading-snug">
-                          {line}
-                        </p>
-                      )
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Séparateur + note accès */}
+            {/* Tableau bleu style Activités */}
             <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.75 }}
+              className="relative bg-sage p-5 space-y-3"
+            >
+              {/* Horaires */}
+              <div className="flex items-start gap-3 text-paper">
+                <Clock size={15} strokeWidth={1.8} className="text-terracotta shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-paper/60 font-semibold mb-0.5">
+                    Horaires
+                  </p>
+                  <p className="text-[13px] font-semibold leading-snug">Mercredi 11h00 – 12h00</p>
+                  <p className="text-[13px] font-semibold leading-snug">Mercredi 13h30 – 17h00</p>
+                </div>
+              </div>
+
+              <div className="h-px bg-paper/15" />
+
+              {/* Adresse */}
+              <div className="flex items-start gap-3 text-paper">
+                <MapPin size={15} strokeWidth={1.8} className="text-terracotta shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-paper/60 font-semibold mb-0.5">
+                    Adresse
+                  </p>
+                  <p className="text-[13px] leading-snug">{SITE.address}</p>
+                </div>
+              </div>
+
+              <div className="h-px bg-paper/15" />
+
+              {/* Téléphone */}
+              <div className="flex items-center gap-3 text-paper">
+                <Phone size={15} strokeWidth={1.8} className="text-terracotta shrink-0" />
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-paper/60 font-semibold mb-0.5">
+                    Téléphone
+                  </p>
+                  <a href={SITE.phoneHref} className="text-[13px] hover:text-terracotta transition-colors">
+                    {SITE.phone}
+                  </a>
+                </div>
+              </div>
+
+              <div className="h-px bg-paper/15" />
+
+              {/* Email */}
+              <div className="flex items-center gap-3 text-paper">
+                <Mail size={15} strokeWidth={1.8} className="text-terracotta shrink-0" />
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-paper/60 font-semibold mb-0.5">
+                    Email
+                  </p>
+                  <a href={SITE.emailHref} className="text-[13px] hover:text-terracotta transition-colors break-all">
+                    {SITE.email}
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Accès */}
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.2 }}
-              className="relative mt-6 pt-5 border-t border-rule/60"
+              transition={{ delay: 1.0 }}
+              className="relative mt-4 text-[11px] text-ink-soft/55 leading-relaxed"
             >
-              <p className="text-[11px] text-ink-soft/60 leading-relaxed">
-                🚌 Bus 2, 38, 76 · 🚃 Tram · Parking devant l'association
-              </p>
-            </motion.div>
+              🚌 Bus 2, 38, 76 · 🚃 Tram · Parking devant l'association
+            </motion.p>
           </motion.div>
         </div>
 
-        {/* ── Stats rapides ──────────────────────────────────── */}
+        {/* ── Stats ─────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -285,7 +284,7 @@ export default function Hero() {
           {[
             { value: "500+", label: "personnes / semaine" },
             { value: "30 ans", label: "d'engagement" },
-            { value: "160", label: "colis / mercredi" },
+            { value: "160",   label: "colis / mercredi" },
           ].map((stat) => (
             <motion.div
               key={stat.label}

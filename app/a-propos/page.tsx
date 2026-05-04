@@ -2,13 +2,10 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
-import { TIMELINE, VALUES, SITE } from "@/lib/constants"
+import { TIMELINE } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
-import { Heart, Scale, HandHeart } from "lucide-react"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-
-const valueIcons = { RESPECT: Scale, ÉQUITÉ: Heart, PARTAGE: HandHeart }
 
 function TimelineItem({
   item,
@@ -19,7 +16,7 @@ function TimelineItem({
   index: number
   isLast: boolean
 }) {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref    = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.2 })
   const isLeft = index % 2 === 0
 
@@ -28,24 +25,14 @@ function TimelineItem({
       ref={ref}
       className={`relative flex items-start gap-6 md:gap-0 ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}
     >
-      {/* Contenu */}
       <motion.div
         initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
         animate={inView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         className={`relative w-full md:w-[calc(50%-2rem)] bg-white border border-rule p-6 shadow-[3px_5px_0_0_rgba(28,18,9,0.07)] ${isLeft ? "md:mr-8" : "md:ml-8"}`}
       >
-        {/* Scotch */}
-        <span
-          aria-hidden
-          className="absolute -top-3 left-6 block h-6 w-14 bg-clay/55 rotate-[-2deg]"
-        />
-
-        {/* Trait coloré latéral */}
-        <span
-          className={`absolute top-0 bottom-0 w-1 bg-terracotta ${isLeft ? "right-0" : "left-0"}`}
-        />
-
+        <span aria-hidden className="absolute -top-3 left-6 block h-6 w-14 bg-clay/55 rotate-[-2deg]" />
+        <span className={`absolute top-0 bottom-0 w-1 bg-terracotta ${isLeft ? "right-0" : "left-0"}`} />
         <span className="inline-block font-display text-5xl text-terracotta/20 leading-none -mb-1 select-none">
           {item.year}
         </span>
@@ -53,7 +40,6 @@ function TimelineItem({
         <p className="text-[13px] text-ink-soft leading-relaxed">{item.desc}</p>
       </motion.div>
 
-      {/* Point central sur la ligne */}
       <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-6 flex-col items-center">
         <motion.div
           initial={{ scale: 0 }}
@@ -68,12 +54,8 @@ function TimelineItem({
 }
 
 export default function HistoirePage() {
-  const heroRef = useRef<HTMLDivElement>(null)
+  const heroRef    = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true })
-  const valuesRef = useRef<HTMLDivElement>(null)
-  const valuesInView = useInView(valuesRef, { once: true, amount: 0.1 })
-  const visionRef = useRef<HTMLDivElement>(null)
-  const visionInView = useInView(visionRef, { once: true, amount: 0.2 })
 
   return (
     <main className="bg-paper pt-14 md:pt-16">
@@ -121,14 +103,9 @@ export default function HistoirePage() {
       {/* ── Timeline ── */}
       <section className="py-20 md:py-28 px-4 md:px-8">
         <div className="max-w-[860px] mx-auto">
-
-          {/* Ligne centrale desktop */}
           <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-rule pointer-events-none" />
-
           <div className="flex flex-col gap-10 md:gap-0 relative">
-            {/* Ligne verticale mobile */}
             <div className="absolute left-0 top-0 bottom-0 w-px bg-rule md:hidden" />
-
             {TIMELINE.map((item, i) => (
               <TimelineItem
                 key={item.year}
@@ -141,112 +118,25 @@ export default function HistoirePage() {
         </div>
       </section>
 
-      {/* ── Vision ── */}
-      <section className="py-16 md:py-20 px-4 md:px-8 bg-cream-soft">
-        <div className="max-w-[800px] mx-auto" ref={visionRef}>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={visionInView ? { opacity: 1, y: 0 } : {}}
-            className="mb-3"
-          >
-            <span className="text-[11px] uppercase tracking-[0.35em] text-ink-soft font-semibold">
-              Notre vision
-            </span>
-          </motion.div>
-
-          <div className="overflow-hidden mb-6">
-            <motion.h2
-              initial={{ y: "100%" }}
-              animate={visionInView ? { y: 0 } : {}}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-4xl md:text-5xl text-ink"
-            >
-              Agir avec cœur,<br />servir avec respect.
-            </motion.h2>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={visionInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[15px] text-ink-soft leading-relaxed mb-4"
-          >
-            Portés par des valeurs d'engagement, de solidarité et de compassion,
-            nous souhaitons venir en aide aux personnes fragilisées en répondant
-            à leurs besoins au travers d'une aide alimentaire, d'un vestiaire et
-            d'un accompagnement personnalisé.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={visionInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className="text-[15px] text-ink-soft leading-relaxed"
-          >
-            Nous souhaitons ainsi rompre l'isolement, créer du lien social et
-            promouvoir le plein épanouissement de la personne en lui redonnant
-            sa dignité. La Main Tendue est une association fondée par l'Église
-            Protestante Évangélique d'Eysines, née du désir de tendre la main
-            aux plus fragiles de notre société.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* ── Valeurs ── */}
-      <section className="py-16 md:py-24 px-4 md:px-8 bg-sage paper-texture">
-        <div className="max-w-[1000px] mx-auto" ref={valuesRef}>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={valuesInView ? { opacity: 1, y: 0 } : {}}
-            className="mb-12 text-center"
-          >
-            <AnimatedShinyText
-              shimmerWidth={100}
-              className="text-[11px] uppercase tracking-[0.35em] text-paper/60 via-white/90 font-semibold max-w-none mx-0"
-            >
-              Nos valeurs
-            </AnimatedShinyText>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {VALUES.map((val, i) => {
-              const Icon = valueIcons[val.key as keyof typeof valueIcons] ?? Heart
-              return (
-                <motion.div
-                  key={val.key}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={valuesInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                  className="bg-white/10 border border-paper/20 p-7 text-paper"
-                >
-                  <div className="w-10 h-10 rounded-full bg-teal/20 border border-teal/30 flex items-center justify-center mb-5">
-                    <Icon size={18} strokeWidth={1.8} className="text-teal-soft" />
-                  </div>
-                  <h3 className="font-display text-2xl text-terracotta mb-3">{val.key}</h3>
-                  <p className="text-[13px] text-paper/70 leading-relaxed">{val.desc}</p>
-                </motion.div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="py-16 px-4 md:px-8 bg-paper text-center">
+      {/* ── CTA → Vision & Valeurs ── */}
+      <section className="py-16 px-4 md:px-8 bg-cream-soft text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="font-display text-3xl md:text-4xl text-ink mb-6">
-            Envie de rejoindre l'aventure ?
+          <p className="font-display text-2xl md:text-3xl text-ink mb-3">
+            Découvrez notre vision et nos valeurs
+          </p>
+          <p className="text-[14px] text-ink-soft mb-6 max-w-sm mx-auto">
+            Les principes qui guident notre engagement au quotidien depuis 30 ans.
           </p>
           <Link
-            href="/aider"
-            className="inline-flex items-center gap-2 bg-terracotta text-paper px-8 py-3.5 text-[12px] uppercase tracking-[0.14em] font-bold hover:bg-terracotta-soft transition-colors"
+            href="/valeurs"
+            className="inline-flex items-center gap-2 bg-sage text-paper px-8 py-3.5 text-[12px] uppercase tracking-[0.14em] font-bold hover:bg-sage/90 transition-colors"
           >
-            Devenir bénévole
+            Vision et valeurs
             <ArrowRight size={14} strokeWidth={2.2} />
           </Link>
         </motion.div>

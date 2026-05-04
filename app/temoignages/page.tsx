@@ -3,9 +3,8 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
-import { Heart, Users, Building2, Quote, Star } from "lucide-react"
+import { Quote, Star } from "lucide-react"
 
-/* ─── Avis Google Maps ───────────────────────────────────────────── */
 const GOOGLE_REVIEWS = [
   {
     name: "Jessica Lecuyer",
@@ -51,42 +50,8 @@ const GOOGLE_REVIEWS = [
   },
 ]
 
-/* ─── Catégories internes ────────────────────────────────────────── */
-const categories = [
-  {
-    key: "benevoles",
-    label: "Bénévoles",
-    Icon: Heart,
-    desc: "Celles et ceux qui donnent de leur temps chaque semaine.",
-    testimonials: [
-      { initials: "M.L.", role: "Bénévole depuis 8 ans",  quote: "Témoignage à venir — nous collectons actuellement les paroles de nos bénévoles." },
-      { initials: "P.R.", role: "Bénévole depuis 3 ans",  quote: "Témoignage à venir — nous collectons actuellement les paroles de nos bénévoles." },
-    ],
-  },
-  {
-    key: "beneficiaires",
-    label: "Bénéficiaires",
-    Icon: Users,
-    desc: "Les familles et personnes que nous accompagnons chaque semaine.",
-    testimonials: [
-      { initials: "A.K.", role: "Bénéficiaire", quote: "Témoignage à venir — nous respectons l'anonymat de nos bénéficiaires." },
-      { initials: "F.D.", role: "Bénéficiaire", quote: "Témoignage à venir — nous respectons l'anonymat de nos bénéficiaires." },
-    ],
-  },
-  {
-    key: "partenaires",
-    label: "Partenaires",
-    Icon: Building2,
-    desc: "Les organisations qui nous font confiance depuis des années.",
-    testimonials: [
-      { initials: "B.A.", role: "Banque Alimentaire de Bordeaux", quote: "Témoignage à venir — nos partenaires témoigneront prochainement." },
-    ],
-  },
-]
-
 const rotations = [-1.5, 1.2, -0.8, 1.6, -1.0, 0.8]
 
-/* ─── Composant étoiles ──────────────────────────────────────────── */
 function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5" aria-label={`${rating} étoiles sur 5`}>
@@ -102,7 +67,6 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
-/* ─── Badge Google ───────────────────────────────────────────────── */
 function GoogleBadge() {
   return (
     <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-[0.18em] font-semibold text-ink-soft/50 border border-rule px-2 py-0.5">
@@ -118,13 +82,13 @@ function GoogleBadge() {
 }
 
 export default function TemoignagesPage() {
-  const heroRef = useRef<HTMLDivElement>(null)
+  const heroRef    = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true })
 
   return (
     <main className="bg-paper pt-14 md:pt-16">
 
-      {/* ── Hero ────────────────────────────────────────────── */}
+      {/* ── Hero ── */}
       <section className="py-16 md:py-24 px-4 md:px-8 bg-sage paper-texture">
         <div className="max-w-[900px] mx-auto" ref={heroRef}>
           <motion.div initial={{ opacity: 0, y: 10 }} animate={heroInView ? { opacity: 1, y: 0 } : {}} className="mb-3">
@@ -142,54 +106,37 @@ export default function TemoignagesPage() {
               Que dit-on<br />de nous ?
             </motion.h1>
           </div>
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-[15px] text-paper/70 leading-relaxed max-w-xl"
           >
-            Bénévoles, bénéficiaires, partenaires — ils partagent leur expérience
-            avec La Main Tendue. Ces témoignages sont la plus belle récompense
-            de notre engagement.
-          </motion.p>
+            <p className="text-[15px] text-paper/70 leading-relaxed max-w-xl mb-4">
+              Ce que nos bénéficiaires et visiteurs disent de nous sur Google Maps.
+            </p>
+            {/* Note globale */}
+            <div className="inline-flex items-center gap-3 bg-white/10 border border-paper/20 px-4 py-2">
+              <StarRating rating={5} />
+              <span className="font-display text-xl text-terracotta font-semibold">5.0</span>
+              <span className="text-[11px] text-paper/50 uppercase tracking-[0.15em]">· {GOOGLE_REVIEWS.length} avis</span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── Avis Google Maps ────────────────────────────────── */}
-      <section className="py-20 md:py-24 px-4 md:px-8 bg-paper">
+      {/* ── Grille des avis ── */}
+      <section className="py-20 md:py-28 px-4 md:px-8 bg-paper">
         <div className="max-w-[1100px] mx-auto">
-
-          {/* En-tête */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center gap-4 mb-12"
-          >
-            <div>
-              <div className="flex items-center gap-3 mb-1">
-                <h2 className="font-display text-3xl text-ink">Avis Google Maps</h2>
-                <div className="flex items-center gap-1">
-                  <StarRating rating={5} />
-                  <span className="text-[12px] font-bold text-terracotta ml-1">5.0</span>
-                </div>
-              </div>
-              <p className="text-[13px] text-ink-soft">Ce que nos bénéficiaires et visiteurs disent de nous.</p>
-            </div>
-          </motion.div>
-
-          {/* Grille avis */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {GOOGLE_REVIEWS.map((review, i) => (
               <motion.div
                 key={review.name}
-                initial={{ opacity: 0, y: 30, rotate: rotations[i] - 1.5 }}
+                initial={{ opacity: 0, y: 40, rotate: rotations[i] - 2 }}
                 whileInView={{ opacity: 1, y: 0, rotate: rotations[i] }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ type: "spring", stiffness: 90, damping: 14, delay: i * 0.1 }}
-                whileHover={{ rotate: 0, scale: 1.02, zIndex: 10 }}
-                className="relative bg-white p-6 pb-8 shadow-[4px_8px_24px_rgba(28,18,9,0.10)]"
+                transition={{ type: "spring", stiffness: 85, damping: 13, delay: i * 0.08 }}
+                whileHover={{ rotate: 0, scale: 1.025, zIndex: 10 }}
+                className="relative bg-white p-6 pb-8 shadow-[4px_8px_28px_rgba(28,18,9,0.11)] cursor-default"
               >
                 {/* Scotch */}
                 <span aria-hidden className="absolute -top-3 left-6 block h-6 w-14 bg-clay/50 rotate-[-2deg]" />
@@ -200,11 +147,11 @@ export default function TemoignagesPage() {
                   <GoogleBadge />
                 </div>
 
-                {/* Guillemet */}
+                {/* Guillemet déco */}
                 <Quote size={22} strokeWidth={1.3} className="text-terracotta/25 mb-3" />
 
                 {/* Texte */}
-                <p className="font-display text-[1rem] text-ink/80 leading-relaxed mb-5 italic">
+                <p className="font-display text-[1rem] sm:text-[1.05rem] text-ink/80 leading-relaxed mb-5 italic">
                   "{review.quote}"
                 </p>
 
@@ -227,63 +174,7 @@ export default function TemoignagesPage() {
         </div>
       </section>
 
-      {/* ── Sections internes (bénévoles, bénéficiaires, partenaires) ── */}
-      {categories.map((cat, catIdx) => {
-        const Icon = cat.Icon
-        return (
-          <section
-            key={cat.key}
-            className={`py-20 md:py-24 px-4 md:px-8 ${catIdx % 2 === 0 ? "bg-cream-soft" : "bg-paper"}`}
-          >
-            <div className="max-w-[1000px] mx-auto">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6 }}
-                className="flex items-center gap-4 mb-12"
-              >
-                <div className="w-12 h-12 rounded-full bg-teal/10 border border-teal/20 flex items-center justify-center">
-                  <Icon size={20} strokeWidth={1.8} className="text-teal" />
-                </div>
-                <div>
-                  <h2 className="font-display text-3xl text-ink">{cat.label}</h2>
-                  <p className="text-[13px] text-ink-soft">{cat.desc}</p>
-                </div>
-              </motion.div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                {cat.testimonials.map((t, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 30, rotate: rotations[i % rotations.length] - 2 }}
-                    whileInView={{ opacity: 1, y: 0, rotate: rotations[i % rotations.length] }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ type: "spring", stiffness: 90, damping: 14, delay: i * 0.15 }}
-                    whileHover={{ rotate: 0, scale: 1.02, zIndex: 10 }}
-                    className="relative bg-white p-7 pb-9 shadow-[4px_8px_24px_rgba(28,18,9,0.11)]"
-                  >
-                    <span aria-hidden className="absolute -top-3.5 left-8 block h-6 w-16 bg-clay/55 rotate-[-2deg]" />
-                    <Quote size={28} strokeWidth={1.3} className="text-terracotta/25 mb-4" />
-                    <p className="font-display text-xl text-ink/80 leading-relaxed mb-6 italic">
-                      "{t.quote}"
-                    </p>
-                    <div className="h-px w-10 bg-terracotta mb-4" />
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-sage/10 border border-sage/20 flex items-center justify-center">
-                        <span className="text-[11px] font-bold text-sage">{t.initials}</span>
-                      </div>
-                      <span className="text-[12px] text-ink-soft font-semibold">{t.role}</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )
-      })}
-
-      {/* ── Appel à témoigner ───────────────────────────────── */}
+      {/* ── Appel à témoigner ── */}
       <section className="py-16 px-4 md:px-8 bg-sage paper-texture text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

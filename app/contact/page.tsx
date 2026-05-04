@@ -218,8 +218,8 @@ export default function ContactPage() {
             {/* Carte */}
             <div className="overflow-hidden border-2 border-ink/10 rounded-tl-[32px] rounded-br-[32px]">
               <iframe
-                title="Localisation"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-0.6548%2C44.8837%2C-0.6448%2C44.8887&layer=mapnik&marker=44.8862%2C-0.6498"
+                title="Localisation — 31 rue du Bréteil, Eysines"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-0.6610%2C44.8730%2C-0.6370%2C44.8880&layer=mapnik&marker=44.8800%2C-0.6476"
                 className="w-full h-64"
                 loading="lazy"
               />

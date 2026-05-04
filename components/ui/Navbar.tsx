@@ -18,7 +18,7 @@ const links: NavLink[] = [
     label: "À propos",
     dropdown: [
       { href: "/a-propos",    label: "Notre histoire"   },
-      { href: "/a-propos",    label: "Vision et valeurs" },
+      { href: "/valeurs",      label: "Vision et valeurs" },
       { href: "/activites",   label: "Nos activités"    },
       { href: "/partenaires", label: "Nos partenaires"  },
     ],
