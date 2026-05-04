@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter, Caveat } from "next/font/google"
+import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/ui/Navbar"
 import Footer from "@/components/ui/Footer"
@@ -10,10 +10,11 @@ import JsonLd from "@/components/ui/JsonLd"
 import { SITE } from "@/lib/constants"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" })
-const caveat = Caveat({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-caveat",
+  variable: "--font-playfair",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 })
 
 export const metadata: Metadata = {
@@ -61,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className={`${inter.variable} ${caveat.variable}`}>
+    <html lang="fr" className={`${inter.variable} ${playfair.variable}`}>
       <body className="min-h-screen flex flex-col antialiased bg-paper text-ink">
         <JsonLd />
         <ScrollProgress />
