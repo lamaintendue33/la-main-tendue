@@ -15,9 +15,12 @@ function FacebookIcon({ size = 14 }: { size?: number }) {
 
 const navLinks = [
   ["Accueil", "/"],
-  ["Distribution", "/distribution"],
-  ["Aider", "/aider"],
-  ["Mission", "/mission"],
+  ["Notre histoire", "/a-propos"],
+  ["Vision et valeurs", "/valeurs"],
+  ["Nos activités", "/activites"],
+  ["Nos partenaires", "/partenaires"],
+  ["Témoignages", "/temoignages"],
+  ["Faire un don", "/don"],
   ["Contact", "/contact"],
 ] as const
 
@@ -135,7 +138,7 @@ export default function Footer() {
         <div className="mt-10 pt-6 border-t border-paper/10 flex flex-col md:flex-row justify-between gap-2 text-[10px] uppercase tracking-[0.18em] text-paper/35">
           <div>© {new Date().getFullYear()} {SITE.fullName}</div>
           <div>Association loi 1901 — Préfecture de la Gironde</div>
-          <div>Fondée en {SITE.founded}</div>
+          <div>Fondée en {SITE.foundedOfficial}</div>
         </div>
       </div>
     </footer>

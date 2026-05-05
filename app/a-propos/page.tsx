@@ -1,7 +1,8 @@
 "use client"
 
-import { motion, useInView, useScroll, useSpring, useTransform } from "framer-motion"
+import { motion, useInView, useScroll } from "framer-motion"
 import { useRef } from "react"
+import type React from "react"
 import { TIMELINE } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 import Link from "next/link"
@@ -53,19 +54,17 @@ function TimelineItem({
   )
 }
 
-function AnimatedTimelineLine() {
-  const ref = useRef<HTMLDivElement>(null)
+function AnimatedTimelineLine({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) {
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
+    target: containerRef,
+    offset: ["start 70%", "end 30%"],
   })
-  const scaleY = useSpring(scrollYProgress, { stiffness: 40, damping: 22 })
 
   return (
-    <div ref={ref} className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 pointer-events-none">
+    <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 pointer-events-none">
       <div className="absolute inset-0 bg-sage/15" />
       <motion.div
-        style={{ scaleY, transformOrigin: "top" }}
+        style={{ scaleY: scrollYProgress, originY: 0 }}
         className="absolute inset-0 bg-sage"
       />
     </div>
@@ -73,8 +72,9 @@ function AnimatedTimelineLine() {
 }
 
 export default function HistoirePage() {
-  const heroRef    = useRef<HTMLDivElement>(null)
-  const heroInView = useInView(heroRef, { once: true })
+  const heroRef     = useRef<HTMLDivElement>(null)
+  const heroInView  = useInView(heroRef, { once: true })
+  const timelineRef = useRef<HTMLDivElement>(null)
 
   return (
     <main className="bg-paper pt-14 md:pt-16">
@@ -121,8 +121,8 @@ export default function HistoirePage() {
 
       {/* ── Timeline ── */}
       <section className="py-20 md:py-28 px-4 md:px-8">
-        <div className="max-w-[860px] mx-auto">
-          <AnimatedTimelineLine />
+        <div className="max-w-[860px] mx-auto relative" ref={timelineRef}>
+          <AnimatedTimelineLine containerRef={timelineRef} />
           <div className="flex flex-col gap-10 md:gap-0 relative">
             {/* Ligne mobile — bleue et fine */}
             <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-sage/40 md:hidden" />

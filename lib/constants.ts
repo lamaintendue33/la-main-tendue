@@ -7,8 +7,6 @@ export const SITE = {
   address: "31 rue du Bréteil, 33320 Eysines",
   phone: "07 81 24 17 37",
   phoneHref: "tel:+33781241737",
-  phoneAlt: "07 81 24 17 37",
-  phoneAltHref: "tel:+33781241737",
   email: "lamaintendue33@gmail.com",
   emailHref: "mailto:lamaintendue33@gmail.com",
   facebook: "https://www.facebook.com/lamaintendue33",

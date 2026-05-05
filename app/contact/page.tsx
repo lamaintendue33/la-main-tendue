@@ -96,9 +96,6 @@ export default function ContactPage() {
                 <a href={SITE.phoneHref} className="font-display text-lg mt-1 block hover:text-terracotta transition-colors">
                   {SITE.phone}
                 </a>
-                <a href={SITE.phoneAltHref} className="text-[13px] text-ink-soft mt-0.5 block hover:text-ink transition-colors">
-                  Autre ligne : {SITE.phoneAlt}
-                </a>
               </div>
             </motion.div>
 
@@ -189,8 +186,8 @@ export default function ContactPage() {
             {/* Carte */}
             <div className="overflow-hidden border-2 border-ink/10 rounded-tl-[32px] rounded-br-[32px]">
               <iframe
-                title="Localisation — 31 rue du Bréteil, Eysines"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-0.6610%2C44.8730%2C-0.6370%2C44.8880&layer=mapnik&marker=44.8800%2C-0.6476"
+                title="Localisation — 31 rue Bréteil, Eysines"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-0.6520%2C44.8742%2C-0.6400%2C44.8800&layer=mapnik&marker=44.8771598%2C-0.6459198"
                 className="w-full h-64"
                 loading="lazy"
               />
