@@ -51,15 +51,15 @@ export default function Navbar() {
           : "bg-paper border-b border-rule/50"
       }`}
     >
-      <div className="max-w-[1300px] mx-auto px-4 md:px-8 h-28 md:h-32 flex items-center justify-between gap-4">
+      <div className="max-w-[1300px] mx-auto px-4 md:px-8 h-20 md:h-24 flex items-center justify-between gap-4">
 
         {/* ── Logo ─────────────────────────────────────────── */}
         <Link href="/" className="flex items-center gap-3 group shrink-0">
-          <div className="relative w-24 h-24 shrink-0">
+          <div className="relative w-[72px] h-[72px] shrink-0">
             <Image
               src="/images/logo.png"
               alt="La Main Tendue"
-              fill sizes="96px"
+              fill sizes="72px"
               className="object-contain mix-blend-multiply"
               priority
             />
