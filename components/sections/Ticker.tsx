@@ -15,7 +15,7 @@ export default function Ticker() {
   return (
     <section className="relative py-5 border-y border-rule bg-cream-soft overflow-hidden">
       <Marquee
-        duration={75}
+        duration={120}
         items={items.map(({ Icon, label }, i) => (
           <span
             key={i}

@@ -53,7 +53,7 @@ function PostIt({
         backgroundColor: postItColors[index],
         position: "relative",
       }}
-      className="relative p-5 pb-8 md:p-7 md:pb-10 shadow-[4px_10px_28px_rgba(28,18,9,0.13)] cursor-default"
+      className="relative p-4 pb-6 md:p-7 md:pb-10 shadow-[4px_10px_28px_rgba(28,18,9,0.13)] cursor-default"
     >
       {/* Scotch tape */}
       <motion.span
@@ -75,18 +75,18 @@ function PostIt({
         initial={{ scale: 0, rotate: -20 }}
         animate={inView ? { scale: 1, rotate: 0 } : {}}
         transition={{ type: "spring", stiffness: 220, damping: 14, delay: index * 0.18 + 0.35 }}
-        className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-teal/10 border border-teal/20 flex items-center justify-center mb-4 md:mb-5"
+        className="w-7 h-7 md:w-11 md:h-11 rounded-full bg-teal/10 border border-teal/20 flex items-center justify-center mb-3 md:mb-5"
       >
         <Icon size={20} strokeWidth={1.8} className="text-teal" />
       </motion.div>
 
       {/* Numéro fantôme */}
-      <div className="font-display text-5xl md:text-7xl text-ink/[0.07] leading-none select-none -mb-1 md:-mb-2">
+      <div className="font-display text-4xl md:text-7xl text-ink/[0.07] leading-none select-none -mb-1 md:-mb-2">
         {mission.num}
       </div>
 
       {/* Titre */}
-      <h3 className="font-display text-[1.55rem] md:text-[2rem] text-ink leading-tight mb-2">
+      <h3 className="font-display text-[1.25rem] md:text-[2rem] text-ink leading-tight mb-2">
         {mission.title}
       </h3>
 
