@@ -59,7 +59,7 @@ export default function Hero() {
   }, [verbIndex])
 
   return (
-    <section className="pt-14 md:pt-16 pb-4 px-4 md:px-8 bg-paper">
+    <section className="pt-24 md:pt-28 pb-4 px-4 md:px-8 bg-paper">
       <div className="max-w-[1300px] mx-auto" ref={ref}>
         <div className="grid grid-cols-1 md:grid-cols-[55%_45%] border border-rule overflow-hidden shadow-[6px_8px_0_0_rgba(28,18,9,0.08)]">
 
@@ -172,7 +172,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="relative bg-cream-soft hidden sm:flex flex-col justify-center px-8 md:px-10 py-10 md:py-14 overflow-hidden min-h-[320px]"
+            className="relative bg-cream-soft flex flex-col justify-center px-8 md:px-10 py-10 md:py-14 overflow-hidden min-h-[320px]"
           >
             {/* Lignes de cahier */}
             <span aria-hidden className="pointer-events-none absolute inset-0 opacity-30 notebook-lines" />
