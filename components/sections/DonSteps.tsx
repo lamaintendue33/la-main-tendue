@@ -134,7 +134,7 @@ export default function DonSteps() {
             className="relative mt-8 flex flex-col sm:flex-row justify-center gap-3"
           >
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link href="/aider" className="inline-block bg-paper text-terracotta px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:bg-cream transition-colors w-full sm:w-auto text-center whitespace-nowrap">
+              <Link href="/contact" className="inline-block bg-paper text-terracotta px-8 py-3 text-[13px] uppercase tracking-[0.22em] font-bold hover:bg-cream transition-colors w-full sm:w-auto text-center whitespace-nowrap">
                 Devenir bénévole
               </Link>
             </motion.div>
