@@ -6,13 +6,6 @@ import { MapPin, Phone, Clock, Check, Mail } from "lucide-react"
 import { SITE, HOURS_DISTRIBUTION } from "@/lib/constants"
 import ShineSweep from "@/components/ui/ShineSweep"
 
-function FacebookIcon({ size = 14 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
-    </svg>
-  )
-}
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
@@ -37,7 +30,7 @@ export default function ContactPage() {
                 À votre écoute.
               </motion.h1>
               <p className="mt-6 max-w-xl mx-auto text-paper/85 text-[15px] leading-relaxed">
-                Une question, un besoin d'aide, un projet de don ou de bénévolat ?
+                Une question, un besoin d'aide, un projet de don ou de bénévolat ?<br />
                 Écrivez-nous ou appelez directement.
               </p>
             </div>
@@ -123,35 +116,6 @@ export default function ContactPage() {
                   Email
                 </div>
                 <div className="font-display text-lg mt-1 break-all">{SITE.email}</div>
-              </div>
-            </motion.a>
-
-            <motion.a
-              href={SITE.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              whileHover={{ y: -4, x: 2 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative flex gap-5 p-6 bg-cream-soft hover:bg-paper border-2 border-ink/10 hover:border-terracotta/40 rounded-tl-[32px] rounded-br-[32px] transition-colors overflow-hidden"
-            >
-              <span aria-hidden className="pointer-events-none absolute top-0 left-0 right-0 h-0.5 bg-terracotta origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              <span aria-hidden className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(240px_circle_at_center,rgba(15,10,69,0.15),transparent_65%)]" />
-              <motion.div
-                whileHover={{ rotate: 15, scale: 1.12 }}
-                transition={{ type: "spring", stiffness: 260, damping: 16 }}
-                className="relative w-12 h-12 rounded-full bg-sage-deep flex items-center justify-center shrink-0 text-paper shadow-sm"
-              >
-                <FacebookIcon size={18} />
-              </motion.div>
-              <div className="relative">
-                <div className="text-[11px] uppercase tracking-[0.25em] text-sage-deep font-semibold">
-                  Facebook
-                </div>
-                <div className="font-display text-lg mt-1">facebook.com/lamaintendue33</div>
               </div>
             </motion.a>
 
