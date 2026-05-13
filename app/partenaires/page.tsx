@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { PARTNERS, SITE } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
-import { ArrowRight, Building2, ShoppingCart, Truck, HandHeart } from "lucide-react"
+import { ArrowRight, ArrowLeft, Building2, ShoppingCart, Truck, HandHeart } from "lucide-react"
 import Link from "next/link"
 
 const partnerIcons = [Building2, Truck, ShoppingCart, HandHeart, HandHeart, HandHeart, ShoppingCart]
@@ -118,6 +118,26 @@ export default function PartenairesPage() {
             </Link>
           </motion.div>
         </div>
+      </section>
+
+      {/* ── Navigation ── */}
+      <section className="py-12 px-4 md:px-8 bg-paper">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-[1100px] mx-auto flex items-center justify-between"
+        >
+          <Link
+            href="/activites"
+            className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.18em] font-semibold text-ink-soft hover:text-terracotta transition-colors"
+          >
+            <ArrowLeft size={13} strokeWidth={2.2} />
+            Nos activités
+          </Link>
+          <span />
+        </motion.div>
       </section>
     </main>
   )

@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { VALUES } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
-import { Heart, Scale, HandHeart, ArrowLeft } from "lucide-react"
+import { Heart, Scale, HandHeart, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 const valueIcons = { RESPECT: Scale, ÉQUITÉ: Heart, PARTAGE: HandHeart }
@@ -137,13 +137,14 @@ export default function ValeursPage() {
         </div>
       </section>
 
-      {/* ── Retour ── */}
-      <section className="py-12 px-4 md:px-8 bg-paper text-center">
+      {/* ── Navigation ── */}
+      <section className="py-12 px-4 md:px-8 bg-paper">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
+          className="max-w-[1100px] mx-auto flex items-center justify-between"
         >
           <Link
             href="/a-propos"
@@ -151,6 +152,13 @@ export default function ValeursPage() {
           >
             <ArrowLeft size={13} strokeWidth={2.2} />
             Notre histoire
+          </Link>
+          <Link
+            href="/activites"
+            className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.18em] font-semibold text-ink-soft hover:text-terracotta transition-colors"
+          >
+            Nos activités
+            <ArrowRight size={13} strokeWidth={2.2} />
           </Link>
         </motion.div>
       </section>

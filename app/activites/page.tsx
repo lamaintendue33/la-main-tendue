@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
-import { Clock, MapPin, Phone, Calendar, ArrowRight, Package, Wheat, Leaf, Milk, SprayCan, ShoppingBag } from "lucide-react"
+import { Clock, MapPin, Phone, Calendar, ArrowRight, ArrowLeft, Package, Wheat, Leaf, Milk, SprayCan, ShoppingBag } from "lucide-react"
 import { SITE } from "@/lib/constants"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 
@@ -409,6 +409,32 @@ export default function DistributionPage() {
               {SITE.phone}
             </a>
           </div>
+        </motion.div>
+      </section>
+
+      {/* ── Navigation ── */}
+      <section className="py-12 px-4 md:px-8 bg-paper">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-[1100px] mx-auto flex items-center justify-between"
+        >
+          <Link
+            href="/valeurs"
+            className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.18em] font-semibold text-ink-soft hover:text-terracotta transition-colors"
+          >
+            <ArrowLeft size={13} strokeWidth={2.2} />
+            Vision et valeurs
+          </Link>
+          <Link
+            href="/partenaires"
+            className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.18em] font-semibold text-ink-soft hover:text-terracotta transition-colors"
+          >
+            Nos partenaires
+            <ArrowRight size={13} strokeWidth={2.2} />
+          </Link>
         </motion.div>
       </section>
     </main>
