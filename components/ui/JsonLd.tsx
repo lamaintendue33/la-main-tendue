@@ -1,6 +1,6 @@
 import { SITE } from "@/lib/constants"
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "https://lamaintendue.vercel.app"
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "https://la-main-tendue.vercel.app"
 
 /**
  * Données structurées Schema.org pour Google.
@@ -13,7 +13,7 @@ export default function JsonLd() {
     "@type": ["NGO", "LocalBusiness"],
     name: SITE.name,
     alternateName: SITE.fullName,
-    description: `${SITE.slogan}. Association d'aide alimentaire à Eysines (Gironde) depuis 1995. Distribution hebdomadaire de colis alimentaires à plus de 400 personnes, portée par 40 bénévoles.`,
+    description: `${SITE.slogan}. Association d'aide alimentaire et vestimentaire solidaire à Eysines (Gironde) depuis 1995. Distribution hebdomadaire de 160 colis alimentaires à plus de 500 personnes, portée par 30 bénévoles.`,
     url: BASE_URL,
     logo: `${BASE_URL}/images/logo.png`,
     image: `${BASE_URL}/images/logo.png`,
@@ -22,7 +22,7 @@ export default function JsonLd() {
     foundingDate: "1995-01-01",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "31 rue du Breteil",
+      streetAddress: "31 rue du Bréteil",
       addressLocality: "Eysines",
       postalCode: "33320",
       addressRegion: "Nouvelle-Aquitaine",
@@ -30,24 +30,30 @@ export default function JsonLd() {
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 44.8862,
-      longitude: -0.6498,
+      latitude: 44.8771598,
+      longitude: -0.6459198,
     },
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Tuesday", "Thursday", "Saturday"],
-        opens: "09:00",
+        dayOfWeek: ["Wednesday"],
+        opens: "11:00",
         closes: "12:00",
       },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Wednesday"],
+        opens: "13:30",
+        closes: "17:00",
+      },
     ],
-    sameAs: [SITE.facebook, SITE.blog],
+    sameAs: [SITE.blog],
     areaServed: {
       "@type": "GeoCircle",
       geoMidpoint: {
         "@type": "GeoCoordinates",
-        latitude: 44.8862,
-        longitude: -0.6498,
+        latitude: 44.8771598,
+        longitude: -0.6459198,
       },
       geoRadius: "15000",
       name: "Eysines et bassin eysinais",
