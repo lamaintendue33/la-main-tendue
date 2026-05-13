@@ -5,13 +5,6 @@ import Image from "next/image"
 import { MapPin, Phone, Mail } from "lucide-react"
 import { SITE, HOURS_DISTRIBUTION } from "@/lib/constants"
 
-function FacebookIcon({ size = 14 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
-    </svg>
-  )
-}
 
 const navLinks = [
   ["Accueil", "/"],
@@ -45,22 +38,13 @@ export default function Footer() {
               <div className="leading-tight">
                 <div className="font-display text-xl text-paper">La Main Tendue</div>
                 <div className="text-[10px] uppercase tracking-[0.2em] text-paper/55 font-semibold">
-                  Aide alimentaire
+                  Aide alimentaire et vestimentaire
                 </div>
               </div>
             </div>
             <p className="text-[13px] leading-relaxed text-paper/70 max-w-xs">
               {SITE.slogan}.
             </p>
-            <a
-              href={SITE.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.18em] font-semibold text-paper/60 hover:text-paper transition-colors border-b border-paper/20 pb-1"
-            >
-              <FacebookIcon size={13} />
-              Facebook
-            </a>
           </div>
 
           {/* Navigation */}

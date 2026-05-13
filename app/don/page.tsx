@@ -11,8 +11,8 @@ const donTypes = [
   {
     Icon: Heart,
     title: "Don financier",
-    desc: "Contribuez au financement de notre nouveau camion de transport via HelloAsso. Chaque euro compte pour assurer nos distributions.",
-    cta: "Faire un don en ligne",
+    desc: "Soutenez notre action sociale via HelloAsso. Chaque euro compte pour assurer nos distributions.",
+    cta: "Soutenez notre action sociale",
     href: SITE.helloasso,
     external: true,
     highlight: true,
@@ -29,7 +29,7 @@ const donTypes = [
   {
     Icon: Truck,
     title: "Devenir bénévole",
-    desc: "Rejoignez notre équipe de bénévoles pour participer au tri, à la préparation et à la distribution des colis chaque mercredi.",
+    desc: "Rejoignez notre équipe de bénévoles pour participer à la collecte, au transport des marchandises, au tri, à la préparation et à la distribution des colis.",
     cta: "Nous contacter",
     href: "/contact",
     external: false,

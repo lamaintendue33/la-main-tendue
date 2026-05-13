@@ -1,6 +1,6 @@
 export const SITE = {
   name: "La Main Tendue",
-  fullName: "La Main Tendue — Association d'aide alimentaire",
+  fullName: "La Main Tendue — Aide alimentaire et vestimentaire solidaire",
   slogan: "Tendre la main, partager l'essentiel",
   quote:
     "Un regard, un sourire, une main tendue suffisent parfois pour redonner le courage de continuer notre chemin dans la vie.",
@@ -11,7 +11,7 @@ export const SITE = {
   emailHref: "mailto:lamaintendue33@gmail.com",
   facebook: "https://www.facebook.com/lamaintendue33",
   blog: "https://lamaintendue33.wordpress.com/",
-  helloasso: "https://www.helloasso.com/associations/la-main-tendue-33/collectes/un-fourgon-pour-nourrir-750-personnes-chaque-semaine",
+  helloasso: "https://www.helloasso.com/associations/lamain-tendue-33/collectes/soutenez-notre-action-sociale",
   siret: "—",
   founded: "1992",
   foundedOfficial: "1995",
@@ -39,7 +39,7 @@ export const MISSIONS = [
     num: "01",
     iconKey: "HeartHandshake",
     title: "Nourrir dignement",
-    lede: "Aide alimentaire",
+    lede: "Aide alimentaire et vestimentaire solidaire",
     description:
       "Chaque semaine, nous distribuons 160 colis alimentaires équilibrés à plus de 500 personnes du bassin eysinais.",
     tone: "sage",
@@ -138,7 +138,7 @@ export const PARTNERS = [
   },
   {
     name: "Mairie d'Eysines",
-    role: "Mise à disposition d'un camion et d'un chauffeur pour les transports",
+    role: "Mise à disposition d'un camion avec chauffeurs pour transport de denrées",
     since: "1996",
   },
   {
@@ -163,8 +163,13 @@ export const PARTNERS = [
   },
   {
     name: "Super U Eysines",
-    role: "Partenaire pour la collecte nationale de la Banque Alimentaire (dernier week-end de novembre)",
+    role: "Lieu de la collecte nationale pour la Banque Alimentaire (dernier week-end de novembre)",
     since: "—",
+  },
+  {
+    name: "Le Chaînon Manquant",
+    role: "Partenaire d'approvisionnement anti-gaspi — produits frais de proximité",
+    since: "2024",
   },
 ]
 
@@ -200,6 +205,8 @@ export const DON_STEPS = [
 
 /* Items acceptés en don */
 export const ITEMS = [
+  "Vêtements",
+  "Chaussures",
   "Conserves",
   "Pâtes & riz",
   "Huile",
@@ -216,7 +223,8 @@ export const ITEMS = [
 
 /* Mots-clés du marquee/ticker */
 export const TICKER = [
-  "Aide alimentaire",
+  "Aide alimentaire et vestimentaire",
+  "Vêtements & chaussures",
   "Eysines",
   "Depuis 1992",
   "500 personnes aidées",
