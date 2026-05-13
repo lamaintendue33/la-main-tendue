@@ -54,6 +54,9 @@ export const metadata: Metadata = {
     description: `${SITE.slogan} — Aide alimentaire associative à Eysines depuis 1995.`,
     images: ["/images/logo.png"],
   },
+  icons: {
+    icon: "/favicon.png",
+  },
 }
 
 export default function RootLayout({
