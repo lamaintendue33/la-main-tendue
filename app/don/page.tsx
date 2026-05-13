@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
-import { ArrowRight, Heart, Package, Truck, ExternalLink } from "lucide-react"
+import { ArrowRight, Heart, Package, Truck, ExternalLink, Shirt } from "lucide-react"
 import Link from "next/link"
 import { SITE, ITEMS } from "@/lib/constants"
 
@@ -23,6 +23,15 @@ const donTypes = [
     desc: "Déposez des denrées non-périssables, des produits d'hygiène ou des articles bébé directement au 31 rue du Bréteil le mercredi.",
     cta: "Voir ce dont nous avons besoin",
     href: "/activites",
+    external: false,
+    highlight: false,
+  },
+  {
+    Icon: Shirt,
+    title: "Don vestimentaire",
+    desc: "Vêtements et chaussures propres et en bon état acceptés. Déposez-les au 31 rue du Bréteil le mercredi, ils seront redistribués à ceux qui en ont besoin.",
+    cta: "Nous contacter",
+    href: "/contact",
     external: false,
     highlight: false,
   },
@@ -131,7 +140,7 @@ export default function DonPage() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
             {donTypes.map((type, i) => (
               <motion.div
                 key={type.title}
@@ -224,7 +233,7 @@ export default function DonPage() {
           >
             <p className="text-[13px] text-ink-soft leading-relaxed">
               <strong className="text-ink">Dépôt :</strong> 31 rue du Bréteil, 33320 Eysines —
-              le mercredi de 11h à 17h. Pour tout autre arrangement,
+              le mercredi de 11h à 17h.<br />Pour tout autre arrangement,
               appelez-nous au{" "}
               <a href={SITE.phoneHref} className="text-terracotta font-semibold hover:underline">
                 {SITE.phone}
