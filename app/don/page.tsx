@@ -83,10 +83,21 @@ export default function DonPage() {
             chaque semaine à plus de 500 personnes. Chaque geste, petit ou grand,
             fait une vraie différence.
           </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-4 text-[13px] text-paper/50"
+          >
+            Ils l'ont fait —{" "}
+            <Link href="/temoignages" className="underline underline-offset-4 decoration-paper/30 hover:text-paper hover:decoration-paper transition-colors font-medium">
+              lire leurs témoignages
+            </Link>
+          </motion.p>
         </div>
       </section>
 
-      {/* ── Projet prioritaire — nouveau camion ── */}
+      {/* ── Bandeau don financier ── */}
       <section className="py-16 md:py-20 px-4 md:px-8 bg-terracotta paper-texture">
         <div className="max-w-[800px] mx-auto">
           <motion.div
@@ -96,20 +107,12 @@ export default function DonPage() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            {/* Scotch */}
-            <span aria-hidden className="inline-block h-7 w-24 bg-paper/30 rotate-[-1deg] mb-6 relative top-1" />
-
-            <p className="text-[11px] uppercase tracking-[0.3em] text-paper/70 font-semibold mb-3">
-              Projet en cours
-            </p>
             <h2 className="font-display text-4xl md:text-5xl text-paper leading-tight mb-5">
-              Aide-nous à acquérir<br />un nouveau camion.
+              Soutenez notre action sociale.
             </h2>
             <p className="text-[14px] text-paper/80 leading-relaxed mb-8 max-w-lg mx-auto">
-              Notre camion actuel arrive en fin de vie. Il nous permet chaque semaine
-              de récupérer les denrées à la Banque Alimentaire de Bordeaux.
-              Sans lui, plus de distribution. Votre don financier via HelloAsso
-              contribue directement à ce projet vital.
+              Chaque don nous permet de continuer à distribuer 160 colis alimentaires
+              chaque semaine à plus de 500 personnes en Gironde.
             </p>
             <motion.a
               href={SITE.helloasso}

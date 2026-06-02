@@ -52,6 +52,20 @@ export default function PartenairesPage() {
       {/* ── Grille partenaires ── */}
       <section className="py-20 md:py-28 px-4 md:px-8 bg-paper" ref={gridRef}>
         <div className="max-w-[1000px] mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={gridInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-[15px] md:text-[16px] text-ink-soft leading-relaxed max-w-[700px] mb-14"
+          >
+            Implantée à Eysines depuis 1992, La Main Tendue s'appuie sur un
+            réseau local solide pour mener sa mission d'aide alimentaire et
+            vestimentaire en Gironde. Collectivités, grandes surfaces,
+            associations anti-gaspi : chaque partenaire contribue à rendre
+            possible la distribution hebdomadaire de colis alimentaires à plus
+            de 500 personnes chaque mercredi.
+          </motion.p>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {PARTNERS.map((partner, i) => {
               const Icon = partnerIcons[i] ?? Building2

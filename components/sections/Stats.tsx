@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion"
 import { STATS } from "@/lib/constants"
 import { AnimatedCounter } from "@/components/ui/animated-counter"
 import { TextRevealByWord } from "@/components/ui/text-reveal"
+import Link from "next/link"
 
 export default function Stats() {
   const ref    = useRef<HTMLDivElement>(null)
@@ -91,6 +92,22 @@ export default function Stats() {
             wordClassName="font-display text-xl sm:text-2xl text-paper/80 italic"
           />
         </div>
+
+        {/* Lien témoignages */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-10 text-center"
+        >
+          <Link
+            href="/temoignages"
+            className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] font-semibold text-paper/60 hover:text-terracotta transition-colors border-b border-paper/20 hover:border-terracotta pb-0.5"
+          >
+            Lire les témoignages
+          </Link>
+        </motion.div>
 
       </div>
     </section>

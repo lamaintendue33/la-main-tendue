@@ -197,6 +197,27 @@ export default function TemoignagesPage() {
           </a>
         </motion.div>
       </section>
+
+      {/* ── JSON-LD AggregateRating ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "NGO",
+            "name": "La Main Tendue",
+            "description": "Association d'aide alimentaire et vestimentaire solidaire à Eysines (Gironde).",
+            "url": "https://la-main-tendue.vercel.app",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": 5,
+              "bestRating": 5,
+              "worstRating": 1,
+              "reviewCount": GOOGLE_REVIEWS.length,
+            },
+          }),
+        }}
+      />
     </main>
   )
 }

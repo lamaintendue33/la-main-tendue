@@ -39,10 +39,10 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     images: [
       {
-        url: "/images/logo.png",
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "La Main Tendue — Aide alimentaire à Eysines",
+        alt: "La Main Tendue — Aide alimentaire et vestimentaire solidaire",
       },
     ],
     locale: "fr_FR",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE.fullName,
     description: `${SITE.slogan} — Aide alimentaire associative à Eysines depuis 1995.`,
-    images: ["/images/logo.png"],
+    images: ["/images/og-image.jpg"],
   },
   icons: {
     icon: "/favicon.png?v=3",

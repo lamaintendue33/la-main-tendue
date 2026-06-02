@@ -94,6 +94,20 @@ export default function ValeursPage() {
             Protestante Évangélique d'Eysines, née du désir de tendre la main
             aux plus fragiles de notre société.
           </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={visionInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="text-[15px] md:text-[16px] text-ink-soft leading-relaxed mt-5"
+          >
+            Implantée à Eysines depuis 1992, La Main Tendue s'appuie sur
+            l'engagement quotidien d'une trentaine de bénévoles pour accomplir
+            sa mission en Gironde. Ces hommes et ces femmes incarnent la
+            solidarité concrète : chaque mercredi, ils accueillent, écoutent et
+            distribuent — avec un seul objectif, rendre à chaque personne
+            accueillie sa dignité et son autonomie.
+          </motion.p>
         </div>
       </section>
 
@@ -105,6 +119,7 @@ export default function ValeursPage() {
             animate={valuesInView ? { opacity: 1, y: 0 } : {}}
             className="mb-12 text-center"
           >
+            <h2 className="sr-only">Nos valeurs fondamentales : Respect, Équité et Partage</h2>
             <AnimatedShinyText
               shimmerWidth={100}
               className="text-[11px] uppercase tracking-[0.35em] text-paper/60 via-white/90 font-semibold max-w-none mx-0"

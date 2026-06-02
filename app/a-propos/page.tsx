@@ -159,6 +159,12 @@ export default function HistoirePage() {
             Vision et valeurs
             <ArrowRight size={14} strokeWidth={2.2} />
           </Link>
+          <p className="mt-6 text-[13px] text-ink-soft/70">
+            Ce que disent ceux que nous aidons ?{" "}
+            <Link href="/temoignages" className="underline underline-offset-4 decoration-ink-soft/30 hover:text-terracotta hover:decoration-terracotta transition-colors font-medium">
+              Lire les témoignages
+            </Link>
+          </p>
         </motion.div>
       </section>
     </main>
