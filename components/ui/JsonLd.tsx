@@ -47,7 +47,7 @@ export default function JsonLd() {
         closes: "17:00",
       },
     ],
-    sameAs: [SITE.blog],
+    sameAs: [`https://lamaintendue33.fr`],
     areaServed: {
       "@type": "GeoCircle",
       geoMidpoint: {
