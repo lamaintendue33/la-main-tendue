@@ -19,7 +19,7 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL ?? "https://lamaintendue.vercel.app"
+    process.env.NEXT_PUBLIC_BASE_URL ?? "https://lamaintendue33.fr"
   ),
   title: {
     default: "La Main Tendue — Aide alimentaire à Eysines",

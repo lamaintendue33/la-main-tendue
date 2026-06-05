@@ -207,7 +207,7 @@ export default function TemoignagesPage() {
             "@type": "NGO",
             "name": "La Main Tendue",
             "description": "Association d'aide alimentaire et vestimentaire solidaire à Eysines (Gironde).",
-            "url": "https://la-main-tendue.vercel.app",
+            "url": "https://lamaintendue33.fr",
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": 5,
