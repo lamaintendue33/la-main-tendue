@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_BASE_URL ?? "https://lamaintendue33.fr"
   ),
   title: {
-    default: "La Main Tendue — Aide alimentaire à Eysines",
+    default: "La Main Tendue — Aide alimentaire et vestiaire à Eysines",
     template: `%s · La Main Tendue`,
   },
-  description: `${SITE.slogan} — Association d'aide alimentaire à Eysines (33320), en Gironde. Distribution hebdomadaire de colis à plus de 500 personnes depuis 1995.`,
+  description: `Association d'aide alimentaire et vestiaire à Eysines (33320), en Gironde. Distribution de colis à plus de 500 personnes chaque semaine.`,
   keywords: [
     "aide alimentaire", "Eysines", "Gironde", "33320", "colis alimentaire",
     "association", "bénévolat", "solidarité", "Banque Alimentaire",
