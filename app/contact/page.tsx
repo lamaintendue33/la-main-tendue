@@ -9,6 +9,8 @@ import ShineSweep from "@/components/ui/ShineSweep"
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(false)
 
   return (
     <>
@@ -176,30 +178,40 @@ export default function ContactPage() {
                 <div className="w-14 h-14 rounded-full bg-sage mx-auto flex items-center justify-center mb-5">
                   <Check size={22} strokeWidth={2} className="text-paper" />
                 </div>
-                <h3 className="font-display font-semibold text-2xl mb-2">Presque terminé !</h3>
+                <h3 className="font-display font-semibold text-2xl mb-2">Message envoyé.</h3>
                 <p className="text-ink-soft text-[14px]">
-                  Votre messagerie s'est ouverte avec votre message pré-rempli.
-                  Il ne reste plus qu'à cliquer sur envoyer.
+                  Nous vous répondrons dans les meilleurs délais.
                 </p>
               </motion.div>
             ) : (
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault()
                   const form = e.currentTarget as HTMLFormElement
-                  // Honeypot : si le champ caché est rempli, c'est un bot
-                  if ((form.elements.namedItem("website") as HTMLInputElement)?.value) return
-
                   const data = new FormData(form)
-                  const nom = data.get("nom") as string
-                  const email = data.get("email") as string
-                  const sujet = (data.get("sujet") as string) || "Message depuis le site"
-                  const message = data.get("message") as string
 
-                  const corps = `Nom : ${nom}\nEmail : ${email}\n\n${message}`
-                  const lien = `mailto:${SITE.email}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`
-                  window.location.href = lien
-                  setSubmitted(true)
+                  setSending(true)
+                  setError(false)
+
+                  try {
+                    const res = await fetch("/api/contact", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        nom: data.get("nom"),
+                        email: data.get("email"),
+                        sujet: data.get("sujet"),
+                        message: data.get("message"),
+                        website: data.get("website"), // honeypot
+                      }),
+                    })
+                    if (!res.ok) throw new Error()
+                    setSubmitted(true)
+                  } catch {
+                    setError(true)
+                  } finally {
+                    setSending(false)
+                  }
                 }}
                 className="space-y-5 bg-cream-soft border-2 border-ink/10 rounded-tl-[40px] rounded-br-[40px] p-6 md:p-8"
               >
@@ -258,12 +270,18 @@ export default function ContactPage() {
                     className="w-full bg-paper border-2 border-ink/15 focus:border-sage rounded-xl px-4 py-3 text-[15px] outline-none resize-none transition-colors"
                   />
                 </div>
+                {error && (
+                  <p className="text-[13px] text-terracotta text-center">
+                    Une erreur est survenue. Réessayez ou appelez-nous directement.
+                  </p>
+                )}
                 <motion.button
                   type="submit"
+                  disabled={sending}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-sage text-paper px-6 py-4 text-[13px] tracking-[0.25em] uppercase font-bold rounded-full hover:bg-sage-deep transition-colors"
+                  className="w-full bg-sage text-paper px-6 py-4 text-[13px] tracking-[0.25em] uppercase font-bold rounded-full hover:bg-sage-deep transition-colors disabled:opacity-60"
                 >
-                  Envoyer le message
+                  {sending ? "Envoi en cours…" : "Envoyer le message"}
                 </motion.button>
               </form>
             )}

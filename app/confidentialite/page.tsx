@@ -44,11 +44,11 @@ export default function ConfidentialitePage() {
               donnée n'est vendue ni cédée à des tiers.
             </p>
             <p className="mt-3">
-              Le formulaire de contact vous permet d'envoyer un message directement depuis votre
-              propre messagerie électronique : en cliquant sur « Envoyer », votre client mail
-              s'ouvre avec le message pré-rempli. Les informations saisies (nom, e-mail, message)
-              transitent uniquement par votre messagerie personnelle jusqu'à la nôtre — elles ne
-              sont ni stockées, ni traitées par un serveur intermédiaire.
+              Le formulaire de contact collecte votre nom, votre adresse e-mail et le contenu de
+              votre message. Ces informations sont transmises par e-mail à l'association via un
+              prestataire technique d'envoi (Resend), uniquement dans le but de vous répondre.
+              Elles ne sont ni stockées sur un serveur, ni conservées au-delà du traitement de
+              votre demande, ni utilisées à d'autres fins.
             </p>
           </section>
 
@@ -84,7 +84,7 @@ export default function ConfidentialitePage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-ink mb-3">Hébergement et transfert de données</h2>
+            <h2 className="font-display text-xl text-ink mb-3">Hébergement et sous-traitants</h2>
             <p>
               Le site est hébergé par <strong>Vercel Inc.</strong>, société américaine. À ce titre,
               les journaux techniques de connexion (adresse IP, pages visitées) peuvent être
@@ -92,15 +92,20 @@ export default function ConfidentialitePage() {
               clauses contractuelles types approuvées par la Commission européenne, garantissant un
               niveau de protection équivalent au RGPD.
             </p>
+            <p className="mt-3">
+              L'envoi des messages du formulaire de contact est assuré par{" "}
+              <strong>Resend</strong>, prestataire technique agissant uniquement comme
+              intermédiaire d'envoi, sans conservation ni exploitation des messages pour son propre
+              compte.
+            </p>
           </section>
 
           <section>
             <h2 className="font-display text-xl text-ink mb-3">Durée de conservation</h2>
             <p>
-              Le site ne stockant aucune donnée personnelle sur un serveur (voir « Données
-              collectées » ci-dessus), aucune durée de conservation ne s'applique côté site. Les
-              messages que vous nous envoyez par e-mail sont conservés le temps nécessaire au
-              traitement de votre demande, puis supprimés.
+              Les messages envoyés via le formulaire de contact sont conservés le temps nécessaire
+              au traitement de votre demande, puis supprimés. Le site lui-même ne conserve aucune
+              base de données de contacts.
             </p>
           </section>
 
