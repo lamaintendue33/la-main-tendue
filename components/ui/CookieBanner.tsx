@@ -45,7 +45,7 @@ export default function CookieBanner() {
               Ce site utilise des cookies essentiels au bon fonctionnement. Aucune donnée personnelle
               n'est vendue ni transmise à des tiers.{" "}
               <a
-                href="/mission"
+                href="/confidentialite"
                 className="text-terracotta-soft underline underline-offset-2 hover:text-paper transition-colors"
               >
                 En savoir plus

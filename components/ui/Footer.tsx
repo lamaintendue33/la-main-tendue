@@ -119,8 +119,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-paper/10 flex flex-col md:flex-row justify-between gap-2 text-[10px] uppercase tracking-[0.18em] text-paper/35">
+        <div className="mt-10 pt-6 border-t border-paper/10 flex flex-col md:flex-row justify-between gap-3 md:gap-2 text-[10px] uppercase tracking-[0.18em] text-paper/35">
           <div>© {new Date().getFullYear()} {SITE.fullName}</div>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            <Link href="/mentions-legales" className="hover:text-paper/70 transition-colors normal-case tracking-normal">
+              Mentions légales
+            </Link>
+            <Link href="/confidentialite" className="hover:text-paper/70 transition-colors normal-case tracking-normal">
+              Confidentialité
+            </Link>
+          </div>
           <div>Association loi 1901 — Préfecture de la Gironde</div>
           <div>Fondée en {SITE.foundedOfficial}</div>
         </div>
