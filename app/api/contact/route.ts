@@ -18,15 +18,22 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev",
       to: SITE.email,
       replyTo: email,
       subject: sujet || `Nouveau message de ${nom}`,
       text: `Nom : ${nom}\nEmail : ${email}\n\n${message}`,
     })
-    return NextResponse.json({ ok: true })
+
+    if (error) {
+      console.error("Resend a refusé l'envoi :", error)
+      return NextResponse.json({ error: error.message }, { status: 502 })
+    }
+
+    return NextResponse.json({ ok: true, id: data?.id })
   } catch (error) {
+    console.error("Erreur d'envoi Resend :", error)
     return NextResponse.json({ error: "Échec de l'envoi." }, { status: 500 })
   }
 }
