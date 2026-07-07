@@ -176,18 +176,29 @@ export default function ContactPage() {
                 <div className="w-14 h-14 rounded-full bg-sage mx-auto flex items-center justify-center mb-5">
                   <Check size={22} strokeWidth={2} className="text-paper" />
                 </div>
-                <h3 className="font-display font-semibold text-2xl mb-2">Message envoyé.</h3>
+                <h3 className="font-display font-semibold text-2xl mb-2">Presque terminé !</h3>
                 <p className="text-ink-soft text-[14px]">
-                  Nous vous répondrons dans les meilleurs délais.
+                  Votre messagerie s'est ouverte avec votre message pré-rempli.
+                  Il ne reste plus qu'à cliquer sur envoyer.
                 </p>
               </motion.div>
             ) : (
               <form
                 onSubmit={(e) => {
                   e.preventDefault()
-                  // Honeypot : si le champ caché est rempli, c'est un bot
                   const form = e.currentTarget as HTMLFormElement
+                  // Honeypot : si le champ caché est rempli, c'est un bot
                   if ((form.elements.namedItem("website") as HTMLInputElement)?.value) return
+
+                  const data = new FormData(form)
+                  const nom = data.get("nom") as string
+                  const email = data.get("email") as string
+                  const sujet = (data.get("sujet") as string) || "Message depuis le site"
+                  const message = data.get("message") as string
+
+                  const corps = `Nom : ${nom}\nEmail : ${email}\n\n${message}`
+                  const lien = `mailto:${SITE.email}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`
+                  window.location.href = lien
                   setSubmitted(true)
                 }}
                 className="space-y-5 bg-cream-soft border-2 border-ink/10 rounded-tl-[40px] rounded-br-[40px] p-6 md:p-8"
@@ -209,6 +220,7 @@ export default function ContactPage() {
                     <input
                       required
                       type="text"
+                      name="nom"
                       className="w-full bg-paper border-2 border-ink/15 focus:border-sage rounded-xl px-4 py-3 text-[15px] outline-none transition-colors"
                     />
                   </div>
@@ -219,6 +231,7 @@ export default function ContactPage() {
                     <input
                       required
                       type="email"
+                      name="email"
                       className="w-full bg-paper border-2 border-ink/15 focus:border-sage rounded-xl px-4 py-3 text-[15px] outline-none transition-colors"
                     />
                   </div>
@@ -229,6 +242,7 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="text"
+                    name="sujet"
                     placeholder="Ex: Question sur les dons"
                     className="w-full bg-paper border-2 border-ink/15 focus:border-sage rounded-xl px-4 py-3 text-[15px] outline-none transition-colors"
                   />
@@ -240,6 +254,7 @@ export default function ContactPage() {
                   <textarea
                     required
                     rows={6}
+                    name="message"
                     className="w-full bg-paper border-2 border-ink/15 focus:border-sage rounded-xl px-4 py-3 text-[15px] outline-none resize-none transition-colors"
                   />
                 </div>

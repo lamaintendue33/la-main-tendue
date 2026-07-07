@@ -23,8 +23,16 @@ export default function ConfidentialitePage() {
             <p>
               L'association La Main Tendue attache une grande importance à la protection de vos
               données personnelles. Cette page explique quelles informations sont collectées sur
-              ce site et comment elles sont utilisées, conformément au Règlement Général sur la
-              Protection des Données (RGPD).
+              ce site, pourquoi, et comment vous pouvez exercer vos droits, conformément au
+              Règlement Général sur la Protection des Données (RGPD).
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-ink mb-3">Responsable du traitement</h2>
+            <p>
+              Le responsable des données collectées via ce site est l'association La Main Tendue,
+              {" "}{SITE.address}, joignable à l'adresse {SITE.email}.
             </p>
           </section>
 
@@ -32,41 +40,97 @@ export default function ConfidentialitePage() {
             <h2 className="font-display text-xl text-ink mb-3">Données collectées</h2>
             <p>
               Ce site ne collecte aucune donnée personnelle à des fins de suivi ou de publicité.
-              Aucun outil de mesure d'audience (type Google Analytics) n'est utilisé.
+              Aucun outil de mesure d'audience (type Google Analytics) n'est utilisé, et aucune
+              donnée n'est vendue ni cédée à des tiers.
             </p>
             <p className="mt-3">
-              Les seules données transmises volontairement par les visiteurs sont celles saisies
-              dans le formulaire de contact (nom, e-mail, message), utilisées uniquement pour vous
-              répondre. Ces données ne sont ni vendues, ni transmises à des tiers, ni conservées
-              au-delà du temps nécessaire au traitement de votre demande.
+              Le formulaire de contact vous permet d'envoyer un message directement depuis votre
+              propre messagerie électronique : en cliquant sur « Envoyer », votre client mail
+              s'ouvre avec le message pré-rempli. Les informations saisies (nom, e-mail, message)
+              transitent uniquement par votre messagerie personnelle jusqu'à la nôtre — elles ne
+              sont ni stockées, ni traitées par un serveur intermédiaire.
             </p>
           </section>
 
           <section>
             <h2 className="font-display text-xl text-ink mb-3">Cookies</h2>
             <p>
-              Ce site utilise un unique cookie technique, déposé après votre choix sur le bandeau
-              d'information (accepter / refuser). Il sert uniquement à mémoriser votre préférence
-              afin de ne pas vous solliciter à chaque visite. Aucun cookie publicitaire ou de
-              traçage n'est utilisé.
+              Ce site utilise un unique cookie technique (dépôt local dans votre navigateur), qui
+              mémorise votre choix sur le bandeau d'information (accepter / refuser) afin de ne pas
+              vous solliciter à chaque visite. Ce cookie est strictement nécessaire au
+              fonctionnement du bandeau et ne requiert pas de consentement préalable.
+            </p>
+            <p className="mt-3">
+              Aucun cookie publicitaire, de mesure d'audience ou de traçage n'est déposé. Vous
+              pouvez à tout moment revenir sur votre choix via le lien{" "}
+              <strong>« Gérer les cookies »</strong> en bas de chaque page.
             </p>
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-ink mb-3">Liens vers des services tiers</h2>
+            <h2 className="font-display text-xl text-ink mb-3">Carte et liens externes</h2>
             <p>
-              Le site propose des liens vers des services externes (HelloAsso pour les dons,
-              Google Maps pour l'itinéraire). Ces services disposent de leur propre politique de
+              La page Contact intègre une carte fournie par <strong>OpenStreetMap</strong>, un
+              service cartographique indépendant. Le chargement de cette carte entraîne la
+              transmission de votre adresse IP à ses serveurs, selon leur propre politique de
+              confidentialité.
+            </p>
+            <p className="mt-3">
+              Le site propose également des liens vers des services tiers (HelloAsso pour les
+              dons, Google Maps pour l'itinéraire). Ces services ne sont sollicités que si vous
+              cliquez volontairement sur ces liens, et disposent de leur propre politique de
               confidentialité, indépendante de la nôtre.
             </p>
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-ink mb-3">Vos droits</h2>
+            <h2 className="font-display text-xl text-ink mb-3">Hébergement et transfert de données</h2>
             <p>
-              Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de
-              suppression des données vous concernant. Pour exercer ce droit, contactez-nous à
-              l'adresse {SITE.email}.
+              Le site est hébergé par <strong>Vercel Inc.</strong>, société américaine. À ce titre,
+              les journaux techniques de connexion (adresse IP, pages visitées) peuvent être
+              traités en dehors de l'Union européenne. Vercel encadre ces transferts par des
+              clauses contractuelles types approuvées par la Commission européenne, garantissant un
+              niveau de protection équivalent au RGPD.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-ink mb-3">Durée de conservation</h2>
+            <p>
+              Le site ne stockant aucune donnée personnelle sur un serveur (voir « Données
+              collectées » ci-dessus), aucune durée de conservation ne s'applique côté site. Les
+              messages que vous nous envoyez par e-mail sont conservés le temps nécessaire au
+              traitement de votre demande, puis supprimés.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-ink mb-3">Vos droits</h2>
+            <p>Conformément au RGPD, vous disposez des droits suivants sur vos données :</p>
+            <ul className="mt-3 space-y-1.5 list-disc list-inside">
+              <li>Droit d'accès aux données vous concernant</li>
+              <li>Droit de rectification en cas d'information inexacte</li>
+              <li>Droit à l'effacement (« droit à l'oubli »)</li>
+              <li>Droit à la limitation du traitement</li>
+              <li>Droit à la portabilité de vos données</li>
+              <li>Droit d'opposition au traitement</li>
+            </ul>
+            <p className="mt-3">
+              Pour exercer l'un de ces droits, contactez-nous à l'adresse {SITE.email}. Nous nous
+              engageons à vous répondre dans un délai maximal d'un mois.
+            </p>
+            <p className="mt-3">
+              Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une
+              réclamation auprès de la{" "}
+              <a
+                href="https://www.cnil.fr/fr/plaintes"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-terracotta transition-colors"
+              >
+                CNIL
+              </a>{" "}
+              (Commission Nationale de l'Informatique et des Libertés).
             </p>
           </section>
 

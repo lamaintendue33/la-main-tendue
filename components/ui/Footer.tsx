@@ -128,6 +128,13 @@ export default function Footer() {
             <Link href="/confidentialite" className="hover:text-paper/70 transition-colors normal-case tracking-normal">
               Confidentialité
             </Link>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("open-cookie-banner"))}
+              className="hover:text-paper/70 transition-colors normal-case tracking-normal"
+            >
+              Gérer les cookies
+            </button>
           </div>
           <div>Association loi 1901 — Préfecture de la Gironde</div>
           <div>Fondée en {SITE.foundedOfficial}</div>

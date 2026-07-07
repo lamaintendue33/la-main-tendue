@@ -16,6 +16,12 @@ export default function CookieBanner() {
     }
   }, [])
 
+  useEffect(() => {
+    const reopen = () => setVisible(true)
+    window.addEventListener("open-cookie-banner", reopen)
+    return () => window.removeEventListener("open-cookie-banner", reopen)
+  }, [])
+
   function accept() {
     localStorage.setItem("rgpd-consent", "accepted")
     setVisible(false)
