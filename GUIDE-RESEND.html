@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guide — Configurer Resend pour La Main Tendue</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #faf6ee;
+      color: #1c1209;
+      font-size: 11pt;
+      line-height: 1.7;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 40px 80px;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .eyebrow {
+      font-size: 9pt;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #c87028;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: 32pt;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.15;
+    }
+    .header p {
+      margin-top: 14px;
+      color: #4a3f32;
+      font-size: 12pt;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* PROGRESS */
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 32px 0 48px;
+    }
+    .progress-dot {
+      width: 32px;
+      height: 4px;
+      background: #e0d8c4;
+      border-radius: 2px;
+    }
+    .progress-dot.active { background: #c87028; }
+
+    /* STEP CARD */
+    .step {
+      background: #ffffff;
+      border: 1px solid #e8e0cc;
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(28,18,9,0.04);
+    }
+    .step-number {
+      position: absolute;
+      top: -18px;
+      left: 32px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #1a3a5c;
+      color: #f2ead6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Lora', serif;
+      font-size: 16pt;
+      font-weight: 700;
+      box-shadow: 0 3px 8px rgba(26,58,92,0.3);
+    }
+    .step-title {
+      font-family: 'Lora', serif;
+      font-size: 19pt;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    .step-subtitle {
+      font-size: 10pt;
+      color: #8a7d68;
+      margin-bottom: 20px;
+    }
+
+    /* ACTION LIST */
+    .actions {
+      list-style: none;
+      counter-reset: action;
+    }
+    .actions li {
+      counter-increment: action;
+      display: flex;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0ebd f;
+      font-size: 10.5pt;
+      color: #33291c;
+    }
+    .actions li:last-child { border-bottom: none; }
+    .actions li::before {
+      content: counter(action);
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: #f2ead6;
+      color: #c87028;
+      border-radius: 50%;
+      font-size: 9pt;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .actions code {
+      background: #f2ead6;
+      color: #8b4a0a;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 9.5pt;
+      font-family: 'SF Mono', Menlo, monospace;
+    }
+    .actions strong { color: #1a3a5c; }
+
+    /* CALLOUT */
+    .callout {
+      margin-top: 20px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 10pt;
+      line-height: 1.6;
+    }
+    .callout.info {
+      background: #eef4f9;
+      border-left: 3px solid #1a3a5c;
+      color: #2a4a63;
+    }
+    .callout.warning {
+      background: #fdf1e8;
+      border-left: 3px solid #c87028;
+      color: #7a4419;
+    }
+    .callout strong { display: block; margin-bottom: 4px; }
+
+    /* SCREENSHOT PLACEHOLDER */
+    .screenshot-hint {
+      margin-top: 18px;
+      border: 1.5px dashed #c8bda0;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 9.5pt;
+      color: #8a7d68;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .screenshot-hint .icon {
+      font-size: 16pt;
+      flex-shrink: 0;
+    }
+
+    /* DONE MARKER */
+    .step.done .step-number { background: #4a7a5c; }
+
+    /* FOOTER RECAP */
+    .recap {
+      margin-top: 44px;
+      background: #1a3a5c;
+      color: #f2ead6;
+      border-radius: 16px;
+      padding: 30px 34px;
+    }
+    .recap h2 {
+      font-family: 'Lora', serif;
+      font-size: 16pt;
+      margin-bottom: 12px;
+    }
+    .recap p {
+      color: rgba(242,234,214,0.75);
+      font-size: 10.5pt;
+      line-height: 1.7;
+    }
+    .recap strong { color: #f2ead6; }
+
+    /* FINAL NOTE */
+    .final-note {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 10pt;
+      color: #8a7d68;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="eyebrow">Guide pas à pas</div>
+    <h1>Configurer l'envoi d'emails</h1>
+    <p>
+      Pour que le formulaire de contact du site fonctionne enfin, il te faut créer un compte
+      gratuit sur un service qui se charge d'envoyer les emails. Ça prend environ 10 minutes,
+      suis simplement les étapes ci-dessous.
+    </p>
+  </div>
+
+  <div class="progress">
+    <div class="progress-dot active"></div>
+    <div class="progress-dot active"></div>
+    <div class="progress-dot active"></div>
+    <div class="progress-dot active"></div>
+  </div>
+
+  <!-- ÉTAPE 1 -->
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-title">Créer ton compte</div>
+    <div class="step-subtitle">Sur le site resend.com — gratuit, aucune carte bancaire demandée</div>
+    <ul class="actions">
+      <li>Va sur <code>resend.com</code></li>
+      <li>Clique sur le bouton <strong>« Sign Up »</strong> en haut à droite</li>
+      <li>Inscris-toi avec l'adresse <code>lamaintendue33@gmail.com</code></li>
+      <li>Si un e-mail de confirmation arrive dans cette boîte, clique sur le lien à l'intérieur</li>
+    </ul>
+    <div class="callout info">
+      <strong>Pourquoi cette adresse et pas une autre ?</strong>
+      Comme ça le compte appartient à l'association, pas à une personne en particulier — plus simple à gérer sur le long terme.
+    </div>
+  </div>
+
+  <!-- ÉTAPE 2 -->
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-title">Ajouter le nom de domaine du site</div>
+    <div class="step-subtitle">Pour que les emails partent bien depuis « lamaintendue33.fr »</div>
+    <ul class="actions">
+      <li>Une fois connecté(e), clique sur <strong>« Domains »</strong> dans le menu à gauche</li>
+      <li>Clique sur le bouton <strong>« Add Domain »</strong></li>
+      <li>Dans le champ, tape exactement : <code>lamaintendue33.fr</code></li>
+      <li>Clique sur <strong>« Add »</strong></li>
+    </ul>
+    <div class="callout warning">
+      <strong>Un tableau va apparaître avec des lignes techniques (DNS)</strong>
+      Ne touche à rien toi-même ici — fais une capture d'écran de ce tableau et envoie-la moi.
+      Je m'occupe ensuite d'ajouter ces lignes sur OVH, exactement comme on l'a fait ensemble
+      pour connecter le nom de domaine au site.
+    </div>
+    <div class="screenshot-hint">
+      <span class="icon">📸</span>
+      <span>Capture d'écran à envoyer : le tableau complet avec les colonnes Type / Nom / Valeur.</span>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 3 -->
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-title">Attendre la vérification</div>
+    <div class="step-subtitle">Généralement automatique en quelques minutes, parfois jusqu'à 24h</div>
+    <ul class="actions">
+      <li>Une fois que j'ai ajouté les lignes DNS sur OVH, retourne sur la page <strong>« Domains »</strong> de Resend</li>
+      <li>Le statut à côté de <code>lamaintendue33.fr</code> doit passer de « Not Verified » à <strong>« Verified »</strong> (généralement avec une coche verte)</li>
+      <li>Si ça reste bloqué après plusieurs heures, préviens-moi</li>
+    </ul>
+  </div>
+
+  <!-- ÉTAPE 4 -->
+  <div class="step">
+    <div class="step-number">4</div>
+    <div class="step-title">Créer la clé secrète</div>
+    <div class="step-subtitle">C'est la dernière étape — cette clé permet au site d'envoyer des emails</div>
+    <ul class="actions">
+      <li>Clique sur <strong>« API Keys »</strong> dans le menu à gauche</li>
+      <li>Clique sur <strong>« Create API Key »</strong></li>
+      <li>Donne-lui un nom, par exemple : <code>Site La Main Tendue</code></li>
+      <li>Clique sur <strong>« Add »</strong></li>
+      <li>Une clé va s'afficher, elle commence par <code>re_...</code> — <strong>copie-la tout de suite</strong>, elle ne sera plus jamais visible ensuite</li>
+    </ul>
+    <div class="callout warning">
+      <strong>⚠️ Cette clé est comme un mot de passe</strong>
+      Ne l'envoie jamais par SMS ou message classique en clair. Le plus simple : donne-la-moi
+      de vive voix ce week-end, ou envoie-la par un message qui s'autodétruit.
+    </div>
+  </div>
+
+  <!-- RÉCAP -->
+  <div class="recap">
+    <h2>Une fois que j'ai la clé</h2>
+    <p>
+      Je l'ajoute dans les réglages du site (Vercel) en 2 minutes, et le formulaire de contact
+      fonctionnera enfin : chaque message envoyé depuis le site arrivera directement dans
+      <strong>lamaintendue33@gmail.com</strong>.
+    </p>
+  </div>
+
+  <div class="final-note">
+    Une question, un blocage sur une étape ? Écris-moi, je réponds vite.
+  </div>
+
+</div>
+</body>
+</html>

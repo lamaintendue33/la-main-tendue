@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Politique de confidentialité",
   description:
     "Politique de confidentialité et gestion des cookies du site de La Main Tendue, association d'aide alimentaire et vestimentaire solidaire à Eysines.",
+  alternates: { canonical: "/confidentialite" },
 }
 
 export default function ConfidentialitePage() {

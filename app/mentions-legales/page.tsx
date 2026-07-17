@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Mentions légales",
   description:
     "Mentions légales du site de La Main Tendue, association d'aide alimentaire et vestimentaire solidaire à Eysines (Gironde).",
+  alternates: { canonical: "/mentions-legales" },
 }
 
 export default function MentionsLegalesPage() {

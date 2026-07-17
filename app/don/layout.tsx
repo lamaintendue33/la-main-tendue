@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "Faire un don",
   description:
     "Soutenez La Main Tendue à Eysines : don financier, alimentaire, vestimentaire ou bénévolat. Chaque geste aide 500 personnes chaque semaine en Gironde.",
+  alternates: { canonical: "/don" },
 }
 
 export default function DonLayout({ children }: { children: React.ReactNode }) {
